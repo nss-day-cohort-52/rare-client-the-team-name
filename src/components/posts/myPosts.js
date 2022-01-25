@@ -11,12 +11,22 @@ export const PostList = () => {
     useEffect(()=> {
         getPosts().then(p => setPosts(p))
     }, [])
+
+    const currentUserId = localStorage.getItem('token')
     
     return (
         <>
-            <div className="posts">
+            <div className="myPosts">
                 {
-                    posts.map(post => <Post key={post.id} post={post} />)
+
+                    posts.map((post) => {
+                        if (currentUserId === post.user_id){
+                            return <Post key={post.id} post={post} />)
+                        }
+                        else {
+                            return ""
+                        }
+                    }
                 }
             </div>
         </>
