@@ -45,13 +45,13 @@ export const NavBar = ({ token, setToken }) => {
           {
             token
               ?
+              <>
               <Link to="/categories" className="navbar-item">Category Management</Link>
+              </>
               :
               ""
           }
         </div>
-
-
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
