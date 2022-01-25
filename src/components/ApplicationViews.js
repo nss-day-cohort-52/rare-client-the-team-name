@@ -10,7 +10,7 @@ export const ApplicationViews = () => {
       <h1 >Welcome to Rare Publishing</h1>
       <Route path="/posts">
         <PostList />
-      </Route> 
+      </Route>
       <Route path="/categories">
         <Categories />
       </Route>
