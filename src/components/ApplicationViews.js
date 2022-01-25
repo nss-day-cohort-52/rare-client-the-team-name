@@ -1,6 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { PostList } from "./posts/PostList"
+import { Tags } from "./tags/Tags"
 
 export const ApplicationViews = () => {
   return (
@@ -9,7 +10,9 @@ export const ApplicationViews = () => {
       <Route path="/posts">
         <PostList />
       </Route>
+      <Route path="/tags">
+        <Tags/>
+      </Route>
     </>
-
   )
 }
