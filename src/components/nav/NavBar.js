@@ -46,6 +46,16 @@ export const NavBar = ({ token, setToken }) => {
               ""
           }
         </div>
+        <div className="navbar-start">
+          {
+            token
+              ?
+              <Link to="/categories" className="navbar-item">Category Management</Link>
+              :
+              ""
+          }
+        </div>
+
 
         <div className="navbar-end">
           <div className="navbar-item">
