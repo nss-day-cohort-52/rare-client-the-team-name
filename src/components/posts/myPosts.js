@@ -21,13 +21,15 @@ export const PostList = () => {
 
                     posts.map((post) => {
                         if (currentUserId === post.user_id){
-                            return <Post key={post.id} post={post} />)
+                            return <Post key={post.id} post={post} />
                         }
                         else {
-                            return ""
+                            ""
                         }
                     }
+                    )
                 }
+            
             </div>
         </>
     )
