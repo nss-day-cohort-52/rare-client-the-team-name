@@ -7,7 +7,10 @@ export const PostForm = () => {
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
     const [post, setPost] = useState({
-        categoryId: 0
+        categoryId: 0,
+        title: "",
+        imageURL: "",
+        content: ""
     })
 
 
@@ -34,12 +37,33 @@ export const PostForm = () => {
     )
 
     const submitNewPost = () => {
-
+        const date = new Date()
         const newPost = {
-            userId: parseInt(localStorage.getItem(token)),
-            categoryId: parseInt(post.categoryId)
+            user_id: parseInt(localStorage.getItem("token")),
+            category_id: parseInt(post.categoryId),
+            title: post.title,
+            publication_date: date.toDateString(),
+            image_url: post.imageURL,
+            content: post.content,
+            approved: null
         }
-    }
+
+        const fetchOptions = {
+            method: "POST",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(newPost)
+        }
+
+        return fetch("http://localhost:8088/posts", fetchOptions)
+            .then(res => res.json())
+            .then(() => {
+                history.push("/posts")
+            })
+}
+
+
 
     return (
         <>
@@ -47,21 +71,46 @@ export const PostForm = () => {
             <form>
                 <div>
                     <label>Title </label>
-                    <input type="text" placeholder="Title" />
+                    <input
+                        type="text"
+                        placeholder="Title"
+                        onChange={
+                            (evt) => {
+                                const copy = { ...post }
+                                copy.title = evt.target.value
+                                setPost(copy)
+                            }
+                        } />
                 </div>
                 <div>
                     <label>Image URL </label>
-                    <input type="text" placeholder="Image URL" />
+                    <input 
+                        type="text" 
+                        placeholder="Image URL" onChange={
+                            (evt) => {
+                                const copy = { ...post }
+                                copy.imageURL = evt.target.value
+                                setPost(copy)
+                            }
+                        } />
                 </div>
                 <div>
                     <label>Article Content </label>
-                    <input type="text" placeholder="Content" />
+                    <input 
+                        type="text" 
+                        placeholder="Content" onChange={
+                            (evt) => {
+                                const copy = { ...post }
+                                copy.content = evt.target.value
+                                setPost(copy)
+                            }   
+                        } />
                 </div>
                 <div>
                     <select
                         onChange={
                             (evt) => {
-                                const copy = { ...review}
+                                const copy = { ...post }
                                 copy.categoryId = evt.target.value
                                 setPost(copy)
                             }
@@ -86,7 +135,7 @@ export const PostForm = () => {
                     }
                 </div>
                 <div>
-                    <button onClick={() => {}}>Submit</button>
+                    <button onClick={() => {submitNewPost()}}>Submit</button>
                 </div>
             </form>
 
