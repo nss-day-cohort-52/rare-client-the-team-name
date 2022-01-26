@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from 'react-router-dom'
-import { getSinglePost } from "./PostManager"
 import { getCertainPostTags, getSinglePost } from "./PostManager"
 
 export const PostDetails = () => {
