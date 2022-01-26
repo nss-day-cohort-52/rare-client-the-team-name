@@ -1,9 +1,12 @@
 import { Categories } from "../categories/categroyList"
 import { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
+
 
 
 
 export const PostForm = () => {
+    const history = useHistory()
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
     const [post, setPost] = useState({
@@ -36,7 +39,8 @@ export const PostForm = () => {
         []
     )
 
-    const submitNewPost = () => {
+    const submitNewPost = (evt) => {
+        evt.preventDefault()
         const date = new Date()
         const newPost = {
             user_id: parseInt(localStorage.getItem("token")),
@@ -58,8 +62,8 @@ export const PostForm = () => {
 
         return fetch("http://localhost:8088/posts", fetchOptions)
             .then(res => res.json())
-            .then(() => {
-                history.push("/posts")
+            .then((post) => {
+                history.push(`/posts/${post.id}`)
             })
 }
 
@@ -135,7 +139,7 @@ export const PostForm = () => {
                     }
                 </div>
                 <div>
-                    <button onClick={() => {submitNewPost()}}>Submit</button>
+                    <button onClick={submitNewPost}>Submit</button>
                 </div>
             </form>
 
