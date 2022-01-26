@@ -1,7 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { PostList } from "./posts/PostList"
-import { Categories } from "./categories/categroyList"
+import { Categories } from "./categories/CategoryList"
 import { Tags } from "./tags/Tags"
 
 export const ApplicationViews = () => {
