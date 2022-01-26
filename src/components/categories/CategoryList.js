@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { getCategories, addCategory } from "./CategoryManager"
-import "./categories.css"
 import { useHistory } from "react-router-dom"
 
 export const Categories = () => {
@@ -25,8 +24,8 @@ export const Categories = () => {
     return (
         <>
         
-        <h1>Categories</h1>
-        <section className="columns">
+        <h1 className="is-success">Categories</h1>
+        <div className="columns">
             <div className="column">
                 <ul>
                     {
@@ -56,7 +55,7 @@ export const Categories = () => {
                     </button>
                 </form>
             </div>
-        </section>
+        </div>
         </>
     )
 }
