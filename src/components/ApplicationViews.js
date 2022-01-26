@@ -40,13 +40,14 @@ export const ApplicationViews = () => {
         <TagView />
       </Route>
       <Route path="/newpost">
-        <PostForm/>
+        <PostForm />
       </Route>
       <Route exact path="/comments/:postId(\d+)">
         <CommentList />
+      </Route>
       <Route path="/my-posts/editpost/:postId(\d+)">
-        <EditPostForm/>
+          <EditPostForm />
       </Route>
     </>
-  )
+  )  
 }
