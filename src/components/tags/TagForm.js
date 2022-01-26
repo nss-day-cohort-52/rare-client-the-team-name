@@ -25,7 +25,7 @@ export const TagForm = ({ setTags }) => {
 
     return (
 
-        <div>
+        <div className="column">
             <h3>New Tag</h3>
             <input
                 id="tagEdit"

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 export const Tags = ({tags}) => {
 
     return (
-        <ul className="allTags">
+        <ul className="allTags column">
             {
                 tags.sort((a, b) => {
                     if (a.label < b.label)

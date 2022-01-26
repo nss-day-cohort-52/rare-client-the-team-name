@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { TagForm } from "./TagForm"
 import { getTags } from "./TagManager"
 import { Tags } from "./Tags"
-import './tagView.css'
 
 export const TagView = () => {
     const [tags, setTags] = useState([])
@@ -15,10 +14,10 @@ export const TagView = () => {
 
     return (
         <>
-            <h1>Tags</h1>
-            <div className="tagViewContainer">
-                <Tags className="tagViewColumn" tags={tags} />
-                <TagForm className="tagViewColumn"setTags={setTags} />
+            <h1 className="pl-4">Tags</h1>
+            <div className="columns pt-3 pl-4">
+                <Tags tags={tags} />
+                <TagForm setTags={setTags} />
             </div>
         </>
     )
