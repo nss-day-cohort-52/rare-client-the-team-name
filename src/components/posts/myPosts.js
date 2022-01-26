@@ -3,16 +3,16 @@ import { useHistory } from 'react-router-dom'
 import { getPosts } from "./PostManager"
 import Post from "./Post"
 
-export const PostList = () => {
+export const MyPosts = () => {
 
     const [ posts, setPosts ] = useState([])
-    const history = useHistory()
+    
 
     useEffect(()=> {
         getPosts().then(p => setPosts(p))
     }, [])
 
-    const currentUserId = localStorage.getItem('token')
+    const currentUserId = parseInt(localStorage.getItem('token'))
     
     return (
         <>
