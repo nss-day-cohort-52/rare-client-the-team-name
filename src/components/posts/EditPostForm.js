@@ -81,7 +81,7 @@ export const EditPostForm = () => {
         <form className="box2">
             <fieldset>
                 <div>
-                    <select onChange={(evt) => setCategoryId(evt.target.value) }>
+                    <select value={post.category_id} onChange={(evt) => setCategoryId(evt.target.value) }>
                     <option>Select a category</option>
                         {
                             categories.map(category => {
