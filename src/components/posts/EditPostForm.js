@@ -8,7 +8,7 @@ import { getSinglePost, updatePost } from "./PostManager"
 export const EditPostForm = () => {
     const [post, setPost] = useState({})
     const [categories, setCategories] = useState([])
-    const [newCategoryId, setCategoryId] = useState("")
+    const [newCategoryId, setCategoryId] = useState(0)
     const [newTitle, setTitle] = useState("")
     const [newImageURL, setImageURL] = useState("")
     const [newContent, setContent] = useState("")
@@ -26,19 +26,23 @@ export const EditPostForm = () => {
         getCategories().then(setCategories)
     }, [])
 
+    useEffect(() => {
+        setCategoryId(post.category_id)
+    }, [post])
+
     const updatePostInfo = () => {
-        let updatedCategoryId = 0
+        // let updatedCategoryId = 0
         let updatedTitle = ""
         let updatedImageURL = ""
         let updatedContent = ""
         const date = new Date()
 
-        if (newCategoryId) {
-            updatedCategoryId = newCategoryId
-        }
-        else {
-            updatedCategoryId = post.category_id
-        }
+        // if (newCategoryId) {
+        //     updatedCategoryId = newCategoryId
+        // }
+        // else {
+        //     updatedCategoryId = post.category_id
+        // }
         if (newTitle) {
             updatedTitle = newTitle
         }
@@ -61,7 +65,7 @@ export const EditPostForm = () => {
         const updatedPost = {
             id: parsedId,
             user_id: currentUserId,
-            category_id: updatedCategoryId,
+            category_id: newCategoryId,
             title: updatedTitle,
             publication_date: date.toDateString(),
             image_url: updatedImageURL,
@@ -81,7 +85,7 @@ export const EditPostForm = () => {
         <form className="box2">
             <fieldset>
                 <div>
-                    <select value={post.category_id} onChange={(evt) => setCategoryId(evt.target.value) }>
+                    <select value={newCategoryId} onChange={(evt) => setCategoryId(evt.target.value) }>
                     <option>Select a category</option>
                         {
                             categories.map(category => {
