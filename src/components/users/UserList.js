@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import User from "./User"
+import { getUsers } from "./UserManager"
 
 
 export const UserList = () => {
@@ -7,8 +8,7 @@ export const UserList = () => {
 
     useEffect(
         () => {
-            fetch("http://localhost:8088/users")
-                .then(res => res.json())
+            getUsers()
                 .then((data) => {
                     setUsers(data)
                 })
