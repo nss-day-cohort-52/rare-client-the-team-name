@@ -4,6 +4,7 @@ import { PostList } from "./posts/PostList"
 import { PostDetails } from "./posts/PostDetails"
 import { Categories } from "./categories/categroyList"
 import { Tags } from "./tags/Tags"
+import { MyPosts } from "./posts/myPosts"
 
 export const ApplicationViews = () => {
   return (
@@ -13,6 +14,9 @@ export const ApplicationViews = () => {
       </Route>
       <Route exact path="/posts">
         <PostList />
+      </Route>
+      <Route exact path="/my-posts">
+        <MyPosts />
       </Route>
       <Route exact path="/posts/:postId(\d+)">
         <PostDetails />
