@@ -5,6 +5,7 @@ import { Categories } from "./categories/CategoryList"
 import { PostDetails } from "./posts/PostDetails"
 import { Tags } from "./tags/Tags"
 import { PostForm } from "./posts/PostForm"
+import { TagView } from "./tags/TagView"
 import { MyPosts } from "./posts/myPosts"
 import { UserList } from "./users/UserList"
 
@@ -30,7 +31,7 @@ export const ApplicationViews = () => {
         <Categories />
       </Route>
       <Route path="/tags">
-        <Tags />
+        <TagView />
       </Route>
       <Route path="/newpost">
         <PostForm/>
