@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { deletePost, getPosts } from "./PostManager"
 import Post from "./Post"
 
@@ -23,7 +23,7 @@ export const MyPosts = () => {
                             return (
                                 <div key={post.id}>
                                     <Post post={post} />
-                                    <button>Edit Post</button>
+                                    <Link to={`/my-posts/editpost/${post.id}`}><button>Edit Post</button></Link>
                                     <button onClick={() => {
                                         deletePost(post.id)
                                             .then(setPosts)
