@@ -1,4 +1,4 @@
-import { Categories } from "../categories/categroyList"
+import { Categories } from "../categories/CategoryList"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 
@@ -65,7 +65,7 @@ export const PostForm = () => {
             .then((post) => {
                 history.push(`/posts/${post.id}`)
             })
-}
+    }
 
 
 
@@ -88,8 +88,8 @@ export const PostForm = () => {
                 </div>
                 <div>
                     <label>Image URL </label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Image URL" onChange={
                             (evt) => {
                                 const copy = { ...post }
@@ -100,14 +100,14 @@ export const PostForm = () => {
                 </div>
                 <div>
                     <label>Article Content </label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Content" onChange={
                             (evt) => {
                                 const copy = { ...post }
                                 copy.content = evt.target.value
                                 setPost(copy)
-                            }   
+                            }
                         } />
                 </div>
                 <div>
