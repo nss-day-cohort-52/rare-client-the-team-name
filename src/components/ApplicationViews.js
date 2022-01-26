@@ -9,6 +9,7 @@ import { TagView } from "./tags/TagView"
 import { MyPosts } from "./posts/myPosts"
 import { UserList } from "./users/UserList"
 import { UserDetails } from "./users/UserDetails"
+import { EditPostForm } from "./posts/EditPostForm"
 
 export const ApplicationViews = () => {
   return (
@@ -39,6 +40,9 @@ export const ApplicationViews = () => {
       </Route>
       <Route path="/newpost">
         <PostForm/>
+      </Route>
+      <Route path="/my-posts/editpost/:postId(\d+)">
+        <EditPostForm/>
       </Route>
 
     </>

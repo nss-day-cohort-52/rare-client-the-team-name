@@ -1,77 +1,126 @@
 import { useEffect, useState } from "react"
-import userRepo from "../../repos/userRepo"
 import { useHistory } from "react-router"
+import { useParams } from "react-router-dom"
+import { getCategories } from "../categories/CategoryManager"
+import { getSinglePost, updatePost } from "./PostManager"
+
 
 export const EditPostForm = () => {
     const [post, setPost] = useState({})
-    const [newAddress, setAddress] = useState("")
-    const [newPhone, setPhone] = useState("")
+    const [categories, setCategories] = useState([])
+    const [newCategoryId, setCategoryId] = useState("")
+    const [newTitle, setTitle] = useState("")
+    const [newImageURL, setImageURL] = useState("")
+    const [newContent, setContent] = useState("")
     const history = useHistory()
     const currentUserId = parseInt(localStorage.getItem('token'))
+    const { postId } = useParams()
+    const parsedId = parseInt(postId)
 
     useEffect(() => {
-        userRepo.get(parseInt(localStorage.getItem("farm_user"))).then(u => setUser(u))
+        getSinglePost(parsedId)
+            .then(setPost)
+    }, [parsedId])
+
+    useEffect(() => {
+        getCategories().then(setCategories)
     }, [])
 
+    const updatePostInfo = () => {
+        let updatedCategoryId = 0
+        let updatedTitle = ""
+        let updatedImageURL = ""
+        let updatedContent = ""
+        const date = new Date()
 
-
-    const updateUserInfo = () => {
-        let updatedAddress = ""
-        let updatedPhone = ""
-
-        if (newAddress) {
-            updatedAddress = newAddress
+        if (newCategoryId) {
+            updatedCategoryId = newCategoryId
         }
         else {
-            updatedAddress = user.address
+            updatedCategoryId = post.category_id
         }
-
-        if (newPhone) {
-            updatedPhone = newPhone
+        if (newTitle) {
+            updatedTitle = newTitle
         }
         else {
-            updatedPhone = user.phone
+            updatedTitle = post.title
+        }
+        if (newImageURL) {
+            updatedImageURL = newImageURL
+        }
+        else {
+            updatedImageURL = post.image_url
+        }
+        if (newContent) {
+            updatedContent = newContent
+        }
+        else {
+            updatedContent = post.content
         }
 
-        const updatedUser = {
-            name: user.name,
-            address: updatedAddress,
-            email: user.email,
-            phone: updatedPhone
+        const updatedPost = {
+            id: parsedId,
+            user_id: currentUserId,
+            category_id: updatedCategoryId,
+            title: updatedTitle,
+            publication_date: date.toDateString(),
+            image_url: updatedImageURL,
+            content: updatedContent,
+            approved: null
         }
 
-        userRepo.updateUser(user.id, updatedUser)
-        history.push("/account")    
+        updatePost(updatedPost)
+        history.push(`/posts/${parsedId}`)    
         
     }
 
     return (
         <>
         <main className="container" >
-        <h2 className="heading">Update Account Info</h2>
+        <h2 className="heading">Edit Your Post</h2>
         <form className="box2">
             <fieldset>
+                <div>
+                    <select onChange={(evt) => setCategoryId(evt.target.value) }>
+                    <option>Select a category</option>
+                        {
+                            categories.map(category => {
+                                return <option key={category.id} value={category.id}>{category.label}</option>
+                            })
+                        }
+                    </select>
+                </div>
                 <div className="form-group">
-                    <label htmlFor="address">Address:</label>
+                    <label htmlFor="title">Title:</label>
                     <input
-                        onChange={ event => setAddress(event.target.value) }
+                        onChange={ event => setTitle(event.target.value) }
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder={user.address}
+                        placeholder={post.title}
                         />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="phone number">Phone Number:</label>
+                    <label htmlFor="imageURL">Image URL:</label>
                     <input
-                        onChange={event => setPhone(event.target.value) }
+                        onChange={ event => setImageURL(event.target.value) }
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder={user.phone}
+                        placeholder={post.image_url}
                         />
                 </div>
-                <button type="button" className="button" onClick={() => updateUserInfo()}>
+                <div className="form-group">
+                    <label htmlFor="content">Content:</label>
+                    <input
+                        onChange={ event => setContent(event.target.value) }
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        placeholder={post.content}
+                        />
+                </div>
+                <button type="button" className="button" onClick={() => updatePostInfo()}>
                 Submit
             </button>
             </fieldset>
