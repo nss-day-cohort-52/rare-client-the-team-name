@@ -6,6 +6,9 @@ import { useEffect, useState } from "react"
 export const PostForm = () => {
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
+    const [post, setPost] = useState({
+        categoryId: 0
+    })
 
 
     useEffect(
@@ -30,6 +33,14 @@ export const PostForm = () => {
         []
     )
 
+    const submitNewPost = () => {
+
+        const newPost = {
+            userId: parseInt(localStorage.getItem(token)),
+            categoryId: parseInt(post.categoryId)
+        }
+    }
+
     return (
         <>
             <h1>NEW POSTS</h1>
@@ -47,11 +58,18 @@ export const PostForm = () => {
                     <input type="text" placeholder="Content" />
                 </div>
                 <div>
-                    <select>
+                    <select
+                        onChange={
+                            (evt) => {
+                                const copy = { ...review}
+                                copy.categoryId = evt.target.value
+                                setPost(copy)
+                            }
+                        }>
                         <option>Category Select</option>
                         {
                             categories.map(category => {
-                                return <option key={category.id}>{category.label}</option>
+                                return <option key={category.id} value={category.id}>{category.label}</option>
                             })
                         }
                     </select>
@@ -67,7 +85,9 @@ export const PostForm = () => {
                         )
                     }
                 </div>
-
+                <div>
+                    <button onClick={() => {}}>Submit</button>
+                </div>
             </form>
 
 
