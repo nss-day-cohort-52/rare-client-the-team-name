@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getSinglePost } from "./PostManager"
 
 export const PostDetails = () => {
@@ -12,6 +12,8 @@ export const PostDetails = () => {
             .then(setPost)
     }, [parsedId])
 
+
+
     return (
         <>
             <section className="post">
@@ -20,6 +22,7 @@ export const PostDetails = () => {
                 <div> In {post.category?.label} category </div>
                 <div> On {post.publication_date} </div>
                 <div> {post.content} </div>
+                <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
             </section>
         </>
     )
