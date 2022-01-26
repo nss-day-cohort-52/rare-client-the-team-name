@@ -11,7 +11,7 @@ export const PostList = () => {
     useEffect(()=> {
         getPosts().then(p => setPosts(p))
     }, [])
-
+    
     return (
         <>
             <div className="posts">
