@@ -13,7 +13,8 @@ export const PostForm = () => {
         categoryId: 0,
         title: "",
         imageURL: "",
-        content: ""
+        content: "",
+        tagIds: new Set()
     })
 
 
@@ -38,6 +39,30 @@ export const PostForm = () => {
         },
         []
     )
+    const submitNewPostTag = (newPost) => {
+        const promiseArray = []
+        for (const tagIds of post.tagIds) {
+
+            const newPostTag = {
+                tag_id: tagIds,
+                post_id: newPost.id
+            }
+
+
+            const fetchOptions = {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json"
+                },
+                body: JSON.stringify(newPostTag)
+            }
+            promiseArray.push(fetch("http://localhost:8088/posttags", fetchOptions))
+        }
+        Promise.all(promiseArray)
+            .then(() => {
+                history.push(`/posts/${newPost.id}`)
+            })
+    }
 
     const submitNewPost = (evt) => {
         evt.preventDefault()
@@ -63,10 +88,9 @@ export const PostForm = () => {
         return fetch("http://localhost:8088/posts", fetchOptions)
             .then(res => res.json())
             .then((post) => {
-                history.push(`/posts/${post.id}`)
+                submitNewPostTag(post)
             })
     }
-
 
 
     return (
@@ -132,7 +156,14 @@ export const PostForm = () => {
                         tags.map(
                             (tag) => {
                                 return <p key={`tag--${tag.id}`}>
-                                    <input type="checkbox" name="tag" />
+                                    <input type="checkbox" name="tag" value={tag.id} onChange={
+                                        (evt) => {
+                                            const copy = { ...post }
+                                            copy.tagIds.has(parseInt(evt.target.value))
+                                                ? copy.tagIds.delete(parseInt(evt.target.value))
+                                                : copy.tagIds.add(parseInt(evt.target.value))
+                                            setPost(copy)
+                                        }} />
                                     {tag.label}</p>
                             }
                         )
