@@ -1,9 +1,11 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { PostList } from "./posts/PostList"
+import { Categories } from "./categories/CategoryList"
 import { PostDetails } from "./posts/PostDetails"
-import { Categories } from "./categories/categroyList"
 import { TagView } from "./tags/TagView"
+import { MyPosts } from "./posts/myPosts"
+import { UserList } from "./users/UserList"
 
 export const ApplicationViews = () => {
   return (
@@ -13,6 +15,12 @@ export const ApplicationViews = () => {
       </Route>
       <Route exact path="/posts">
         <PostList />
+      </Route>
+      <Route exact path="/users">
+        <UserList />
+      </Route>
+      <Route exact path="/my-posts">
+        <MyPosts />
       </Route>
       <Route exact path="/posts/:postId(\d+)">
         <PostDetails />
