@@ -8,6 +8,7 @@ import { PostForm } from "./posts/PostForm"
 import { TagView } from "./tags/TagView"
 import { MyPosts } from "./posts/myPosts"
 import { UserList } from "./users/UserList"
+import { UserDetails } from "./users/UserDetails"
 
 export const ApplicationViews = () => {
   return (
@@ -20,6 +21,9 @@ export const ApplicationViews = () => {
       </Route>
       <Route exact path="/users">
         <UserList />
+      </Route>
+      <Route exact path="/users/:userId(\d+)">
+        <UserDetails />
       </Route>
       <Route exact path="/my-posts">
         <MyPosts />
