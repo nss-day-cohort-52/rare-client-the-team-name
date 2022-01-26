@@ -21,7 +21,14 @@ export const MyPosts = () => {
 
                     posts.map((post) => {
                         if (currentUserId === post.user_id){
-                            return <Post key={post.id} post={post} />
+                            return (
+                                <>
+                            <Post key={post.id} post={post} />
+                                <button>Edit Post</button>
+                                <button>Delete Post</button>
+                                </>
+                                )
+
                         }
                         else {
                             ""
