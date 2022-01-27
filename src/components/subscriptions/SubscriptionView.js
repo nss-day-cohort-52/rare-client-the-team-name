@@ -20,7 +20,9 @@ export const SubscriptionList = () => {
             
             <div className="subs">
                 {
-                    subscriptions.map(subscription => <SubscriptionPost key={subscription.post.id} subscription={subscription} />)
+                    subscriptions.length === 0
+                    ?<h1>Subscribe to authors to see posts here!</h1>
+                    :subscriptions.map(subscription => <SubscriptionPost key={subscription.post.id} subscription={subscription} />)
                 }
             </div>
         </>
