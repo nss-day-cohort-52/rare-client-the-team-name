@@ -35,6 +35,7 @@ export const PostDetails = () => {
                     </ul>
                 </div>
                 <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
+                <div><Link to={`/commentCreate/${postId}`}>Add Comments</Link></div>
                 {
                     post.user_id === userId
                         ? <>
