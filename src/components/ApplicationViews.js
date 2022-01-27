@@ -20,8 +20,8 @@ export const ApplicationViews = () => {
 
         {
           <SubscriptionList />
-            // ? <h1>Please Subscribe to Authors to see their posts!</h1>
-            // : <SubscriptionList />
+            ? <h1>Please Subscribe to Authors to see their posts!</h1>
+            : <SubscriptionList />
         }
       </Route>
       <Route exact path="/posts">
