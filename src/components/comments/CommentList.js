@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getPosts } from "../posts/PostManager"
-import { getComments } from "./CommentsManager"
+import { getComments, deleteComments } from "./CommentsManager"
 import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 
 
@@ -30,7 +30,7 @@ export const CommentList = () => {
                     posts.map(
                         (post) => {
                             if (post.id === parsedId)
-                            return <h1>{post.title}</h1>
+                            return <h1 key={`post--${post.id}`}>{post.title}</h1>
                         }
                     )
                 }
@@ -43,6 +43,7 @@ export const CommentList = () => {
                             return <div key={`comment==${comment.id}`}>
                                 <div>{comment.content}</div>
                                 <div>Submitted By: {comment.user.username}</div>
+                                <div><button onClick={() => deleteComments(comment.id).then(setComments)}>Delete</button></div>
                                 </div>
                         }
                     )
