@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { getCertainPostTags } from "./PostTagManager"
+import { deletePost } from "./PostManager"
 
-export default ({ post }) => {
+export default ({ post, setPosts }) => {
     const [tagsForPost, setTagsForPost] = useState([])
 
     useEffect(() => {
@@ -10,25 +11,34 @@ export default ({ post }) => {
     }, [post])
 
     return (
-        <section className="post">
-            <h3 className="post__title">
+        <section className="card">
+            <div className="card-header">
+            <h3 className="card-header-title">
                 <Link to={`/posts/${post.id}`}>
                     {post.title}
                 </Link>
             </h3>
+            </div>
+            <section className="card-content">
             <div> By: {post.user.first_name} {post.user.last_name} </div>
             <div> In {post.category.label} category </div>
             <div> On {post.publication_date} </div>
-            <div> Tags:
-                <ul>
+            <div> 
+                
                     {
                         tagsForPost?.map((postTag) => {
-                            return <li key={postTag.id}>{postTag.tag.label}</li>
+                            return <span className="tag is-primary is-medium mr-3 my-3" key={postTag.id}>{postTag.tag.label}</span>
                         })
                     }
-                </ul>
+              
             </div>
-            <Link to={`/commentCreate/${post.id}`}><button>New Comment?</button></Link>
+            <Link to={`/my-posts/editpost/${post.id}`}><button className="button mr-3 my-3">Edit Post</button></Link>
+                                    <button className="button mr-3 my-3" onClick={() => {
+                                        deletePost(post.id)
+                                            .then(setPosts)
+                                    }}>Delete Post</button>
+            <Link to={`/commentCreate/${post.id}`}><button className="button mr-3 my-3">New Comment?</button></Link>
+            </section>
         </section>
     )
 }

@@ -44,7 +44,7 @@ export const PostDetails = () => {
                     post.user_id === userId
                         ? <>
                             <Link to={`/my-posts/editpost/${post.id}`}><button>Edit Post</button></Link>
-                            <button onClick={() => {
+                            <button className="button" onClick={() => {
                                 deletePost(post.id)
                                     .then(() => history.push('/my-posts'))
                             }}>Delete Post</button>
