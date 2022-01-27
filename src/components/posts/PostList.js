@@ -11,13 +11,13 @@ export const PostList = ({ postss }) => {
         getPosts().then(p => setPosts(p))
     }, [])
 
-    useEffect(() => {
-        if (searchedPost !== "") {
-        searchByTitle(searchedPost).then(data => setPosts(data))
-        } else {
-            setPosts(postss)
-        }
-    }, [searchedPost, postss])
+    // useEffect(() => {
+    //     if (searchedPost !== "") {
+    //     searchByTitle(searchedPost).then(data => setPosts(data))
+    //     } else {
+    //         setPosts(postss)
+    //     }
+    // }, [searchedPost, postss])
     
     return (
         <>
