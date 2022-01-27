@@ -8,3 +8,17 @@ export const deleteComments = (id) => {
         method: "DELETE"
     }).then(getComments)
 };
+
+export const createComment = (newComment) => {
+    
+        const fetchOptions = {
+            method: "POST",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(newComment)
+        }
+        return fetch(`http://localhost:8088/comments`, fetchOptions)
+            .then(res => res.json())
+    
+}

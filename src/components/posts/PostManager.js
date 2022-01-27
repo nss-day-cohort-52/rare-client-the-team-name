@@ -38,18 +38,21 @@ export const deletePost = postId => {
     return fetch(`http://localhost:8088/posts/${postId}`, {
         method: "DELETE"
     }).then(getPosts)
-  };
-export const getCertainPostTags = (postId) => {
-  return fetch(`http://localhost:8088/posttags?post_id=${postId}`)
-    .then(res => res.json())
-}
+};
 
 export const getPostsByAuthor = (authorId) => {
     return fetch(`http://localhost:8088/posts?user_id=${authorId}`)
         .then(res => res.json())
 }
 
+<<<<<<< HEAD
 export const searchPostsByTitle = (searchTerm) => {
     return fetch(`http://localhost:8088/posts?q=${searchTerm}`)
     .then(res => res.json())
 }
+=======
+export const getPostsByTag = (tagId) => {
+    return fetch(`http://localhost:8088/posts?tag_id=${tagId}`)
+        .then(res => res.json())
+}
+>>>>>>> main
