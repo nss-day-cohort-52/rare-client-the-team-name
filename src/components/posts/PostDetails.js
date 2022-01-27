@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from 'react-router-dom'
-import { getCertainPostTags, getSinglePost } from "./PostManager"
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
+import { deletePost, getSinglePost } from "./PostManager"
+import { getCertainPostTags } from "./PostTagManager"
 
 export const PostDetails = () => {
     const [post, setPost] = useState({})
     const { postId } = useParams()
-    const parsedId = parseInt(postId) 
+    const parsedId = parseInt(postId)
     const [tagsForPost, setTagsForPost] = useState([])
+    const userId = parseInt(localStorage.getItem("token"))
+    const history = useHistory()
 
     useEffect(() => {
-        getSinglePost(parsedId)
-            .then(setPost)
+        getSinglePost(parsedId).then(setPost)
+        getCertainPostTags(parsedId).then(setTagsForPost)
     }, [parsedId])
-    useEffect(() => {
-        getCertainPostTags(parsedId)
-            .then(setTagsForPost)
-    }, [parsedId])
-
-
 
     return (
         <>
@@ -27,17 +25,27 @@ export const PostDetails = () => {
                 <div> In {post.category?.label} category </div>
                 <div> On {post.publication_date} </div>
                 <div> {post.content} </div>
-                <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
-                <div> Tags: 
+                <div> Tags:
                     <ul>
-
-                    {
-                        tagsForPost?.map((postTag) => {
-                            return <li>{postTag.tag.label}</li>
-                        })
-                    }
+                        {
+                            tagsForPost?.map((postTag) => {
+                                return <li key={postTag.id}>{postTag.tag.label}</li>
+                            })
+                        }
                     </ul>
                 </div>
+                <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
+                {
+                    post.user_id === userId
+                        ? <>
+                            <Link to={`/my-posts/editpost/${post.id}`}><button>Edit Post</button></Link>
+                            <button onClick={() => {
+                                deletePost(post.id)
+                                    .then(() => history.push('/my-posts'))
+                            }}>Delete Post</button>
+                        </>
+                        : ""
+                }
             </section>
         </>
     )
