@@ -31,3 +31,8 @@ export const getCertainPostTags = (postId) => {
   return fetch(`http://localhost:8088/posttags?post_id=${postId}`)
     .then(res => res.json())
 }
+
+export const getPostsByAuthor = (authorId) => {
+    return fetch(`http://localhost:8088/posts?user_id=${authorId}`)
+        .then(res => res.json())
+}
