@@ -1,6 +1,8 @@
 import { Categories } from "../categories/CategoryList"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
+import { getTags } from "../tags/TagManager"
+import { getCategories } from "../categories/CategoryManager"
 
 
 
@@ -20,25 +22,12 @@ export const PostForm = () => {
 
     useEffect(
         () => {
-            fetch("http://localhost:8088/categories")
-                .then(res => res.json())
-                .then((data) => {
-                    setCategories(data)
-                })
+            getCategories.then(setCategories)
+            getTags.then(setTags)
         },
         []
     )
 
-    useEffect(
-        () => {
-            fetch("http://localhost:8088/tags")
-                .then(res => res.json())
-                .then((data) => {
-                    setTags(data)
-                })
-        },
-        []
-    )
     const submitNewPostTag = (newPost) => {
         const promiseArray = []
         for (const tagIds of post.tagIds) {
