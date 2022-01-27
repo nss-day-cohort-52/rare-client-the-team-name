@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react"
 import { getCategories } from "../categories/CategoryManager"
 import { getUsers } from "../users/UserManager"
-import { getPosts, getPostsByAuthor, getPostsByCategory } from "./PostManager"
+import { getPosts, getPostsByAuthor, getPostsByCategory, searchPostsByTitle } from "./PostManager"
 
 export const PostFilters = ({ setPosts }) => {
     const [categories, setCategories] = useState([])
     const [users, setUsers] = useState([])
     const [userChoices, setUserChoices] = useState({
         categoryId: "0",
-        authorId: "0"
+        authorId: "0",
+        searchTerms: ""
     })
 
     useEffect(() => {
@@ -17,7 +18,7 @@ export const PostFilters = ({ setPosts }) => {
     }, [])
 
     useEffect(() => {
-        if (userChoices.categoryId === "0" & userChoices.authorId === "0") {
+        if (userChoices.categoryId === "0" & userChoices.authorId === "0" & userChoices.searchTerms === "") {
             //AND all other filters are also "0" (once written)
             getPosts().then(p => setPosts(p))
         } else if (userChoices.categoryId !== "0") {
@@ -25,7 +26,9 @@ export const PostFilters = ({ setPosts }) => {
                 .then(setPosts)
         } else if (userChoices.authorId !== "0") {
             getPostsByAuthor(userChoices.authorId)
-            .then(setPosts)
+                .then(setPosts)
+        } else if (userChoices.searchTerms !== "") {
+            searchPostsByTitle(userChoices.searchTerms)
         }
     }, [userChoices])
 
@@ -57,7 +60,7 @@ export const PostFilters = ({ setPosts }) => {
             <form>
                 <div className="selectGroup">
                     <label htmlFor="author"> Filter by author: </label>
-    
+
                     <select name="author"
                         value={userChoices.authorId}
                         onChange={(event) => {
@@ -67,7 +70,7 @@ export const PostFilters = ({ setPosts }) => {
                             setUserChoices(copy)
                             //add logic to set other userChoices back to "0" once those are written
                         }}>
-    
+
                         <option value="0">All</option>
                         {users.map(user => (
                             <option key={user.id} value={user.id}>
@@ -75,6 +78,20 @@ export const PostFilters = ({ setPosts }) => {
                             </option>
                         ))}
                     </select>
+                    <div>
+                        <input type="text" 
+                                placeholder="Search by Title..." 
+                                name="search" 
+                                onKeyUp={
+                                    (event) => {
+                                        const copy = Object.assign({}, userChoices)
+                                        copy.categoryId = "0"
+                                        copy.authorId = "0"
+                                        copy.searchTerms = event.target.value
+                                        setUserChoices(copy)
+                            }
+                        } />
+                    </div>
                 </div>
             </form>
         </>
