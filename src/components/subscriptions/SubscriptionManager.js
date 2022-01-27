@@ -13,3 +13,8 @@ export const addSubscription = subscription => {
     })
         .then(getSubscriptions)
 }
+
+export const getSubsByFollower = (followerId) => {
+    return fetch(`http://localhost:8088/subscriptions/${followerId}`)
+        .then(res => res.json())
+}

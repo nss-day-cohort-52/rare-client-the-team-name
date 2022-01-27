@@ -11,12 +11,18 @@ import { UserList } from "./users/UserList"
 import { UserDetails } from "./users/UserDetails"
 import { CommentList } from "./comments/CommentList"
 import { EditPostForm } from "./posts/EditPostForm"
+import { SubscriptionList } from "./subscriptions/SubscriptionView"
 
 export const ApplicationViews = () => {
   return (
     <>
       <Route exact path="/">
-        <h1 >Welcome to Rare Publishing</h1>
+
+        {
+          <SubscriptionList />
+            ? <SubscriptionList />
+            : <h1>Please Subscribe to Authors to see their posts!</h1>
+        }
       </Route>
       <Route exact path="/posts">
         <PostList />
@@ -46,8 +52,8 @@ export const ApplicationViews = () => {
         <CommentList />
       </Route>
       <Route path="/my-posts/editpost/:postId(\d+)">
-          <EditPostForm />
+        <EditPostForm />
       </Route>
     </>
-  )  
+  )
 }
