@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react"
 import { getCategories } from "../categories/CategoryManager"
 import { getTags } from "../tags/TagManager"
 import { getUsers } from "../users/UserManager"
-<<<<<<< HEAD
-import { getPosts, getPostsByAuthor, getPostsByCategory, searchPostsByTitle } from "./PostManager"
-=======
-import { getPosts, getPostsByAuthor, getPostsByCategory, getPostsByTag } from "./PostManager"
->>>>>>> main
+import { getPosts, getPostsByAuthor, getPostsByCategory, searchPostsByTitle, getPostsByTag } from "./PostManager"
 
 export const PostFilters = ({ setPosts }) => {
     const [categories, setCategories] = useState([])
@@ -15,11 +11,8 @@ export const PostFilters = ({ setPosts }) => {
     const [userChoices, setUserChoices] = useState({
         categoryId: "0",
         authorId: "0",
-<<<<<<< HEAD
-        searchTerms: ""
-=======
+        searchTerms: "",
         tagId: '0'
->>>>>>> main
     })
 
     useEffect(() => {
@@ -29,11 +22,7 @@ export const PostFilters = ({ setPosts }) => {
     }, [])
 
     useEffect(() => {
-<<<<<<< HEAD
-        if (userChoices.categoryId === "0" & userChoices.authorId === "0" & userChoices.searchTerms === "") {
-=======
-        if (userChoices.categoryId === "0" & userChoices.authorId === "0" & userChoices.tagId === "0") {
->>>>>>> main
+        if (userChoices.categoryId === "0" & userChoices.authorId === "0" & userChoices.searchTerms === "" & userChoices.tagId === "0") {
             //AND all other filters are also "0" (once written)
             getPosts().then(p => setPosts(p))
         } else if (userChoices.categoryId !== "0") {
@@ -41,16 +30,13 @@ export const PostFilters = ({ setPosts }) => {
                 .then(setPosts)
         } else if (userChoices.authorId !== "0") {
             getPostsByAuthor(userChoices.authorId)
-<<<<<<< HEAD
                 .then(setPosts)
         } else if (userChoices.searchTerms !== "") {
             searchPostsByTitle(userChoices.searchTerms)
-=======
             .then(setPosts)
         } else if (userChoices.tagId !== "0") {
             getPostsByTag(userChoices.tagId)
             .then(setPosts)
->>>>>>> main
         }
     }, [userChoices])
 

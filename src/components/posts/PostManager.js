@@ -45,14 +45,11 @@ export const getPostsByAuthor = (authorId) => {
         .then(res => res.json())
 }
 
-<<<<<<< HEAD
 export const searchPostsByTitle = (searchTerm) => {
     return fetch(`http://localhost:8088/posts?q=${searchTerm}`)
-    .then(res => res.json())
+        .then(res => res.json())
 }
-=======
 export const getPostsByTag = (tagId) => {
     return fetch(`http://localhost:8088/posts?tag_id=${tagId}`)
         .then(res => res.json())
 }
->>>>>>> main
