@@ -33,10 +33,10 @@ export const PostFilters = ({ setPosts }) => {
                 .then(setPosts)
         } else if (userChoices.searchTerms !== "") {
             searchPostsByTitle(userChoices.searchTerms)
-            .then(setPosts)
+                .then(setPosts)
         } else if (userChoices.tagId !== "0") {
             getPostsByTag(userChoices.tagId)
-            .then(setPosts)
+                .then(setPosts)
         }
     }, [userChoices])
 
@@ -53,6 +53,7 @@ export const PostFilters = ({ setPosts }) => {
                             copy.categoryId = event.target.value
                             copy.authorId = "0"
                             copy.tagId = "0"
+                            copy.searchTerms = ""
                             setUserChoices(copy)
                             //add logic to set other userChoices back to "0" once those are written
                         }}>
@@ -77,6 +78,7 @@ export const PostFilters = ({ setPosts }) => {
                             copy.categoryId = "0"
                             copy.authorId = event.target.value
                             copy.tagId = "0"
+                            copy.searchTerms = ""
                             setUserChoices(copy)
                             //add logic to set other userChoices back to "0" once those are written
                         }}>
@@ -89,25 +91,26 @@ export const PostFilters = ({ setPosts }) => {
                         ))}
                     </select>
                     <div>
-                        <input type="text" 
-                                placeholder="Search by Title..." 
-                                name="search" 
-                                onKeyUp={
-                                    (event) => {
-                                        const copy = Object.assign({}, userChoices)
-                                        copy.categoryId = "0"
-                                        copy.authorId = "0"
-                                        copy.searchTerms = event.target.value
-                                        setUserChoices(copy)
-                            }
-                        } />
+                        <input type="text"
+                            placeholder="Search by Title..."
+                            name="search"
+                            onKeyUp={
+                                (event) => {
+                                    const copy = Object.assign({}, userChoices)
+                                    copy.categoryId = "0"
+                                    copy.authorId = "0"
+                                    copy.searchTerms = event.target.value
+                                    copy.tagId = "0"
+                                    setUserChoices(copy)
+                                }
+                            } />
                     </div>
                 </div>
             </form>
             <form>
                 <div className="selectGroup">
                     <label htmlFor="tag"> Filter by tag: </label>
-    
+
                     <select name="tag"
                         value={userChoices.tagId}
                         onChange={(event) => {
@@ -115,10 +118,11 @@ export const PostFilters = ({ setPosts }) => {
                             copy.categoryId = "0"
                             copy.authorId = "0"
                             copy.tagId = event.target.value
+                            copy.searchTerms = ""
                             setUserChoices(copy)
                             //add logic to set other userChoices back to "0" once those are written
                         }}>
-    
+
                         <option value="0">All</option>
                         {tags.map(tag => (
                             <option key={tag.id} value={tag.id}>
