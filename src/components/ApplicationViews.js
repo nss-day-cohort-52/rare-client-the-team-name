@@ -12,6 +12,7 @@ import { UserDetails } from "./users/UserDetails"
 import { CommentList } from "./comments/CommentList"
 import { EditPostForm } from "./posts/EditPostForm"
 import { SubscriptionList } from "./subscriptions/SubscriptionView"
+import { NewCommentForm } from "./comments/NewCommentForm"
 
 export const ApplicationViews = () => {
   return (
@@ -50,6 +51,9 @@ export const ApplicationViews = () => {
       </Route>
       <Route exact path="/comments/:postId(\d+)">
         <CommentList />
+      </Route>
+      <Route exact path="/commentCreate/:postId(\d+)">
+        <NewCommentForm />
       </Route>
       <Route path="/my-posts/editpost/:postId(\d+)">
         <EditPostForm />
