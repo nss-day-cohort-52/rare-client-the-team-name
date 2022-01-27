@@ -48,3 +48,8 @@ export const getPostsByAuthor = (authorId) => {
     return fetch(`http://localhost:8088/posts?user_id=${authorId}`)
         .then(res => res.json())
 }
+
+export const searchPostsByTitle = (searchTerm) => {
+    return fetch(`http://localhost:8088/posts?q=${searchTerm}`)
+    .then(res => res.json())
+}

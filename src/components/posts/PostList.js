@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react"
-import { getPosts } from "./PostManager"
+import { getPosts, searchPostsByTitle } from "./PostManager"
 import Post from "./Post"
 import { PostFilters } from "./PostFilters"
 
-export const PostList = ({ postss }) => {
+export const PostList = () => {
     const [ posts, setPosts ] = useState([])
     const [ searchedPost, setSearch] = useState("")
 
     useEffect(()=> {
         getPosts().then(p => setPosts(p))
-    }, [])
+    }, [posts])
 
-    // useEffect(() => {
-    //     if (searchedPost !== "") {
-    //     searchByTitle(searchedPost).then(data => setPosts(data))
-    //     } else {
-    //         setPosts(postss)
-    //     }
-    // }, [searchedPost, postss])
+    useEffect(() => {
+        if (searchedPost !== "") {
+        searchPostsByTitle(searchedPost).then(data => setPosts(data))
+        } else {
+            setPosts(posts)
+        }
+    }, [])
     
     return (
         <>
