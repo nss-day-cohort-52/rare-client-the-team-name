@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
+import { addSubscription } from "../subscriptions/SubscriptionManager"
 
 import { getSingleUser } from "./UserManager"
 
@@ -7,11 +8,34 @@ export const UserDetails = () => {
     const [user, setUser] = useState({})
     const { userId } = useParams()
     const parsedId = parseInt(userId)
+    const currentUserId = parseInt(localStorage.getItem('token'))
+    const history = useHistory()
 
     useEffect(() => {
         getSingleUser(parsedId)
             .then(setUser)
     }, [parsedId])
+
+    const newSubscription = () => {
+        const date = new Date()
+        addSubscription({
+            follower_id: currentUserId,
+            author_id: parsedId,
+            created_on: date.toDateString()
+            })
+            .then(() => history.push("/"))
+    }
+
+    const subscribeButton = () => {
+        if (user.id === currentUserId) {
+            return ""
+        }
+        else {
+            return <button type="submit" onClick={() => newSubscription()}className="btn btn-primary">
+            Subscribe
+        </button>
+        }  
+    }
 
     return (
         <>
@@ -25,6 +49,7 @@ export const UserDetails = () => {
                 <div>Created on: {user.created_on}</div>
                 <div> Username: {user.username} </div>
             </section>
+            {subscribeButton()}
         </>
     )
 }

@@ -28,48 +28,22 @@ export const EditPostForm = () => {
 
     useEffect(() => {
         setCategoryId(post.category_id)
+        setTitle(post.title)
+        setImageURL(post.image_url)
+        setContent(post.content)
     }, [post])
 
     const updatePostInfo = () => {
-        // let updatedCategoryId = 0
-        let updatedTitle = ""
-        let updatedImageURL = ""
-        let updatedContent = ""
         const date = new Date()
-
-        // if (newCategoryId) {
-        //     updatedCategoryId = newCategoryId
-        // }
-        // else {
-        //     updatedCategoryId = post.category_id
-        // }
-        if (newTitle) {
-            updatedTitle = newTitle
-        }
-        else {
-            updatedTitle = post.title
-        }
-        if (newImageURL) {
-            updatedImageURL = newImageURL
-        }
-        else {
-            updatedImageURL = post.image_url
-        }
-        if (newContent) {
-            updatedContent = newContent
-        }
-        else {
-            updatedContent = post.content
-        }
 
         const updatedPost = {
             id: parsedId,
             user_id: currentUserId,
             category_id: newCategoryId,
-            title: updatedTitle,
+            title: newTitle,
             publication_date: date.toDateString(),
-            image_url: updatedImageURL,
-            content: updatedContent,
+            image_url: newImageURL,
+            content: newContent,
             approved: null
         }
 
@@ -101,7 +75,7 @@ export const EditPostForm = () => {
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder={post.title}
+                        value={newTitle}
                         />
                 </div>
                 <div className="form-group">
@@ -111,7 +85,7 @@ export const EditPostForm = () => {
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder={post.image_url}
+                        value={newImageURL}
                         />
                 </div>
                 <div className="form-group">
@@ -121,7 +95,7 @@ export const EditPostForm = () => {
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder={post.content}
+                        value={newContent}
                         />
                 </div>
                 <button type="button" className="button" onClick={() => updatePostInfo()}>
