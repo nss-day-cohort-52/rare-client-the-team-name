@@ -40,48 +40,22 @@ export const EditPostForm = () => {
             idSet.add(postTag.tag_id)
         }
         setTagIds(idSet)
+        setTitle(post.title)
+        setImageURL(post.image_url)
+        setContent(post.content)
     }, [post, postTags])
 
     const updatePostInfo = () => {
-        // let updatedCategoryId = 0
-        let updatedTitle = ""
-        let updatedImageURL = ""
-        let updatedContent = ""
         const date = new Date()
-
-        // if (newCategoryId) {
-        //     updatedCategoryId = newCategoryId
-        // }
-        // else {
-        //     updatedCategoryId = post.category_id
-        // }
-        if (newTitle) {
-            updatedTitle = newTitle
-        }
-        else {
-            updatedTitle = post.title
-        }
-        if (newImageURL) {
-            updatedImageURL = newImageURL
-        }
-        else {
-            updatedImageURL = post.image_url
-        }
-        if (newContent) {
-            updatedContent = newContent
-        }
-        else {
-            updatedContent = post.content
-        }
 
         const updatedPost = {
             id: parsedId,
             user_id: currentUserId,
             category_id: newCategoryId,
-            title: updatedTitle,
+            title: newTitle,
             publication_date: date.toDateString(),
-            image_url: updatedImageURL,
-            content: updatedContent,
+            image_url: newImageURL,
+            content: newContent,
             approved: null
         }
 
@@ -92,77 +66,54 @@ export const EditPostForm = () => {
 
     return (
         <>
-            <main className="container" >
-                <h2 className="heading">Edit Your Post</h2>
-                <form className="box2">
-                    <fieldset>
-                        <div>
-                            <select value={newCategoryId} onChange={(evt) => setCategoryId(evt.target.value)}>
-                                <option>Select a category</option>
-                                {
-                                    categories.map(category => {
-                                        return <option key={category.id} value={category.id}>{category.label}</option>
-                                    })
-                                }
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="title">Title:</label>
-                            <input
-                                onChange={event => setTitle(event.target.value)}
-                                required autoFocus
-                                type="text"
-                                className="form-control"
-                                placeholder={post.title}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="imageURL">Image URL:</label>
-                            <input
-                                onChange={event => setImageURL(event.target.value)}
-                                required autoFocus
-                                type="text"
-                                className="form-control"
-                                placeholder={post.image_url}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="content">Content:</label>
-                            <input
-                                onChange={event => setContent(event.target.value)}
-                                required autoFocus
-                                type="text"
-                                className="form-control"
-                                placeholder={post.content}
-                            />
-                        </div>
-                        <div>
-                            {
-                                tags.map(
-                                    (tag) => {
-                                        return <p key={`tag--${tag.id}`}>
-                                            <input
-                                                type="checkbox"
-                                                name="tag"
-                                                value={tag.id}
-                                                checked={newTagIds.has(tag.id) ? true : false}
-                                                onChange={
-                                                    (evt) => {
-                                                        const copy = new Set(newTagIds)
-                                                        copy.has(parseInt(evt.target.value))
-                                                            ? copy.delete(parseInt(evt.target.value))
-                                                            : copy.add(parseInt(evt.target.value))
-                                                        setPost(copy)
-                                                    }} />
-                                            {tag.label}</p>
-                                    }
-                                )
-                            }
-                        </div>
-                        <button type="button" className="button" onClick={() => updatePostInfo()}>
-                            Submit
-                        </button>
-                    </fieldset>
+        <main className="container" >
+        <h2 className="heading">Edit Your Post</h2>
+        <form className="box2">
+            <fieldset>
+                <div>
+                    <select value={newCategoryId} onChange={(evt) => setCategoryId(evt.target.value) }>
+                    <option>Select a category</option>
+                        {
+                            categories.map(category => {
+                                return <option key={category.id} value={category.id}>{category.label}</option>
+                            })
+                        }
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="title">Title:</label>
+                    <input
+                        onChange={ event => setTitle(event.target.value) }
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        value={newTitle}
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="imageURL">Image URL:</label>
+                    <input
+                        onChange={ event => setImageURL(event.target.value) }
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        value={newImageURL}
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="content">Content:</label>
+                    <input
+                        onChange={ event => setContent(event.target.value) }
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        value={newContent}
+                        />
+                </div>
+                <button type="button" className="button" onClick={() => updatePostInfo()}>
+                Submit
+            </button>
+            </fieldset>
 
                 </form>
             </main>
