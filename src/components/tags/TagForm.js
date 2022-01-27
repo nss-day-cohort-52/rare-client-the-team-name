@@ -5,17 +5,16 @@ import { Tags } from "./Tags"
 
 export const TagForm = ({ setTags }) => {
     const [newTagString, setNewTagString] = useState("")
-    const [tagsByLabel, setTagsByLabel] = useState([])
+    const [foundTags, setFoundTags] = useState([])
 
     useEffect(
         () => {
-            getTagsByLabel(newTagString)
-                .then(setTagsByLabel)
+            getTagsByLabel(newTagString).then(setFoundTags)
         }, [newTagString]
     )
 
     const constructTag = () => {
-        if (tagsByLabel.length > 0) {
+        if (foundTags.length > 0) {
             window.alert("This tag already exists")
         } else {
             addTag({ label: newTagString })
