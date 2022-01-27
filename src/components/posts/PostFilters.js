@@ -17,7 +17,7 @@ export const PostFilters = ({ setPosts }) => {
     }, [])
 
     useEffect(() => {
-        if (userChoices.categoryId & userChoices.authorId === "0") {
+        if (userChoices.categoryId === "0" & userChoices.authorId === "0") {
             //AND all other filters are also "0" (once written)
             getPosts().then(p => setPosts(p))
         } else if (userChoices.categoryId !== "0") {
