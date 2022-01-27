@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getPosts } from "../posts/PostManager"
-import { getComments } from "./CommentsManager"
+import { getComments, deleteComments } from "./CommentsManager"
 import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 
 
@@ -9,6 +9,7 @@ export const CommentList = () => {
     const [posts, setPosts] = useState([])
     const { postId } = useParams()
     const parsedId = parseInt(postId)
+    const currentUser = parseInt(localStorage.getItem("token"))
 
     useEffect(() => {
         getComments().then(c => {
@@ -30,7 +31,7 @@ export const CommentList = () => {
                     posts.map(
                         (post) => {
                             if (post.id === parsedId)
-                            return <h1>{post.title}</h1>
+                            return <h1 key={`post--${post.id}`}>{post.title}</h1>
                         }
                     )
                 }
@@ -39,11 +40,23 @@ export const CommentList = () => {
                 {
                     comments.map(
                         (comment) => {
-                            if (comment.post_id === parsedId)
+                            if (comment.post_id === parsedId && comment.author_id == currentUser) 
+                            return <div key={`comment==${comment.id}`}>
+                            <div>{comment.content}</div>
+                            <div>Submitted By: {comment.user.username}</div>
+                            <div>
+                                <button 
+                                    onClick={() => deleteComments(comment.id).then(setComments)}>
+                                        Delete
+                                </button>
+                            </div>
+                            </div>
+                            else if (comment.post_id === parsedId)
                             return <div key={`comment==${comment.id}`}>
                                 <div>{comment.content}</div>
                                 <div>Submitted By: {comment.user.username}</div>
                                 </div>
+
                         }
                     )
                 }
@@ -51,15 +64,3 @@ export const CommentList = () => {
         </>
     )
 }
-
-
-
-
-// comments.map(
-//     (comment) => {
-//         if (comment.post_id === )
-//         return <li key={`comment==${comment.id}`}>
-//             {comment.content}
-//         </li>
-//     }
-// )
