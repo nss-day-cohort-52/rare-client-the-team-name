@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { addSubscription } from "../subscriptions/SubscriptionManager"
 
 import { getSingleUser } from "./UserManager"
@@ -9,6 +9,7 @@ export const UserDetails = () => {
     const { userId } = useParams()
     const parsedId = parseInt(userId)
     const currentUserId = parseInt(localStorage.getItem('token'))
+    const history = useHistory()
 
     useEffect(() => {
         getSingleUser(parsedId)
@@ -25,6 +26,17 @@ export const UserDetails = () => {
             .then(() => history.push("/"))
     }
 
+    const subscribeButton = () => {
+        if (user.id === currentUserId) {
+            return ""
+        }
+        else {
+            return <button type="submit" onClick={() => newSubscription()}className="btn btn-primary">
+            Subscribe
+        </button>
+        }  
+    }
+
     return (
         <>
             <div className="user-image">
@@ -37,9 +49,7 @@ export const UserDetails = () => {
                 <div>Created on: {user.created_on}</div>
                 <div> Username: {user.username} </div>
             </section>
-            <button type="submit" onClick={() => newSubscription()}className="btn btn-primary">
-                        Subscribe
-                    </button>
+            {subscribeButton()}
         </>
     )
 }
