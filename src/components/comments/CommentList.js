@@ -9,6 +9,7 @@ export const CommentList = () => {
     const [posts, setPosts] = useState([])
     const { postId } = useParams()
     const parsedId = parseInt(postId)
+    const currentUser = parseInt(localStorage.getItem("token"))
 
     useEffect(() => {
         getComments().then(c => {
@@ -39,12 +40,23 @@ export const CommentList = () => {
                 {
                     comments.map(
                         (comment) => {
-                            if (comment.post_id === parsedId)
+                            if (comment.post_id === parsedId && comment.author_id == currentUser) 
+                            return <div key={`comment==${comment.id}`}>
+                            <div>{comment.content}</div>
+                            <div>Submitted By: {comment.user.username}</div>
+                            <div>
+                                <button 
+                                    onClick={() => deleteComments(comment.id).then(setComments)}>
+                                        Delete
+                                </button>
+                            </div>
+                            </div>
+                            else if (comment.post_id === parsedId)
                             return <div key={`comment==${comment.id}`}>
                                 <div>{comment.content}</div>
                                 <div>Submitted By: {comment.user.username}</div>
-                                <div><button onClick={() => deleteComments(comment.id).then(setComments)}>Delete</button></div>
                                 </div>
+
                         }
                     )
                 }
@@ -52,15 +64,3 @@ export const CommentList = () => {
         </>
     )
 }
-
-
-
-
-// comments.map(
-//     (comment) => {
-//         if (comment.post_id === )
-//         return <li key={`comment==${comment.id}`}>
-//             {comment.content}
-//         </li>
-//     }
-// )
