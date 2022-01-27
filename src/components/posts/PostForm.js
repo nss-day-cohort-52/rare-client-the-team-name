@@ -1,6 +1,10 @@
 import { Categories } from "../categories/CategoryList"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
+import { getTags } from "../tags/TagManager"
+import { getCategories } from "../categories/CategoryManager"
+import { createPost } from "./PostManager"
+import { createPostTag } from "./PostTagManager"
 
 
 
@@ -20,43 +24,21 @@ export const PostForm = () => {
 
     useEffect(
         () => {
-            fetch("http://localhost:8088/categories")
-                .then(res => res.json())
-                .then((data) => {
-                    setCategories(data)
-                })
+            getCategories().then(setCategories)
+            getTags().then(setTags)
         },
         []
     )
 
-    useEffect(
-        () => {
-            fetch("http://localhost:8088/tags")
-                .then(res => res.json())
-                .then((data) => {
-                    setTags(data)
-                })
-        },
-        []
-    )
     const submitNewPostTag = (newPost) => {
         const promiseArray = []
+
         for (const tagIds of post.tagIds) {
 
-            const newPostTag = {
+            promiseArray.push(createPostTag({
                 tag_id: tagIds,
                 post_id: newPost.id
-            }
-
-
-            const fetchOptions = {
-                method: "POST",
-                headers: {
-                    "content-Type": "application/json"
-                },
-                body: JSON.stringify(newPostTag)
-            }
-            promiseArray.push(fetch("http://localhost:8088/posttags", fetchOptions))
+            } ))
         }
         Promise.all(promiseArray)
             .then(() => {
@@ -77,16 +59,7 @@ export const PostForm = () => {
             approved: null
         }
 
-        const fetchOptions = {
-            method: "POST",
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(newPost)
-        }
-
-        return fetch("http://localhost:8088/posts", fetchOptions)
-            .then(res => res.json())
+        createPost(newPost)
             .then((post) => {
                 submitNewPostTag(post)
             })

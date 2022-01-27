@@ -7,8 +7,20 @@ export const getSinglePost = (id) => {
         .then(res => res.json())
 }
 
-export const updatePost = post => {
-    return fetch(`http://localhost:8088/posts/${post.id}`, {
+export const createPost = (post) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "content-Type": "application/json"
+        },
+        body: JSON.stringify(post)
+    }
+    return fetch(`http://localhost:8088/posts`, fetchOptions)
+        .then(res => res.json())
+}
+
+export const updatePost = (post, id) => {
+    return fetch(`http://localhost:8088/posts/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -24,7 +36,7 @@ export const getPostsByCategory = (categoryId) => {
 
 export const deletePost = postId => {
     return fetch(`http://localhost:8088/posts/${postId}`, {
-      method: "DELETE"
+        method: "DELETE"
     }).then(getPosts)
   };
 export const getCertainPostTags = (postId) => {
