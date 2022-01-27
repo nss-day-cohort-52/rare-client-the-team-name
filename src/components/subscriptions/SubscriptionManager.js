@@ -15,6 +15,12 @@ export const addSubscription = subscription => {
 }
 
 export const getSubsByFollower = (followerId) => {
-    return fetch(`http://localhost:8088/subscriptions/${followerId}`)
+    return fetch(`http://localhost:8088/subscriptions?follower_id=${followerId}`)
         .then(res => res.json())
 }
+
+export const deleteSubscription = subId => {
+    return fetch(`http://localhost:8088/subscriptions/${subId}`, {
+        method: "DELETE"
+    })
+};
