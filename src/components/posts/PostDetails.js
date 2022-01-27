@@ -21,7 +21,11 @@ export const PostDetails = () => {
         <>
             <section className="post">
                 <h3 className="post__title">{post.title}</h3>
-                <div> By: {post.user?.first_name} {post.user?.last_name} </div>
+                <h3 className="user_detail_link">
+                    <Link to={`/users/${post.user?.id}`}>
+                        {post.user?.first_name} {post.user?.last_name}
+                    </Link>
+                </h3>
                 <div> In {post.category?.label} category </div>
                 <div> On {post.publication_date} </div>
                 <div> {post.content} </div>
