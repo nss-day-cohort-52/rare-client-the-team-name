@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { getPosts } from "./PostManager"
+import { getPosts, searchPostsByTitle } from "./PostManager"
 import Post from "./Post"
 import { PostFilters } from "./PostFilters"
 
