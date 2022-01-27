@@ -13,6 +13,7 @@ export const PostList = () => {
     return (
         <>
             <PostFilters setPosts={setPosts}/>
+            <input type="text" placeholder="Search by Title..." name="search" />
             <div className="posts">
                 {
                     posts.map(post => <Post key={post.id} post={post} />)
