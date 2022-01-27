@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react"
 import { getCategories } from "../categories/CategoryManager"
+import { getTags } from "../tags/TagManager"
 import { getUsers } from "../users/UserManager"
-import { getPosts, getPostsByAuthor, getPostsByCategory } from "./PostManager"
+import { getPosts, getPostsByAuthor, getPostsByCategory, getPostsByTag } from "./PostManager"
 
 export const PostFilters = ({ setPosts }) => {
     const [categories, setCategories] = useState([])
     const [users, setUsers] = useState([])
+    const [tags, setTags] = useState([])
     const [userChoices, setUserChoices] = useState({
         categoryId: "0",
-        authorId: "0"
+        authorId: "0",
+        tagId: '0'
     })
 
     useEffect(() => {
         getCategories().then(c => setCategories(c))
         getUsers().then(u => setUsers(u))
+        getTags().then(t => setTags(t))
     }, [])
 
     useEffect(() => {
-        if (userChoices.categoryId === "0" & userChoices.authorId === "0") {
+        if (userChoices.categoryId === "0" & userChoices.authorId === "0" & userChoices.tagId === "0") {
             //AND all other filters are also "0" (once written)
             getPosts().then(p => setPosts(p))
         } else if (userChoices.categoryId !== "0") {
@@ -25,6 +29,9 @@ export const PostFilters = ({ setPosts }) => {
                 .then(setPosts)
         } else if (userChoices.authorId !== "0") {
             getPostsByAuthor(userChoices.authorId)
+            .then(setPosts)
+        } else if (userChoices.tagId !== "0") {
+            getPostsByTag(userChoices.tagId)
             .then(setPosts)
         }
     }, [userChoices])
@@ -41,6 +48,7 @@ export const PostFilters = ({ setPosts }) => {
                             const copy = Object.assign({}, userChoices)
                             copy.categoryId = event.target.value
                             copy.authorId = "0"
+                            copy.tagId = "0"
                             setUserChoices(copy)
                             //add logic to set other userChoices back to "0" once those are written
                         }}>
@@ -64,6 +72,7 @@ export const PostFilters = ({ setPosts }) => {
                             const copy = Object.assign({}, userChoices)
                             copy.categoryId = "0"
                             copy.authorId = event.target.value
+                            copy.tagId = "0"
                             setUserChoices(copy)
                             //add logic to set other userChoices back to "0" once those are written
                         }}>
@@ -72,6 +81,30 @@ export const PostFilters = ({ setPosts }) => {
                         {users.map(user => (
                             <option key={user.id} value={user.id}>
                                 {user.first_name} {user.last_name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </form>
+            <form>
+                <div className="selectGroup">
+                    <label htmlFor="tag"> Filter by tag: </label>
+    
+                    <select name="tag"
+                        value={userChoices.tagId}
+                        onChange={(event) => {
+                            const copy = Object.assign({}, userChoices)
+                            copy.categoryId = "0"
+                            copy.authorId = "0"
+                            copy.tagId = event.target.value
+                            setUserChoices(copy)
+                            //add logic to set other userChoices back to "0" once those are written
+                        }}>
+    
+                        <option value="0">All</option>
+                        {tags.map(tag => (
+                            <option key={tag.id} value={tag.id}>
+                                {tag.label}
                             </option>
                         ))}
                     </select>
