@@ -3,7 +3,8 @@ import { useHistory } from "react-router"
 import { useParams } from "react-router-dom"
 import { getCategories } from "../categories/CategoryManager"
 import { getTags } from "../tags/TagManager"
-import { getCertainPostTags, getSinglePost, updatePost } from "./PostManager"
+import { getSinglePost, updatePost } from "./PostManager"
+import { createPostTag, deletePostTag, getCertainPostTags } from "./PostTagManager"
 
 
 export const EditPostForm = () => {
@@ -49,7 +50,6 @@ export const EditPostForm = () => {
         const date = new Date()
 
         const updatedPost = {
-            id: parsedId,
             user_id: currentUserId,
             category_id: newCategoryId,
             title: newTitle,
@@ -59,9 +59,30 @@ export const EditPostForm = () => {
             approved: null
         }
 
-        updatePost(updatedPost)
-        history.push(`/posts/${parsedId}`)
+        updatePost(updatedPost, parsedId)
+            .then(submitNewPostTag())
+    }
 
+    const submitNewPostTag = () => {
+        const deletePostTagsPromises = []
+        const addPostTagsPromises = []
+
+        for (const postTag of postTags) {
+            deletePostTagsPromises.push(deletePostTag(postTag.id))
+        }
+
+        for (const tagId of newTagIds) {
+            addPostTagsPromises.push(createPostTag({
+                tag_id: tagId,
+                post_id: parsedId
+            }))
+        }
+
+        Promise.all(deletePostTagsPromises)
+            .then(() => Promise.all(addPostTagsPromises))
+            .then(() => {
+                history.push(`/posts/${parsedId}`)
+            })
     }
 
     return (
