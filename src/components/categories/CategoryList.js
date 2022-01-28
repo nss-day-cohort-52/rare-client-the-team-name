@@ -33,12 +33,12 @@ export const Categories = () => {
                             (category) => {
                                 return <div className="notification is-success p-3 has-text-weight-medium" key={`category--${category.id}`}>
                                     <button className="delete is-info" onClick={() => {}}></button>
-                                    <div className="level">
+                                    <div className="level-left">
 
                                     <div className="level-item">
                                         <button className="button m-1" onClick={() => {}}>Edit</button>
                                     </div>
-                                    <div className="level-item pr-5">
+                                    <div className="level-item px-5">
 
                                         {category.label}
                                     </div>
@@ -52,14 +52,14 @@ export const Categories = () => {
             </div>
             <div className="column is-one-third ml-6">
                 <form className="notification is-success has-text-weight-medium">
-                    <h2 className="subtitle">Add a new category</h2>
+                    <h2 className="subtitle mb-2">Add a new category</h2>
                     <fieldset>
                         <div className="form-group">
-                            <label htmlFor="categoryName"> Category name: </label>
+                            <label htmlFor="categoryName"></label>
                             <input className="box " type="text" id="categoryName" ref={label} required autoFocus placeholder="category name" />
                         </div>
                     </fieldset>
-                    <button className="button is-info m-3" type="submit" onClick={evt => {newCategory(evt)}}>
+                    <button className="button mt-2 m-1" type="submit" onClick={evt => {newCategory(evt)}}>
                         Save category
                     </button>
                 </form>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 export const Tags = ({tags}) => {
 
     return (
-        <ul className="allTags column">
+        <div className="column is-one-quarter">
             {
                 tags.sort((a, b) => {
                     if (a.label < b.label)
@@ -12,18 +12,24 @@ export const Tags = ({tags}) => {
                         return 1
                     return 0
                 }).map((tag) => {
-                    return <li className="notification is-primary p-3" key={tag.id}>
+                    return <div className="notification is-success p-3 has-text-weight-medium" key={tag.id}>
+                        <button className="delete" onClick={() => { }}>Delete</button>
+                        <div className="level-left">
+                                <div className="level-item">
 
-                        <button className="button is-info m-1" onClick={() => { }}>Edit Task</button>
-                        <button className="button is-info m-1" onClick={() => { }}>Delete</button>
+                            <button className="button m-1 mr-5" onClick={() => { }}>Edit</button>
+                            <div className="level-item px-5">
+                                {tag.label}
+                                </div>
+                                </div>
+                        </div>
 
-                        <span className="">
-                            {tag.label}
-                            </span>
+                        
+                           
 
-                    </li>
+                    </div>
                 })
             }
-        </ul>
+        </div>
     )
 }
