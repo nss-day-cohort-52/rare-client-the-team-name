@@ -86,14 +86,56 @@ export const EditPostForm = () => {
     }
 
     return (
-        <>
-            <main className="container" >
-                <h2 className="heading">Edit Your Post</h2>
-                <form className="box2">
-                    <fieldset>
-                        <div>
-                            <select value={newCategoryId} onChange={(evt) => setCategoryId(evt.target.value)}>
-                                <option>Select a category</option>
+        <div className="container m-6 p-6 has-background-link-light" >
+            <h1 className="title is-3">Edit Your Post</h1>
+            <form>
+                <div className="field my-5">
+                    <label className="label">Title </label>
+                    <div className="control">
+                        <input
+                            placeholder="Title"
+                            className="input"
+                            onChange={event => setTitle(event.target.value)}
+                            required autoFocus
+                            type="text"
+                            value={newTitle}
+                        />
+                    </div>
+                </div>
+                <div className="field my-5">
+                    <label className="label">Image URL </label>
+                    <div className="control">
+                        <input
+                            placeholder="Image URL"
+                            className="input"
+                            onChange={event => setImageURL(event.target.value)}
+                            required autoFocus
+                            type="text"
+                            value={newImageURL}
+                        />
+                    </div>
+                </div>
+                <div className="field my-5">
+                    <label className="label">Article Content </label>
+                    <div className="control">
+                        <textarea
+                            className="textarea"
+                            placeholder="Content"
+                            onChange={event => setContent(event.target.value)}
+                            required autoFocus
+                            value={newContent}
+                        ></textarea>
+                    </div>
+                </div>
+                <div className="field my-5">
+                    <label className="label">Category</label>
+                    <div className="control">
+                        <div className="select">
+                            <select
+                                onChange={(evt) => setCategoryId(evt.target.value)}
+                                value={newCategoryId}
+                            >
+                                <option> Choose a Category </option>
                                 {
                                     categories.map(category => {
                                         return <option key={category.id} value={category.id}>{category.label}</option>
@@ -101,68 +143,40 @@ export const EditPostForm = () => {
                                 }
                             </select>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="title">Title:</label>
-                            <input
-                                onChange={event => setTitle(event.target.value)}
-                                required autoFocus
-                                type="text"
-                                className="form-control"
-                                value={newTitle}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="imageURL">Image URL:</label>
-                            <input
-                                onChange={event => setImageURL(event.target.value)}
-                                required autoFocus
-                                type="text"
-                                className="form-control"
-                                value={newImageURL}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="content">Content:</label>
-                            <input
-                                onChange={event => setContent(event.target.value)}
-                                required autoFocus
-                                type="text"
-                                className="form-control"
-                                value={newContent}
-                            />
-                        </div>
-                        <div>
-                            {
-                                tags.map(
-                                    (tag) => {
-                                        return <div key={`tag--${tag.id}`}>
-                                            <input
-                                                type="checkbox"
-                                                name="tag"
-                                                value={tag.id}
-                                                checked={newTagIds.has(tag.id) ? true : false}
-                                                onChange={
-                                                    (evt) => {
-                                                        const copy = new Set(newTagIds)
-                                                        copy.has(parseInt(evt.target.value))
-                                                            ? copy.delete(parseInt(evt.target.value))
-                                                            : copy.add(parseInt(evt.target.value))
-                                                        setTagIds(copy)
-                                                    }} />
-                                            {tag.label}
-                                        </div>
-                                    }
-                                )
+                    </div>
+                </div>
+                <div className="field my-5">
+                    <label className="label"> Tags </label>
+                    {
+                        tags.map(
+                            (tag) => {
+                                return <div className="control my-2" key={`tag--${tag.id}`}>
+                                    <label className="checkbox has-text-weight-medium">
+                                        <input
+                                            type="checkbox"
+                                            className="mr-2"
+                                            name="tag"
+                                            value={tag.id}
+                                            checked={newTagIds.has(tag.id) ? true : false}
+                                            onChange={
+                                                (evt) => {
+                                                    const copy = new Set(newTagIds)
+                                                    copy.has(parseInt(evt.target.value))
+                                                        ? copy.delete(parseInt(evt.target.value))
+                                                        : copy.add(parseInt(evt.target.value))
+                                                    setTagIds(copy)
+                                                }} />
+                                        {tag.label}
+                                    </label>
+                                </div>
                             }
-                        </div>
-
-                        <button type="button" className="button" onClick={() => updatePostInfo()}>
-                            Submit
-                        </button>
-                    </fieldset>
-
-                </form>
-            </main>
-        </>
+                        )
+                    }
+                </div>
+                <button type="button" className="button is-link" onClick={() => updatePostInfo()}>
+                    Submit
+                </button>
+            </form>
+        </div>
     )
 }
