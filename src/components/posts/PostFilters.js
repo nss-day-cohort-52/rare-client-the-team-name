@@ -42,6 +42,7 @@ export const PostFilters = ({ setPosts }) => {
 
     return (
         <>
+            
             <form>
                 <div className="selectGroup">
                     <label htmlFor="category"> Filter by category: </label>
