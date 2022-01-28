@@ -28,7 +28,7 @@ export default ({ post }) => {
                     }
                 </ul>
             </div>
-            <Link to={`/commentCreate/${post.id}`}><button>New Comment?</button></Link>
+            <Link to={`/commentCreate/${post.id}`}><button>Add Comment</button></Link>
         </section>
     )
 }
