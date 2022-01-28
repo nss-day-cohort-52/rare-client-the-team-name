@@ -18,13 +18,11 @@ export const TagView = () => {
         <>
             <div id="edit-modal" className={modalIsOpen ? "modal is-active" : "modal"}>
                 <div className="modal-background"></div>
-
                 <div className="modal-content">
                     <div className="box">
                         <TagForm setTags={setTags} tagToEdit={tagToEdit} setModalIsOpen={setModalIsOpen} />
                     </div>
                 </div>
-
             </div>
 
             <h1 className="title is-1 pl-4">Tags</h1>
