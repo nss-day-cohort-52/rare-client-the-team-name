@@ -17,3 +17,20 @@ export const addTag = Tag => {
         body: JSON.stringify(Tag)
     }).then(getTags);
 };
+
+export const updateTag = (tag, id) => {
+    return fetch(`http://localhost:8088/tags/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(tag)
+    })
+        .then(getTags)
+}
+
+export const deleteTag = tagId => {
+    return fetch(`http://localhost:8088/tags/${tagId}`, {
+        method: "DELETE"
+    }).then(getTags)
+};

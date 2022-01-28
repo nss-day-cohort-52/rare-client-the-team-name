@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import { deleteTag } from "./TagManager"
 
-export const Tags = ({tags}) => {
+export const Tags = ({tags, setTags}) => {
+
 
     return (
         <ul className="allTags column">
@@ -15,7 +17,10 @@ export const Tags = ({tags}) => {
                     return <li key={tag.id}>
 
                         <button onClick={() => { }}>Edit Task</button>
-                        <button onClick={() => { }}>Delete Task</button>
+                        <button onClick={() => { 
+                            deleteTag(tag.id)
+                            .then(setTags)
+                        }}>Delete Task</button>
 
                         {tag.label}
 
