@@ -96,8 +96,8 @@ export const EditPostForm = () => {
                             placeholder="Title"
                             className="input"
                             onChange={event => setTitle(event.target.value)}
-                            required autoFocus
                             type="text"
+                            required autoFocus
                             value={newTitle}
                         />
                     </div>
@@ -109,7 +109,6 @@ export const EditPostForm = () => {
                             placeholder="Image URL"
                             className="input"
                             onChange={event => setImageURL(event.target.value)}
-                            required autoFocus
                             type="text"
                             value={newImageURL}
                         />
@@ -122,7 +121,6 @@ export const EditPostForm = () => {
                             className="textarea"
                             placeholder="Content"
                             onChange={event => setContent(event.target.value)}
-                            required autoFocus
                             value={newContent}
                         ></textarea>
                     </div>

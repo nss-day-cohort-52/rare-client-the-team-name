@@ -77,6 +77,7 @@ export const PostForm = () => {
                             type="text"
                             placeholder="Title"
                             className="input"
+                            required autoFocus
                             onChange={
                                 (evt) => {
                                     const copy = { ...post }

@@ -19,9 +19,9 @@ export const NewCommentForm = () => {
     const submitNewComment = (evt) => {
         evt.preventDefault()
         createComment(newComment)
-        .then(() => {
-            history.push(`/comments/${postId}`)
-        })
+            .then(() => {
+                history.push(`/comments/${postId}`)
+            })
 
     }
 
@@ -29,28 +29,30 @@ export const NewCommentForm = () => {
 
 
     return (
-        <>
-        <h1>NEW Comment</h1>
-           
-                <div>
-                    <label>What would you like to say? </label>
-                    <input
-                        type="textarea"
-                        placeholder="commentContent"
+        <div className="container m-6 p-6 has-background-link-light" >
+            <h1 className="title is-4">Add a comment</h1>
+
+            <div className="field my-5">
+                <div className="control">
+                    <textarea
+                        className="textarea"
+                        placeholder="Write a comment..."
                         onChange={
                             (evt) => {
                                 const copy = { ...newComment }
                                 copy.content = evt.target.value
                                 setNewComment(copy)
-                            }
-                        } />
-                    <button onClick={submitNewComment}>Submit</button>
+                            }}
+                        required autoFocus
+                    ></textarea>
                 </div>
-        
-        
-        
-        
-        </>
+            </div>
+            <button type="button" className="button is-link" onClick={submitNewComment}>
+                Submit
+            </button>
+        </div>
+
+
     )
 
 }
