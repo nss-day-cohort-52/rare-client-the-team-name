@@ -128,7 +128,6 @@ export const PostFilters = ({ setPosts }) => {
                             setUserChoices(copy)
                             //add logic to set other userChoices back to "0" once those are written
                         }}>
-
                         <option value="0">All</option>
                         {tags.map(tag => (
                             <option key={tag.id} value={tag.id}>
