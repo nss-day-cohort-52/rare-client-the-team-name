@@ -1,6 +1,6 @@
 import { deleteCategory } from "./CategoryManager"
 
-export const Category = ({ categories, setCategories }) => {
+export const Category = ({ categories, setCategories, setCategoryToEdit, setModalIsOpen }) => {
     return (
         <div className="column is-one-quarter mr-6">
 
@@ -15,7 +15,10 @@ export const Category = ({ categories, setCategories }) => {
                             <div className="level-left">
 
                                 <div className="level-item">
-                                    <button className="button m-1" onClick={() => { }}>Edit</button>
+                                    <button className="button m-1" onClick={() => {
+                                    setCategoryToEdit(category)
+                                    setModalIsOpen(true)
+                                }}>Edit</button>
                                 </div>
                                 <div className="level-item px-5">
 
