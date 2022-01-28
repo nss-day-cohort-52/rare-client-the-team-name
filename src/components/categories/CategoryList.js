@@ -20,7 +20,7 @@ export const Categories = () => {
         
         <h1 className="title is-1 is-success">Categories</h1>
         <div className="columns is-centered">
-            <Category categories={categories}/>
+            <Category categories={categories} setCategories={setCategories}/>
             <CategoryForm categories={categories} setCategories={setCategories}/>
         </div>
         </>
