@@ -26,8 +26,6 @@ export const NewCommentForm = () => {
     }
 
 
-
-
     return (
         <div className="container m-6 p-6 has-background-link-light" >
             <h1 className="title is-4">Add a comment</h1>

@@ -171,7 +171,7 @@ export const EditPostForm = () => {
                         )
                     }
                 </div>
-                <button type="button" className="button is-link" onClick={() => updatePostInfo()}>
+                <button type="button" className="button is-link has-text-weight-bold" onClick={() => updatePostInfo()}>
                     Submit
                 </button>
             </form>
