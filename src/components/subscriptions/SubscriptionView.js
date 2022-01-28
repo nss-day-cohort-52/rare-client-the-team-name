@@ -19,7 +19,8 @@ export const SubscriptionList = () => {
             <div className="subs">
                 {
                     subscriptions.length === 0
-                    ? <><p className="card-header-title is-center">You currently have no subscriptions :(</p><Link to="/users"> Find users you want to add! </Link></>
+                    ? <><div className="card-header-title is-centered">You currently have no subscriptions </div>
+                    <Link className="card-header-title has-text-link is-centered" to="/users"> Find users you want to add! </Link></>
                     :subscriptions.map(subscription => <SubscriptionPost key={subscription.post.id} subscription={subscription} />)
                 }
             </div>
