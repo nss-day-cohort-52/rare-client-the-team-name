@@ -11,7 +11,7 @@ export default ({ post, setPosts }) => {
     }, [post])
 
     return (
-        <section className="message is-info">
+        <section className="message is-info m-5">
             <div className="card-header">
             <h3 className="message-header">
                 <Link to={`/posts/${post.id}`}>

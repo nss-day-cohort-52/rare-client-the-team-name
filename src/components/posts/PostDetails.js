@@ -19,7 +19,7 @@ export const PostDetails = () => {
 
     return (
         <>
-            <section className="message">
+            <section className="message is-info">
                 <h3 className="message-header">{post.title}</h3>
                 <div className="message-body">
                 <h3 className="user_detail_link">
