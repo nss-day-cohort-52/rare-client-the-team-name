@@ -28,10 +28,9 @@ export const TagView = () => {
                 <button class="modal-close is-large" aria-label="close"></button>
             </div>
 
-
-            <h1 className="pl-4">Tags</h1>
-            <div className="columns pt-3 pl-4">
-                <Tags tags={tags} setTags={setTags} 
+            <h1 className="title is-1 pl-4">Tags</h1>
+            <div className="columns is-centered">
+            <Tags tags={tags} setTags={setTags} 
                     setTagToEdit={setTagToEdit} setModalIsOpen={setModalIsOpen}/>
                 <TagForm setTags={setTags} />
             </div>

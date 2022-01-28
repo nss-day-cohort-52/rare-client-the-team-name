@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { deleteTag } from "./TagManager"
 
-export const Tags = ({tags, setTags}) => {
+export const Tags = ({ tags, setTags }) => {
 
 
     return (
-        <ul className="allTags column">
+        <div className="column is-one-quarter">
             {
                 tags.sort((a, b) => {
                     if (a.label < b.label)
@@ -14,19 +14,23 @@ export const Tags = ({tags, setTags}) => {
                         return 1
                     return 0
                 }).map((tag) => {
-                    return <li key={tag.id}>
-
-                        <button onClick={() => { }}>Edit Task</button>
-                        <button onClick={() => { 
+                    return <div className="notification is-success p-3 has-text-weight-medium" key={tag.id}>
+                        <button className="delete" onClick={() => {
                             deleteTag(tag.id)
-                            .then(setTags)
-                        }}>Delete Task</button>
-
-                        {tag.label}
-
-                    </li>
+                                .then(setTags)
+                        }
+                        }>Delete</button>
+                        <div className="level-left">
+                            <div className="level-item">
+                                <button className="button m-1 mr-5" onClick={() => { }}>Edit</button>
+                                <div className="level-item px-5">
+                                    {tag.label}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 })
             }
-        </ul>
+        </div>
     )
 }
