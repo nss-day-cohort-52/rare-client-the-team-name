@@ -14,10 +14,10 @@ export const NavBar = ({ token, setToken }) => {
   }
 
   return (
-    <nav className="navbar is-success mb-3" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-success mb-3 py-2" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
-          <img src={Logo} height="3rem" /> <h1 className="title is-4">Rare Publishing</h1>
+          <img src={Logo} height="3rem" /> <h1 className="title is-4 ml-2">Rare Publishing</h1>
         </a>
 
         <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={showMobileNavbar} ref={hamburger}>
@@ -33,12 +33,12 @@ export const NavBar = ({ token, setToken }) => {
             token
               ?
               <>
-              <Link to="/posts" className="navbar-item">Posts</Link>
-              <Link to="/my-posts" className="navbar-item">My Posts</Link>
-              <Link to="/newpost" className="navbar-item">New Post</Link>
-              <Link to="/tags" className="navbar-item">Tag Management</Link>
-              <Link to="/categories" className="navbar-item">Category Management</Link>
-              <Link to="/users" className="navbar-item">User List</Link>
+              <Link to="/posts" className="navbar-item has-text-weight-semibold">Posts</Link>
+              <Link to="/my-posts" className="navbar-item has-text-weight-semibold">My Posts</Link>
+              <Link to="/newpost" className="navbar-item has-text-weight-semibold">New Post</Link>
+              <Link to="/tags" className="navbar-item has-text-weight-semibold">Tag Management</Link>
+              <Link to="/categories" className="navbar-item has-text-weight-semibold">Category Management</Link>
+              <Link to="/users" className="navbar-item has-text-weight-semibold">User List</Link>
               </>
               :
               ""
