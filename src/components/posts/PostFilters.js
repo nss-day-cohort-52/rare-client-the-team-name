@@ -42,10 +42,29 @@ export const PostFilters = ({ setPosts }) => {
 
     return (
         <>
-            <form>
-                <div className="selectGroup">
+            <div className="panel m-5">
+            <p className="panel-heading">Posts</p>
+            <div className="panel-block">
+                        <input className="input" type="text"
+                            placeholder="Search by Title..."
+                            name="search"
+                            onKeyUp={
+                                (event) => {
+                                    const copy = Object.assign({}, userChoices)
+                                    copy.categoryId = "0"
+                                    copy.authorId = "0"
+                                    copy.searchTerms = event.target.value
+                                    copy.tagId = "0"
+                                    setUserChoices(copy)
+                                }
+                            } />
+                    </div>
+                </div>
+                <form className="form m-5 level">
+                <div className="control m-3 level-item">
+                    
                     <label htmlFor="category"> Filter by category: </label>
-
+                    <div className="select ml-2">
                     <select name="category"
                         value={userChoices.categoryId}
                         onChange={(event) => {
@@ -65,12 +84,14 @@ export const PostFilters = ({ setPosts }) => {
                             </option>
                         ))}
                     </select>
+                    </div>
                 </div>
-            </form>
-            <form>
-                <div className="selectGroup">
+            
+         
+                <div className="control m-3 level-item">
+                    
                     <label htmlFor="author"> Filter by author: </label>
-
+                    <div className="select ml-2">
                     <select name="author"
                         value={userChoices.authorId}
                         onChange={(event) => {
@@ -90,27 +111,12 @@ export const PostFilters = ({ setPosts }) => {
                             </option>
                         ))}
                     </select>
-                    <div>
-                        <input type="text"
-                            placeholder="Search by Title..."
-                            name="search"
-                            onKeyUp={
-                                (event) => {
-                                    const copy = Object.assign({}, userChoices)
-                                    copy.categoryId = "0"
-                                    copy.authorId = "0"
-                                    copy.searchTerms = event.target.value
-                                    copy.tagId = "0"
-                                    setUserChoices(copy)
-                                }
-                            } />
-                    </div>
+                    </div> 
                 </div>
-            </form>
-            <form>
-                <div className="selectGroup">
+       
+                <div className="control m-3 level-item">
                     <label htmlFor="tag"> Filter by tag: </label>
-
+                    <div className="select ml-2">
                     <select name="tag"
                         value={userChoices.tagId}
                         onChange={(event) => {
@@ -129,8 +135,10 @@ export const PostFilters = ({ setPosts }) => {
                             </option>
                         ))}
                     </select>
+                    </div>
                 </div>
             </form>
+            
         </>
     )
 }

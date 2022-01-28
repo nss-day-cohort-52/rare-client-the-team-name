@@ -21,13 +21,9 @@ export const MyPosts = () => {
                     posts.map((post) => {
                         if (currentUserId === post.user_id) {
                             return (
-                                <div key={post.id}>
-                                    <Post post={post} />
-                                    <Link to={`/my-posts/editpost/${post.id}`}><button>Edit Post</button></Link>
-                                    <button onClick={() => {
-                                        deletePost(post.id)
-                                            .then(setPosts)
-                                    }}>Delete Post</button>
+                                <div className="card" key={post.id}>
+                                    <Post post={post} setPosts={setPosts}/>
+
                                 </div>
                             )
 

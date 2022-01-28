@@ -19,8 +19,9 @@ export const PostDetails = () => {
 
     return (
         <>
-            <section className="post">
-                <h3 className="post__title">{post.title}</h3>
+            <section className="message is-info">
+                <h3 className="message-header">{post.title}</h3>
+                <div className="message-body">
                 <h3 className="user_detail_link">
                     <Link to={`/users/${post.user?.id}`}>
                         {post.user?.first_name} {post.user?.last_name}
@@ -29,28 +30,30 @@ export const PostDetails = () => {
                 <div> In {post.category?.label} category </div>
                 <div> On {post.publication_date} </div>
                 <div> {post.content} </div>
-                <div> Tags:
-                    <ul>
+                <div > 
+                    
                         {
                             tagsForPost?.map((postTag) => {
-                                return <li key={postTag.id}>{postTag.tag.label}</li>
+                                return <span className="tag is-primary " key={postTag.id}>{postTag.tag.label}</span>
                             })
                         }
-                    </ul>
+                
                 </div>
                 <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
                 <div><Link to={`/commentCreate/${postId}`}>Add Comments</Link></div>
                 {
                     post.user_id === userId
                         ? <>
-                            <Link to={`/my-posts/editpost/${post.id}`}><button>Edit Post</button></Link>
-                            <button onClick={() => {
+                            <Link to={`/my-posts/editpost/${post.id}`}><button className="button">Edit Post</button></Link>
+                            <button className="button" onClick={() => {
                                 deletePost(post.id)
                                     .then(() => history.push('/my-posts'))
                             }}>Delete Post</button>
                         </>
                         : ""
                 }
+                </div>
+
             </section>
         </>
     )
