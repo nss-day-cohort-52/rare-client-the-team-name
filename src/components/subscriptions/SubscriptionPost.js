@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 export const SubscriptionPost = ({subscription}) => {
     return (
         <div className="container">
-            <section className="message is-info m-4">
+            <section className="message is-info m-4 has-text-white">
                 <div >
                     <Link className="message-header" to={`/posts/${subscription.post.id}`}>
                         { subscription.post.title }
