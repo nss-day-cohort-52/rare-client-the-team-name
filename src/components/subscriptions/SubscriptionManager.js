@@ -24,3 +24,8 @@ export const deleteSubscription = subId => {
         method: "DELETE"
     })
 };
+
+export const getSubsByAuthor = (authorId) => {
+    return fetch(`http://localhost:8088/subscriptions?author_id=${authorId}`)
+        .then(res => res.json())
+}

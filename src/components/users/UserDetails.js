@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useHistory } from 'react-router-dom'
-import { addSubscription, deleteSubscription, getSubsByFollower } from "../subscriptions/SubscriptionManager"
+import { addSubscription, deleteSubscription, getSubsByFollower, getSubsByAuthor } from "../subscriptions/SubscriptionManager"
 
 import { getSingleUser } from "./UserManager"
 
@@ -8,6 +8,7 @@ export const UserDetails = () => {
     const [user, setUser] = useState({})
     const [userSubscriptions, setUserSubscriptions] = useState([])
     const [subscriptionId, setSubscriptionId] = useState(0)
+    const [subscriberCount, setSubscriberCount] = useState([])
     const { userId } = useParams()
     const parsedId = parseInt(userId)
     const currentUserId = parseInt(localStorage.getItem('token'))
@@ -20,6 +21,10 @@ export const UserDetails = () => {
     useEffect(() => {
         getSubsByFollower(currentUserId).then(setUserSubscriptions)
     }, [currentUserId])
+
+    useEffect(() => {
+        getSubsByAuthor(parsedId).then(setSubscriberCount)
+    }, [parsedId])
 
     useEffect(() => {
         const foundSubscription = userSubscriptions.find(sub => sub.author_id === parsedId)
@@ -45,19 +50,21 @@ export const UserDetails = () => {
         if (user.id === currentUserId) {
             return ""
         } else if (subscriptionId === 0) {
-            return <button type="submit" onClick={() => newSubscription()} className="button mr-3 mt-3">
+            return <><button type="submit" onClick={() => newSubscription()} className="button mr-3 mt-3">
                 Subscribe
             </button>
+            <div>Subscribers: {subscriberCount.length}</div></>
         } else if (subscriptionId !== 0) {
-            return <button type="submit"
+            return <><button type="submit"
                 onClick={() => {
                     deleteSubscription(subscriptionId)
                         .then(() => getSubsByFollower(currentUserId))
                         .then(setUserSubscriptions)
+                        .then(()=>getSubsByAuthor(parsedId).then(setSubscriberCount))
                 }}
-                className="btn btn-primary">
+                className="button mr-3 mt-3">
                 Unsubscribe
-            </button>
+            </button><div>Subscribers: {subscriberCount.length}</div></>
         }
     }
 
