@@ -23,20 +23,22 @@ export const TagForm = ({ setTags }) => {
     }
 
     return (
+        <section className="column ml-6 is-one-third">
 
-        <div className="column">
-            <h3>New Tag</h3>
-            <input
+        <div className="notification is-success has-text-weight-medium m-4">
+            <h3 className="subtitle mb-2">Enter New Tag Here</h3>
+            <input className="box m-0"
                 id="tagEdit"
                 type="text"
                 onChange={(event) => {
                     setNewTagString(event.target.value)
                 }}
-            />
+                />
             <div>
-                <button onClick={() => constructTag()}>Submit</button>
+                <button className="button mt-2" onClick={() => constructTag()}>Submit</button>
             </div>
         </div>
+                </section>
 
     )
 }
