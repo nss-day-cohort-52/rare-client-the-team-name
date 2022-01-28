@@ -16,7 +16,7 @@ export const UserList = () => {
         []
     )
     return (
-        <div className="users">
+        <div className="columns is-centered">
             {
                 users.map(user => <User key={user.id} user={user} />)
             }

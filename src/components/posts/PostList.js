@@ -13,7 +13,7 @@ export const PostList = () => {
     return (
         <>
             <PostFilters setPosts={setPosts}/>
-            <div className="posts">
+            <div>
                 {
                     posts.map(post => <Post key={post.id} post={post} />)
                 }

@@ -45,15 +45,15 @@ export const UserDetails = () => {
         if (user.id === currentUserId) {
             return ""
         } else if (subscriptionId === 0) {
-            return <button type="submit" onClick={() => newSubscription()} className="btn btn-primary">
+            return <button type="submit" onClick={() => newSubscription()} className="button mr-3 mt-3">
                 Subscribe
             </button>
         } else if (subscriptionId !== 0) {
             return <button type="submit"
                 onClick={() => {
                     deleteSubscription(subscriptionId)
-                    .then(() => getSubsByFollower(currentUserId))
-                    .then(setUserSubscriptions)
+                        .then(() => getSubsByFollower(currentUserId))
+                        .then(setUserSubscriptions)
                 }}
                 className="btn btn-primary">
                 Unsubscribe
@@ -63,17 +63,25 @@ export const UserDetails = () => {
 
     return (
         <>
-            <div className="user-image">
-                <img src={user.profile_image_url} alt="user profile image" />
+            <div className="columns is-centered">
+
+                <div className="column is-one-third">
+                    <div className="card p-4 has-background-success is-flex">
+                        <div>
+
+                            <img src={user.profile_image_url} alt="user profile image" className="image is-128x128 mr-3" />
+                            {subscribeButton()}
+                        </div>
+                        <div className="content">
+                            <p className="title is-4">{user.first_name} {user.last_name}</p>
+                            <div> Email: {user.email}</div>
+                            <div> Bio: {user.bio} </div>
+                            <div>Created on: {user.created_on}</div>
+                            <div> Username: {user.username} </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <section className="user-detail">
-                <h3 className="user-name">{user.first_name} {user.last_name}</h3>
-                <div> Email: {user.email}</div>
-                <div> Bio: {user.bio} </div>
-                <div>Created on: {user.created_on}</div>
-                <div> Username: {user.username} </div>
-            </section>
-            {subscribeButton()}
         </>
     )
 }
