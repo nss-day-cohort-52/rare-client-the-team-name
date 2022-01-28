@@ -66,7 +66,7 @@ export const UserDetails = () => {
             <div className="columns is-centered">
 
                 <div className="column is-one-third">
-                    <div className="card p-4 has-background-primary is-flex">
+                    <div className="card p-4 has-background-success is-flex">
 
                         {/* <div className="card-image is-flex"> */}
                         {/* <figure className="image is-128x128"> */}
