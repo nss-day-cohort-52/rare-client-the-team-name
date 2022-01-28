@@ -67,18 +67,11 @@ export const UserDetails = () => {
 
                 <div className="column is-one-third">
                     <div className="card p-4 has-background-success is-flex">
-
-                        {/* <div className="card-image is-flex"> */}
-                        {/* <figure className="image is-128x128"> */}
                         <div>
 
                             <img src={user.profile_image_url} alt="user profile image" className="image is-128x128 mr-3" />
                             {subscribeButton()}
                         </div>
-                        {/* </figure> */}
-                        {/* </div> */}
-                        {/* <div className="media-content"> */}
-                        {/* </div> */}
                         <div className="content">
                             <p className="title is-4">{user.first_name} {user.last_name}</p>
                             <div> Email: {user.email}</div>
