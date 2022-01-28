@@ -45,7 +45,7 @@ export const UserDetails = () => {
         if (user.id === currentUserId) {
             return ""
         } else if (subscriptionId === 0) {
-            return <button type="submit" onClick={() => newSubscription()} className="button">
+            return <button type="submit" onClick={() => newSubscription()} className="button mr-3 mt-3">
                 Subscribe
             </button>
         } else if (subscriptionId !== 0) {
@@ -63,21 +63,30 @@ export const UserDetails = () => {
 
     return (
         <>
-            <div className="card is-one-third">
-                <div className="card-image">
-                    {/* <figure class="image is-4by3"> */}
-                        <img src={user.profile_image_url} alt="user profile image" />
-                    {/* </figure> */}
-                </div>
-                <div className="media-content">
-                    <p className="title is-4">{user.first_name} {user.last_name}</p>
-                </div>
-                <div className="content">
-                    <div> Email: {user.email}</div>
-                    <div> Bio: {user.bio} </div>
-                    <div>Created on: {user.created_on}</div>
-                    <div> Username: {user.username} </div>
-                    {subscribeButton()}
+            <div className="columns is-centered">
+
+                <div className="column is-one-third">
+                    <div className="card p-4 has-background-primary is-flex">
+
+                        {/* <div className="card-image is-flex"> */}
+                        {/* <figure className="image is-128x128"> */}
+                        <div>
+
+                            <img src={user.profile_image_url} alt="user profile image" className="image is-128x128 mr-3" />
+                            {subscribeButton()}
+                        </div>
+                        {/* </figure> */}
+                        {/* </div> */}
+                        {/* <div className="media-content"> */}
+                        {/* </div> */}
+                        <div className="content">
+                            <p className="title is-4">{user.first_name} {user.last_name}</p>
+                            <div> Email: {user.email}</div>
+                            <div> Bio: {user.bio} </div>
+                            <div>Created on: {user.created_on}</div>
+                            <div> Username: {user.username} </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
