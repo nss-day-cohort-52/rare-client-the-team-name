@@ -24,9 +24,9 @@ export const TagForm = ({ setTags }) => {
 
     return (
 
-        <div className="column">
-            <h3>New Tag</h3>
-            <input
+        <div className="notification is-primary m-4">
+            <h3>Enter New Tag Here</h3>
+            <input className="box"
                 id="tagEdit"
                 type="text"
                 onChange={(event) => {
@@ -34,7 +34,7 @@ export const TagForm = ({ setTags }) => {
                 }}
             />
             <div>
-                <button onClick={() => constructTag()}>Submit</button>
+                <button className="button is-info" onClick={() => constructTag()}>Submit</button>
             </div>
         </div>
 

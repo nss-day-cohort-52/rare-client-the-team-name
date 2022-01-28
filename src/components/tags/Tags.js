@@ -12,12 +12,14 @@ export const Tags = ({tags}) => {
                         return 1
                     return 0
                 }).map((tag) => {
-                    return <li key={tag.id}>
+                    return <li className="notification is-primary p-3" key={tag.id}>
 
-                        <button onClick={() => { }}>Edit Task</button>
-                        <button onClick={() => { }}>Delete Task</button>
+                        <button className="button is-info m-1" onClick={() => { }}>Edit Task</button>
+                        <button className="button is-info m-1" onClick={() => { }}>Delete</button>
 
-                        {tag.label}
+                        <span className="">
+                            {tag.label}
+                            </span>
 
                     </li>
                 })

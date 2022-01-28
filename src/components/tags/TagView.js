@@ -14,7 +14,7 @@ export const TagView = () => {
 
     return (
         <>
-            <h1 className="pl-4">Tags</h1>
+            <h1 className="title is-1 pl-4">Tags</h1>
             <div className="columns pt-3 pl-4">
                 <Tags tags={tags} />
                 <TagForm setTags={setTags} />
