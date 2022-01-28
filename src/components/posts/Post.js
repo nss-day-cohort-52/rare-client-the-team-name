@@ -11,15 +11,15 @@ export default ({ post, setPosts }) => {
     }, [post])
 
     return (
-        <section className="card">
+        <section className="message is-info">
             <div className="card-header">
-            <h3 className="card-header-title">
+            <h3 className="message-header">
                 <Link to={`/posts/${post.id}`}>
                     {post.title}
                 </Link>
             </h3>
             </div>
-            <section className="card-content">
+            <section className="message-body">
             <div> By: {post.user.first_name} {post.user.last_name} </div>
             <div> In {post.category.label} category </div>
             <div> On {post.publication_date} </div>

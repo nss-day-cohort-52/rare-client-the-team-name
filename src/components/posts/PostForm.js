@@ -72,7 +72,7 @@ export const PostForm = () => {
             <form>
                 <div>
                     <label>Title </label>
-                    <input
+                    <input className="input"
                         type="text"
                         placeholder="Title"
                         onChange={
@@ -85,7 +85,7 @@ export const PostForm = () => {
                 </div>
                 <div>
                     <label>Image URL </label>
-                    <input
+                    <input className="input"
                         type="text"
                         placeholder="Image URL" onChange={
                             (evt) => {
@@ -97,7 +97,7 @@ export const PostForm = () => {
                 </div>
                 <div>
                     <label>Article Content </label>
-                    <input
+                    <input className="input"
                         type="text"
                         placeholder="Content" onChange={
                             (evt) => {
@@ -107,7 +107,7 @@ export const PostForm = () => {
                             }
                         } />
                 </div>
-                <div>
+                <div className="select">
                     <select
                         onChange={
                             (evt) => {
@@ -128,7 +128,7 @@ export const PostForm = () => {
                     {
                         tags.map(
                             (tag) => {
-                                return <p key={`tag--${tag.id}`}>
+                                return <label className="checkbox" key={`tag--${tag.id}`}>
                                     <input type="checkbox" name="tag" value={tag.id} onChange={
                                         (evt) => {
                                             const copy = { ...post }
@@ -137,13 +137,13 @@ export const PostForm = () => {
                                                 : copy.tagIds.add(parseInt(evt.target.value))
                                             setPost(copy)
                                         }} />
-                                    {tag.label}</p>
+                                    {tag.label}</label>
                             }
                         )
                     }
                 </div>
                 <div>
-                    <button onClick={submitNewPost}>Submit</button>
+                    <button className="button m-3" onClick={submitNewPost}>Submit</button>
                 </div>
             </form>
 
