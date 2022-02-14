@@ -20,7 +20,7 @@ export const EditPostForm = () => {
     const [newTagIds, setTagIds] = useState(new Set())
 
     const history = useHistory()
-    const currentUserId = parseInt(localStorage.getItem('token'))
+    const currentUserId = parseInt(localStorage.getItem('rare_token'))
     const { postId } = useParams()
     const parsedId = parseInt(postId)
 

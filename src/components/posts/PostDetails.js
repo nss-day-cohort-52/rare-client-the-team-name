@@ -9,7 +9,7 @@ export const PostDetails = () => {
     const { postId } = useParams()
     const parsedId = parseInt(postId)
     const [tagsForPost, setTagsForPost] = useState([])
-    const userId = parseInt(localStorage.getItem("token"))
+    const userId = parseInt(localStorage.getItem("rare_token"))
     const history = useHistory()
 
     useEffect(() => {

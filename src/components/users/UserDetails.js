@@ -10,7 +10,7 @@ export const UserDetails = () => {
     const [subscriptionId, setSubscriptionId] = useState(0)
     const { userId } = useParams()
     const parsedId = parseInt(userId)
-    const currentUserId = parseInt(localStorage.getItem('token'))
+    const currentUserId = parseInt(localStorage.getItem('rare_token'))
     const history = useHistory()
 
     useEffect(() => {

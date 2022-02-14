@@ -11,7 +11,7 @@ export const CommentList = () => {
     const [post, setPost] = useState([])
     const { postId } = useParams()
     const parsedId = parseInt(postId)
-    const currentUser = parseInt(localStorage.getItem("token"))
+    const currentUser = parseInt(localStorage.getItem("rare_token"))
 
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)

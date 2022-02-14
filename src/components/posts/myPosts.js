@@ -4,7 +4,7 @@ import { deletePost, getPosts } from "./PostManager"
 import Post from "./Post"
 
 export const MyPosts = () => {
-    const currentUserId = parseInt(localStorage.getItem('token'))
+    const currentUserId = parseInt(localStorage.getItem('rare_token'))
     const [posts, setPosts] = useState([])
 
 
