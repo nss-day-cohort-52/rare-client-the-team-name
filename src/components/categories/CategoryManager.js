@@ -33,6 +33,10 @@ export const updateCategory = (category, id) => {
 
 export const deleteCategory = categoryId => {
     return fetch(`http://localhost:8000/categories/${categoryId}`, {
-        method: "DELETE"
-    }).then(getCategories)
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+    
 };
