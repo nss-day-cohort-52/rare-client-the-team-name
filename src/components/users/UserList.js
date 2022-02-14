@@ -8,17 +8,14 @@ export const UserList = () => {
 
     useEffect(
         () => {
-            getUsers()
-                .then((data) => {
-                    setUsers(data)
-                })
+            getUsers().then(setUsers)
         },
         []
     )
     return (
         <div className="columns is-centered is-multiline">
             {
-                users.map(user => <User key={user.id} user={user} />)
+                users.map(user => <User key={user.id} rareUser={user} />)
             }
         </div>
     )
