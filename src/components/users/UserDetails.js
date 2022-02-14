@@ -2,33 +2,34 @@ import React, { useState, useEffect } from "react"
 import { useParams, useHistory } from 'react-router-dom'
 import { addSubscription, deleteSubscription, getSubsByFollower } from "../subscriptions/SubscriptionManager"
 
-import { getSingleUser } from "./UserManager"
+import { getCurrentUser, getSingleUser } from "./UserManager"
 
 export const UserDetails = () => {
-    const [user, setUser] = useState({})
+    const [rareUser, setUser] = useState({})
     const [userSubscriptions, setUserSubscriptions] = useState([])
     const [subscriptionId, setSubscriptionId] = useState(0)
+    const [currentUser, setCurrentUser] = useState({})
     const { userId } = useParams()
     const parsedId = parseInt(userId)
-    const currentUserId = parseInt(localStorage.getItem('rare_token'))
     const history = useHistory()
 
     useEffect(() => {
         getSingleUser(parsedId).then(setUser)
+        getCurrentUser().then(setCurrentUser)
     }, [parsedId])
 
-    useEffect(() => {
-        getSubsByFollower(currentUserId).then(setUserSubscriptions)
-    }, [currentUserId])
+    // useEffect(() => {
+    //     getSubsByFollower(currentUserId).then(setUserSubscriptions)
+    // }, [currentUserId])
 
-    useEffect(() => {
-        const foundSubscription = userSubscriptions.find(sub => sub.author_id === parsedId)
-        if (foundSubscription) {
-            setSubscriptionId(foundSubscription.id)
-        } else {
-            setSubscriptionId(0)
-        }
-    }, [userSubscriptions])
+    // useEffect(() => {
+    //     const foundSubscription = userSubscriptions.find(sub => sub.author_id === parsedId)
+    //     if (foundSubscription) {
+    //         setSubscriptionId(foundSubscription.id)
+    //     } else {
+    //         setSubscriptionId(0)
+    //     }
+    // }, [userSubscriptions])
 
 
     const newSubscription = () => {
@@ -42,7 +43,7 @@ export const UserDetails = () => {
     }
 
     const subscribeButton = () => {
-        if (user.id === currentUserId) {
+        if (user.id === currentUser.id) {
             return ""
         } else if (subscriptionId === 0) {
             return <button type="submit" onClick={() => newSubscription()} className="button mr-3 mt-3">
@@ -52,7 +53,7 @@ export const UserDetails = () => {
             return <button type="submit"
                 onClick={() => {
                     deleteSubscription(subscriptionId)
-                        .then(() => getSubsByFollower(currentUserId))
+                        .then(() => getSubsByFollower(currentUser.id))
                         .then(setUserSubscriptions)
                 }}
                 className="btn btn-primary">
@@ -69,15 +70,15 @@ export const UserDetails = () => {
                     <div className="card p-4 has-background-success is-flex">
                         <div>
 
-                            <img src={user.profile_image_url} alt="user profile image" className="image is-128x128 mr-3" />
+                            <img src={rareUser.profile_image_url} alt="user profile image" className="image is-128x128 mr-3" />
                             {subscribeButton()}
                         </div>
                         <div className="content">
-                            <p className="title is-4">{user.first_name} {user.last_name}</p>
-                            <div> Email: {user.email}</div>
-                            <div> Bio: {user.bio} </div>
-                            <div>Created on: {user.created_on}</div>
-                            <div> Username: {user.username} </div>
+                            <p className="title is-4">{rareUser.user.first_name} {rareUser.user.last_name}</p>
+                            <div> Email: {rareUser.user.email}</div>
+                            <div> Bio: {rareUser.bio} </div>
+                            <div>Created on: {rareUser.user.date_joined}</div>
+                            <div> Username: {rareUser.user.username} </div>
                         </div>
                     </div>
                 </div>
