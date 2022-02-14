@@ -20,7 +20,7 @@ export default ({ post, setPosts }) => {
             </h3>
             </div>
             <section className="message-body">
-            <div> By: {post.user.first_name} {post.user.last_name} </div>
+            <div> By: {post.user?.user?.first_name} {post.user?.user?.last_name} </div>
             <div> In {post.category.label} category </div>
             <div> On {post.publication_date} </div>
             <div> 
