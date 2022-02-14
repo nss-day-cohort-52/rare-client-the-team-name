@@ -6,35 +6,30 @@ import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import 'bulma/css/bulma.min.css'
 
-export const Rare = () => {
-  const [token, setTokenState] = useState(localStorage.getItem('token'))
+export const Rare = () => (
+  <>
+    <Route render={() => {
+      if (localStorage.getItem("rare_token")) {
+        return <>
+          <Route>
+            <NavBar />
+            <ApplicationViews />
+          </Route>
+        </>
+      } else {
+        return <Redirect to="/login" />
+      }
+    }} />
 
-  const setToken = (newToken) => {
-    localStorage.setItem('token', newToken)
-    setTokenState(newToken)
-  }
-
-  return <>
-    {
-      token
-        ?
-        <Route>
-          <NavBar token={token} setToken={setToken} />
-          <ApplicationViews />
-        </Route>
-        :
-        <Redirect to="/login" />
-    }
-
-    <Route exact path="/login" >
-      <NavBar token={token} setToken={setToken} />
-      <Login token={token} setToken={setToken} />
+    <Route path="/login">
+      <NavBar />
+      <Login />
     </Route>
 
-    <Route path="/register" exact>
-      <NavBar token={token} setToken={setToken} />
-      <Register token={token} setToken={setToken} />
+    <Route path="/register">
+      <NavBar />
+      <Register />
     </Route>
 
   </>
-}
+)

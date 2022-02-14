@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom"
 import "./NavBar.css"
 import Logo from "./rare.jpeg"
 
-export const NavBar = ({ token, setToken }) => {
+export const NavBar = () => {
   const history = useHistory()
   const navbar = useRef()
   const hamburger = useRef()
@@ -30,7 +30,7 @@ export const NavBar = ({ token, setToken }) => {
       <div className="navbar-menu" ref={navbar}>
         <div className="navbar-start">
           {
-            token
+            localStorage.getItem('rare_token')
               ?
               <>
               <Link to="/posts" className="navbar-item has-text-weight-semibold">Posts</Link>
@@ -49,10 +49,10 @@ export const NavBar = ({ token, setToken }) => {
           <div className="navbar-item">
             <div className="buttons">
               {
-                token
+                localStorage.getItem('rare_token')
                   ?
                   <button className="button is-outlined" onClick={() => {
-                    setToken('')
+                    localStorage.removeItem('rare_token')
                     history.push('/login')
                   }}>Logout</button>
                   :

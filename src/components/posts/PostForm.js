@@ -50,7 +50,7 @@ export const PostForm = () => {
         evt.preventDefault()
         const date = new Date()
         const newPost = {
-            user_id: parseInt(localStorage.getItem("token")),
+            user_id: parseInt(localStorage.getItem("rare_token")),
             category_id: parseInt(post.categoryId),
             title: post.title,
             publication_date: date.toDateString(),

@@ -5,7 +5,7 @@ import { SubscriptionPost } from "./SubscriptionPost"
 
 export const SubscriptionList = () => {
     const [ subscriptions, setSubscriptions ] = useState([])
-    const currentUserId = parseInt(localStorage.getItem('token'))
+    const currentUserId = parseInt(localStorage.getItem('rare_token'))
 
     useEffect(()=> {
         getSubsByFollower(currentUserId).then(p => setSubscriptions(p))

@@ -9,7 +9,7 @@ export const NewCommentForm = () => {
     const history = useHistory()
     const { postId } = useParams()
     const parsedId = parseInt(postId)
-    const currentUserId = parseInt(localStorage.getItem('token'))
+    const currentUserId = parseInt(localStorage.getItem('rare_token'))
     const [newComment, setNewComment] = useState({
         author_id: currentUserId,
         post_id: parsedId,
