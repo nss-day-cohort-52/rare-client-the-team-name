@@ -82,3 +82,12 @@ export const getPostsByTag = (tagId) => {
     })
         .then(res => res.json())
 }
+
+export const getSubscribedPosts= () => {
+    return fetch(`http://localhost:8000/posts/subscribed`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+        .then(res => res.json())
+}
