@@ -36,14 +36,14 @@ export const CommentList = () => {
             <div className="columns is-multiline">
                 {
                     comments.map((comment) => {
-                            return <div className="column is-one-third">
+                            return <div key={comment.id} className="column is-one-third">
                                 <article className="message is-link">
                                     <div className="message-header">
                                         Author: {comment.author.user.username}
                                         {
                                             comment.author.user.id === currentUser.id
                                                 ? <>
-                                                    <button class="delete" onClick={() => deleteComments(comment.id).then(setComments)}></button>
+                                                    <button className="delete" onClick={() => deleteComments(comment.id).then(setComments)}></button>
                                                     <Link to={`/editcomments/${comment.id}`}><button>edit</button></Link>
                                                 </>
                                                 : ""
