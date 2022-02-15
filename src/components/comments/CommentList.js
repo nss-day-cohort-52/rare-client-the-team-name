@@ -4,6 +4,7 @@ import { getComments, deleteComments } from "./CommentsManager"
 import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 import { NewCommentForm } from "./NewCommentForm"
 import { Link } from "react-router-dom"
+import { getCurrentUser } from "../users/UserManager"
 
 
 export const CommentList = () => {
@@ -11,12 +12,16 @@ export const CommentList = () => {
     const [post, setPost] = useState([])
     const { postId } = useParams()
     const parsedId = parseInt(postId)
-    const currentUser = parseInt(localStorage.getItem("rare_token"))
+    const [currentUser, setCurrentUser] = useState({})
 
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)
         getComments().then(setComments)
     }, [parsedId])
+
+    useEffect(() => {
+        getCurrentUser().then(setCurrentUser)
+    }, [])
 
     return (
         <div className="container p-6">
@@ -24,22 +29,33 @@ export const CommentList = () => {
             <div className="is-flex is-justify-content-center mb-5">
                 <Link to={`/commentCreate/${post.id}`} className="button is-success is-outlined has-text-weight-bold">Add New Comment</Link>
             </div>
+            <div className="is-flex is-justify-content-center mb-5">
+                <Link to={`/posts/${post.id}`} className="button is-success is-outlined has-text-weight-bold">Back to Post</Link>
+            </div>
             <div className="columns is-multiline">
                 {
                     comments.map((comment) => {
-                        if (comment.post_id === parsedId) {
+                        if (comment.author.user.id === parsedId) {
                             return <div className="column is-one-third">
                                 <article className="message is-link">
                                     <div className="message-header">
-                                        {comment.user.username}
+                                        Author: {comment.author.user.username}
                                         {
-                                            comment.author_id === currentUser
+                                            comment.author.user.id === currentUser.id
                                                 ? <button class="delete" onClick={() => deleteComments(comment.id).then(setComments)}></button>
                                                 : ""
                                         }
                                     </div>
                                     <div className="message-body">
-                                        {comment.content}
+                                        <div>
+                                        Comment: {comment.content}
+                                        </div>
+                                        <div>
+                                        Date: {comment.created_on}
+                                        </div>
+                                        <div>
+                                        Category: {comment.post.category.label}
+                                        </div>
                                     </div>
                                 </article>
                             </div>
