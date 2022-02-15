@@ -15,8 +15,13 @@ export const CommentList = () => {
 
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)
-        getComments().then(setComments)
     }, [parsedId])
+
+    useEffect(() => {
+        getComments().then(setComments)
+    }, [])
+
+    console.log(comments)
 
     return (
         <div className="container p-6">
