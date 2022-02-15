@@ -10,9 +10,11 @@ export const NewCommentForm = () => {
     const { postId } = useParams()
     const parsedId = parseInt(postId)
     const currentUserId = parseInt(localStorage.getItem('rare_token'))
+    const date = new Date()
     const [newComment, setNewComment] = useState({
-        author_id: currentUserId,
-        post_id: parsedId,
+        // author_id: currentUserId,
+        post: parsedId,
+        created_on: date.toISOString().split('T')[0],
         content: ""
     })
 

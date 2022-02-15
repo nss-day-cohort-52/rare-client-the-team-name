@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getSinglePost } from "../posts/PostManager"
 import { getComments, deleteComments } from "./CommentsManager"
-import { useParams } from "react-router-dom/cjs/react-router-dom.min"
+import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { NewCommentForm } from "./NewCommentForm"
 import { Link } from "react-router-dom"
 import { getCurrentUser } from "../users/UserManager"
@@ -13,6 +13,7 @@ export const CommentList = () => {
     const { postId } = useParams()
     const parsedId = parseInt(postId)
     const [currentUser, setCurrentUser] = useState({})
+    const history = useHistory()
 
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)
@@ -42,19 +43,22 @@ export const CommentList = () => {
                                         Author: {comment.author.user.username}
                                         {
                                             comment.author.user.id === currentUser.id
-                                                ? <button class="delete" onClick={() => deleteComments(comment.id).then(setComments)}></button>
+                                                ? <>
+                                                    <button class="delete" onClick={() => deleteComments(comment.id).then(setComments)}></button>
+                                                    <Link to={`/editcomments/${comment.id}`}><button>edit</button></Link>
+                                                </>
                                                 : ""
                                         }
                                     </div>
                                     <div className="message-body">
                                         <div>
-                                        Comment: {comment.content}
+                                            Comment: {comment.content}
                                         </div>
                                         <div>
-                                        Date: {comment.created_on}
+                                            Date: {comment.created_on}
                                         </div>
                                         <div>
-                                        Category: {comment.post.category.label}
+                                            Category: {comment.post.category.label}
                                         </div>
                                     </div>
                                 </article>
