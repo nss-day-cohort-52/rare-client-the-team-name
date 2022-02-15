@@ -11,15 +11,15 @@ import { UserList } from "./users/UserList"
 import { UserDetails } from "./users/UserDetails"
 import { CommentList } from "./comments/CommentList"
 import { EditPostForm } from "./posts/EditPostForm"
-import { SubscriptionList } from "./subscriptions/SubscriptionView"
 import { NewCommentForm } from "./comments/NewCommentForm"
+import { SubscribedPostList } from "./posts/SubscribedPostList"
 import { UpdateCommentForm } from "./comments/UpdateCommentForm"
 
 export const ApplicationViews = () => {
   return (
     <>
       <Route exact path="/">
-        <SubscriptionList />
+        <SubscribedPostList />
       </Route>
       <Route exact path="/posts">
         <PostList />
