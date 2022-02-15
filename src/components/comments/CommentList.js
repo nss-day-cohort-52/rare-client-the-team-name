@@ -19,7 +19,7 @@ export const CommentList = () => {
         getSinglePost(parsedId).then(setPost)
         getComments().then(setComments)
     }, [parsedId])
-
+    
     useEffect(() => {
         getCurrentUser().then(setCurrentUser)
     }, [])
@@ -36,7 +36,6 @@ export const CommentList = () => {
             <div className="columns is-multiline">
                 {
                     comments.map((comment) => {
-                        if (comment.author.user.id === parsedId) {
                             return <div className="column is-one-third">
                                 <article className="message is-link">
                                     <div className="message-header">
@@ -63,7 +62,6 @@ export const CommentList = () => {
                                     </div>
                                 </article>
                             </div>
-                        }
                     })
                 }
             </div>

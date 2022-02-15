@@ -27,7 +27,7 @@ export const createComment = (newComment) => {
             body: JSON.stringify(newComment)
         }
         return fetch(`http://localhost:8000/comments`, fetchOptions)
-            .then(res => res.json())
+            .then(getComments)
     
 }
 

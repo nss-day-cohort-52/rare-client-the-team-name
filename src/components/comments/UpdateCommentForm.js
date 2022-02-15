@@ -9,7 +9,7 @@ export const UpdateCommentForm = () => {
     const history = useHistory()
     const { commentId } = useParams()
     const parsedCommentId = parseInt(commentId)
-    const [comment, setComment] =useState({})
+    const [comment, setComment] = useState({})
     const date = new Date()
     const [content, setNewContent] = useState("")
 
@@ -24,7 +24,7 @@ export const UpdateCommentForm = () => {
             created_on: comment.created_on,
             content: content
         }
-        updateComment(submitEdit)
+        updateComment(submitEdit, parsedCommentId)
             .then(() => {
                 history.push(`/comments/${comment.post?.id}`)
             })
@@ -45,8 +45,8 @@ export const UpdateCommentForm = () => {
                         defaultValue={comment.content}
                         onChange={
                             (evt) => {
-                                const copy = { ...newContent }
-                                copy.content = evt.target.value
+                                let copy = { ...content }
+                                copy = evt.target.value
                                 setNewContent(copy)
                             }}
                         required autoFocus
@@ -54,7 +54,7 @@ export const UpdateCommentForm = () => {
                 </div>
             </div>
             <button type="button" className="button is-link" onClick={submitEditedComment}>
-                Submit
+                Save
             </button>
             <Link to={`/comments/${comment.post?.id}`}><button type="button" className="button is-link">
                 Cancel
