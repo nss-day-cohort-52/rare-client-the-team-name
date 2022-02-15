@@ -47,7 +47,7 @@ export const PostForm = () => {
         }
 
         createPost(newPost)
-            .then(history.push("/posts"))
+            .then(() => {history.push("/posts")})
             
     }
 
