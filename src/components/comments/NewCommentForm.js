@@ -9,10 +9,10 @@ export const NewCommentForm = () => {
     const history = useHistory()
     const { postId } = useParams()
     const parsedId = parseInt(postId)
-    const currentUserId = parseInt(localStorage.getItem('rare_token'))
+    const date = new Date()
     const [newComment, setNewComment] = useState({
-        author_id: currentUserId,
-        post_id: parsedId,
+        post: parsedId,
+        created_on: date.toISOString().split('T')[0],
         content: ""
     })
 
@@ -46,7 +46,7 @@ export const NewCommentForm = () => {
                 </div>
             </div>
             <button type="button" className="button is-link" onClick={submitNewComment}>
-                Submit
+                Save
             </button>
         </div>
 
