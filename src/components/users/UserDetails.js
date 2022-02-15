@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { useParams, useHistory } from 'react-router-dom'
-import { addSubscription, deleteSubscription, getSubsByFollower } from "../subscriptions/SubscriptionManager"
-
-import { getCurrentUser, getSingleUser, subscribe } from "./UserManager"
+import { useParams } from 'react-router-dom'
+import { getCurrentUser, getSingleUser, subscribe, unsubscribe } from "./UserManager"
 
 export const UserDetails = () => {
     const [author, setAuthor] = useState({})
     const [isSubscribed, setIsSubscribed] = useState(false)
     const [currentUser, setCurrentUser] = useState({})
     const { userId } = useParams()
-    const history = useHistory()
 
     useEffect(() => {
         getSingleUser(userId).then(setAuthor)
@@ -17,7 +14,7 @@ export const UserDetails = () => {
     }, [userId])
 
     useEffect(() => {
-        const foundSubscription = currentUser.following.find(userId => author.id === userId)
+        const foundSubscription = currentUser.following?.find(userId => author.id === userId)
         if (foundSubscription) {
             setIsSubscribed(true)
         } else {
@@ -31,16 +28,19 @@ export const UserDetails = () => {
             return ""
         } else if (isSubscribed === false) {
             return <button type="submit" onClick={() => {
-                subscribe(author.id)}
+                subscribe(author.id)
+                    .then(getCurrentUser).then(setCurrentUser)
+                    .then(() => getSingleUser(userId).then(setAuthor))
+            }
                 } className="button mr-3 mt-3">
                 Subscribe
             </button>
         } else if (isSubscribed === true) {
             return <button type="submit"
                 onClick={() => {
-                    deleteSubscription(subscriptionId)
-                        .then(() => getSubsByFollower(currentUser.id))
-                        .then(setUserSubscriptions)
+                    unsubscribe(author.id)
+                    .then(getCurrentUser).then(setCurrentUser)
+                    .then(() => getSingleUser(userId).then(setAuthor))
                 }}
                 className="btn btn-primary">
                 Unsubscribe
@@ -57,7 +57,8 @@ export const UserDetails = () => {
                         <div>
 
                             <img src={author.profile_image_url} alt="user profile image" className="image is-128x128 mr-3" />
-                            {/* {subscribeButton()} */}
+                            {subscribeButton()}
+                            <div> Subscriber Count: {author.followers?.length} </div>
                         </div>
                         <div className="content">
                             <p className="title is-4">{author.user?.first_name} {author.user?.last_name}</p>
