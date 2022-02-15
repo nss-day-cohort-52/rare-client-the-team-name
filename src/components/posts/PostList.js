@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { getPosts, searchPostsByTitle } from "./PostManager"
+import { getPosts } from "./PostManager"
 import Post from "./Post"
 import { PostFilters } from "./PostFilters"
 
@@ -15,7 +15,7 @@ export const PostList = () => {
             <PostFilters setPosts={setPosts}/>
             <div>
                 {
-                    posts.map(post => <Post key={post.id} post={post} />)
+                    posts.map(post => <Post key={post.id} post={post} setPost={setPosts} />)
                 }
             </div>
         </>
