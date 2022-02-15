@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 import { deletePost } from "./PostManager"
 
-export default ({ post, setPosts }) => {
-    // const [tagsForPost, setTagsForPost] = useState([])
-
-    // useEffect(() => {
-    //     getCertainPostTags(post.id).then(setTagsForPost)
-    // }, [post])
+export default ({ post, setPost }) => {
 
     return (
         <section className="message is-info m-5">
@@ -23,19 +17,10 @@ export default ({ post, setPosts }) => {
             <div> By: {post.user?.user?.first_name} {post.user?.user?.last_name} </div>
             <div> In {post.category.label} category </div>
             <div>Tagged {post.tags?.map(t => t.label)}</div>
-            {/* <div> 
-                
-                    {
-                        tagsForPost?.map((postTag) => {
-                            return <span className="tag is-primary is-medium mr-3 my-3" key={postTag.id}>{postTag.tag.label}</span>
-                        })
-                    }
-              
-            </div> */}
             <Link to={`/my-posts/editpost/${post.id}`}><button className="button mr-3 my-3">Edit Post</button></Link>
                                     <button className="button mr-3 my-3" onClick={() => {
                                         deletePost(post.id)
-                                            .then(setPosts)
+                                            .then(setPost)
                                     }}>Delete Post</button>
             <Link to={`/commentCreate/${post.id}`}><button className="button mr-3 my-3">New Comment?</button></Link>
             </section>

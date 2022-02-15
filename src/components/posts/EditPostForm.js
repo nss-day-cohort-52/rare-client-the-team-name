@@ -4,23 +4,24 @@ import { useParams } from "react-router-dom"
 import { getCategories } from "../categories/CategoryManager"
 import { getTags } from "../tags/TagManager"
 import { getSinglePost, updatePost } from "./PostManager"
-import { createPostTag, deletePostTag, getCertainPostTags } from "./PostTagManager"
+
 
 
 export const EditPostForm = () => {
-    const [post, setPost] = useState({})
+    const [post, setPost] = useState({
+        user: 0,
+        category: 0,
+        title: "",
+        publication_date: "",
+        image_url: "",
+        content: "",
+        approved: true,
+        tags: new Set()
+    })
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
-    const [postTags, setPostTags] = useState([])
-
-    const [newCategoryId, setCategoryId] = useState(0)
-    const [newTitle, setTitle] = useState("")
-    const [newImageURL, setImageURL] = useState("")
-    const [newContent, setContent] = useState("")
-    const [newTagIds, setTagIds] = useState(new Set())
 
     const history = useHistory()
-    const currentUserId = parseInt(localStorage.getItem('rare_token'))
     const { postId } = useParams()
     const parsedId = parseInt(postId)
 
@@ -30,59 +31,37 @@ export const EditPostForm = () => {
     }, [])
 
     useEffect(() => {
-        getSinglePost(parsedId).then(setPost)
-        getCertainPostTags(parsedId).then(setPostTags)
-    }, [parsedId])
+        getSinglePost(parsedId).then((newPost) => {
+            setPost({
+                user: parseInt(localStorage.getItem("rare_token")),
+                category: newPost.category.id,
+                title: newPost.title,
+                publication_date: newPost.publication_date,
+                image_url: newPost.image_url,
+                content: newPost.content,
+                approved: true,
+                tags: new Set(newPost.tags.map(tag => tag.id))
+            })
+        })
 
-    useEffect(() => {
-        setCategoryId(post.category_id)
-        setTitle(post.title)
-        setImageURL(post.image_url)
-        setContent(post.content)
-        let idSet = new Set()
-        for (const postTag of postTags) {
-            idSet.add(postTag.tag_id)
-        }
-        setTagIds(idSet)
-    }, [post, postTags])
+    }, [parsedId])
 
     const updatePostInfo = () => {
         const date = new Date()
 
         const updatedPost = {
-            user_id: currentUserId,
-            category_id: newCategoryId,
-            title: newTitle,
+            user: post.user,
+            category: post.category,
+            title: post.title,
             publication_date: date.toDateString(),
-            image_url: newImageURL,
-            content: newContent,
-            approved: null
+            image_url: post.image_url,
+            content: post.content,
+            approved: post.approved,
+            tags: Array.from(post.tags)
         }
 
         updatePost(updatedPost, parsedId)
-            .then(submitNewPostTag())
-    }
-
-    const submitNewPostTag = () => {
-        const deletePostTagsPromises = []
-        const addPostTagsPromises = []
-
-        for (const postTag of postTags) {
-            deletePostTagsPromises.push(deletePostTag(postTag.id))
-        }
-
-        for (const tagId of newTagIds) {
-            addPostTagsPromises.push(createPostTag({
-                tag_id: tagId,
-                post_id: parsedId
-            }))
-        }
-
-        Promise.all(deletePostTagsPromises)
-            .then(() => Promise.all(addPostTagsPromises))
-            .then(() => {
-                history.push(`/posts/${parsedId}`)
-            })
+        history.push("/posts")
     }
 
     return (
@@ -95,10 +74,14 @@ export const EditPostForm = () => {
                         <input
                             placeholder="Title"
                             className="input"
-                            onChange={event => setTitle(event.target.value)}
+                            onChange={(evt) => {
+                                const copy = { ...post }
+                                copy.title = evt.target.value
+                                setPost(copy)
+                            }}
                             type="text"
                             required autoFocus
-                            value={newTitle}
+                            value={post.title}
                         />
                     </div>
                 </div>
@@ -108,9 +91,13 @@ export const EditPostForm = () => {
                         <input
                             placeholder="Image URL"
                             className="input"
-                            onChange={event => setImageURL(event.target.value)}
+                            onChange={(evt) => {
+                                const copy = { ...post }
+                                copy.image_url = evt.target.value
+                                setPost(copy)
+                            }}
                             type="text"
-                            value={newImageURL}
+                            value={post.image_url}
                         />
                     </div>
                 </div>
@@ -120,8 +107,12 @@ export const EditPostForm = () => {
                         <textarea
                             className="textarea"
                             placeholder="Content"
-                            onChange={event => setContent(event.target.value)}
-                            value={newContent}
+                            onChange={(evt) => {
+                                const copy = { ...post }
+                                copy.content = evt.target.value
+                                setPost(copy)
+                            }}
+                            value={post.content}
                         ></textarea>
                     </div>
                 </div>
@@ -130,8 +121,13 @@ export const EditPostForm = () => {
                     <div className="control">
                         <div className="select">
                             <select
-                                onChange={(evt) => setCategoryId(evt.target.value)}
-                                value={newCategoryId}
+                                onChange={(evt) => {
+                                    const copy = { ...post }
+                                    copy.category = evt.target.value
+                                    setPost(copy)
+                                }}
+                                value={post.category}
+                                selected={post.category}
                             >
                                 <option> Choose a Category </option>
                                 {
@@ -155,14 +151,14 @@ export const EditPostForm = () => {
                                             className="mr-2"
                                             name="tag"
                                             value={tag.id}
-                                            checked={newTagIds.has(tag.id) ? true : false}
+                                            checked={post.tags.has(tag.id) ? true : false}
                                             onChange={
                                                 (evt) => {
-                                                    const copy = new Set(newTagIds)
-                                                    copy.has(parseInt(evt.target.value))
-                                                        ? copy.delete(parseInt(evt.target.value))
-                                                        : copy.add(parseInt(evt.target.value))
-                                                    setTagIds(copy)
+                                                    const copy = { ...post }
+                                                    copy.tags.has(parseInt(evt.target.value))
+                                                        ? copy.tags.delete(parseInt(evt.target.value))
+                                                        : copy.tags.add(parseInt(evt.target.value))
+                                                    setPost(copy)
                                                 }} />
                                         {tag.label}
                                     </label>

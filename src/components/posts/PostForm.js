@@ -30,39 +30,25 @@ export const PostForm = () => {
         []
     )
 
-    const submitNewPostTag = (newPost) => {
-        const promiseArray = []
-
-        for (const tagIds of post.tagIds) {
-
-            promiseArray.push(createPostTag({
-                tag_id: tagIds,
-                post_id: newPost.id
-            }))
-        }
-        Promise.all(promiseArray)
-            .then(() => {
-                history.push(`/posts/${newPost.id}`)
-            })
-    }
+    
 
     const submitNewPost = (evt) => {
         evt.preventDefault()
         const date = new Date()
         const newPost = {
-            user_id: parseInt(localStorage.getItem("rare_token")),
-            category_id: parseInt(post.categoryId),
+            user: parseInt(localStorage.getItem("rare_token")),
+            category: parseInt(post.categoryId),
             title: post.title,
             publication_date: date.toDateString(),
             image_url: post.imageURL,
             content: post.content,
-            approved: null
+            approved: true,
+            tags: Array.from(post.tagIds)
         }
 
         createPost(newPost)
-            .then((post) => {
-                submitNewPostTag(post)
-            })
+            .then(() => {history.push("/posts")})
+            
     }
 
 

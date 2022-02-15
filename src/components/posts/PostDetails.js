@@ -20,25 +20,11 @@ export const PostDetails = () => {
                 <h3 className="message-header">{post.title}</h3>
                 <img src={post.image_url} />
                 <div className="message-body">
-                {/* <h3 className="user_detail_link">
-                    <Link to={`/users/${post.user?.id}`}>
-                        {post.user?.first_name} {post.user?.last_name}
-                    </Link>
-                </h3> */}
                 <div> {post.content} </div>
                 <div> On {post.publication_date} </div>
                 <div>By {post.user?.user?.username} </div>
                 <div> In {post.category?.label} category </div>
                 <div>Tagged {post.tags?.map(t => t.label)}</div>
-                {/* <div > 
-                    
-                        {
-                            tagsForPost?.map((postTag) => {
-                                return <span className="tag is-primary " key={postTag.id}>{postTag.tag.label}</span>
-                            })
-                        }
-                
-                </div> */}
                 <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
                 <div><Link to={`/commentCreate/${postId}`}>Add Comments</Link></div>
                 {
