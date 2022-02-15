@@ -106,8 +106,8 @@ export const PostFilters = ({ setPosts }) => {
 
                         <option value="0">All</option>
                         {users.map(user => (
-                            <option key={user.id} value={user.id}>
-                                {user.first_name} {user.last_name}
+                            <option key={user.user?.id} value={user.user?.id}>
+                                {user.user?.first_name} {user.user?.last_name}
                             </option>
                         ))}
                     </select>

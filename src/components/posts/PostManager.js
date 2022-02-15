@@ -40,11 +40,11 @@ export const updatePost = (post, id) => {
         .then(getPosts)
 }
 export const getPostsByCategory = (categoryId) => {
-    return fetch(`http://localhost:8000/posts?category_id=${categoryId}`), {
+    return fetch(`http://localhost:8000/posts?category_id=${categoryId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
-    }
+    })
         .then(res => res.json())
 }
 
