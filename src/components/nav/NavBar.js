@@ -1,5 +1,6 @@
-import React, { useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { getCurrentUser } from "../users/UserManager"
 import "./NavBar.css"
 import Logo from "./rare.jpeg"
 
@@ -7,6 +8,11 @@ export const NavBar = () => {
   const history = useHistory()
   const navbar = useRef()
   const hamburger = useRef()
+  const [currentUser, setCurrentUser] = useState({})
+
+  useEffect(() => {
+    getCurrentUser().then(setCurrentUser)
+  }, [])
 
   const showMobileNavbar = () => {
     hamburger.current.classList.toggle('is-active')
@@ -33,17 +39,23 @@ export const NavBar = () => {
             localStorage.getItem('rare_token')
               ?
               <>
-              <Link to="/posts" className="navbar-item has-text-weight-semibold">Posts</Link>
-              <Link to="/my-posts" className="navbar-item has-text-weight-semibold">My Posts</Link>
-              <Link to="/newpost" className="navbar-item has-text-weight-semibold">New Post</Link>
-              <Link to="/tags" className="navbar-item has-text-weight-semibold">Tag Management</Link>
-              <Link to="/categories" className="navbar-item has-text-weight-semibold">Category Management</Link>
-              <Link to="/users" className="navbar-item has-text-weight-semibold">User List</Link>
+                <Link to="/posts" className="navbar-item has-text-weight-semibold">Posts</Link>
+                <Link to="/my-posts" className="navbar-item has-text-weight-semibold">My Posts</Link>
+                <Link to="/newpost" className="navbar-item has-text-weight-semibold">New Post</Link>
+                {
+                  currentUser.user?.is_staff ? <Link to="/tags" className="navbar-item has-text-weight-semibold">Tag Management</Link> : ""
+                }
+                {
+                  currentUser.user?.is_staff ? <Link to="/categories" className="navbar-item has-text-weight-semibold">Category Management</Link> : ""
+                }
+                {
+                  currentUser.user?.is_staff ? <Link to="/users" className="navbar-item has-text-weight-semibold">User List</Link> : ""
+                }
               </>
               :
               ""
-            }
-          
+          }
+
         </div>
         <div className="navbar-end">
           <div className="navbar-item">
@@ -54,7 +66,7 @@ export const NavBar = () => {
                   <button className="button is-outlined" onClick={() => {
                     localStorage.removeItem('rare_token')
                     history.push('/login')
-                  }}>Logout</button>
+                  }}>Logout {currentUser.user?.username}</button>
                   :
                   <>
                     <Link to="/register" className="button is-link">Register</Link>
