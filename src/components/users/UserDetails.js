@@ -66,6 +66,7 @@ export const UserDetails = () => {
                             <div> Bio: {author.bio} </div>
                             <div>Created on: {author.user?.date_joined}</div>
                             <div> Username: {author.user?.username} </div>
+                            <div> Type: {author.user?.is_staff ? "Admin" : "Author"}</div>
                         </div>
                     </div>
                 </div>
