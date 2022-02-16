@@ -49,7 +49,7 @@ export const NavBar = () => {
                   currentUser.user?.is_staff ? <Link to="/categories" className="navbar-item has-text-weight-semibold">Category Management</Link> : ""
                 }
                 {
-                  currentUser.user?.is_staff ? <Link to="/users" className="navbar-item has-text-weight-semibold">User List</Link> : <Link>User Managemnet</Link>
+                  currentUser.user?.is_staff ? <Link to="/users" className="navbar-item has-text-weight-semibold">User List</Link> : ""
                 }
               </>
               :
