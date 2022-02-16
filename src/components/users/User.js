@@ -20,7 +20,7 @@ export const User = ({ rareUser, currentUser, setUsers }) => {
                         Username: {rareUser.user.username}
                     </div>
                     <div className="content has-text-white">
-                        Email: {rareUser.user.email}
+                        Email: {rareUser.user.email}    
                     </div>
                     <div className="content has-text-white">
                         {rareUser.user?.is_staff
