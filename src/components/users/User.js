@@ -13,7 +13,7 @@ export default ({ rareUser }) => (
                             {rareUser.user.first_name} {rareUser.user.last_name}
                         </Link>
                     <div className="content has-text-white pt-4"> Username: {rareUser.user.username} </div>
-                    <div className="content has-text-white"> Email: {rareUser.user.email} </div>
+                    <div className="content has-text-white"> {rareUser.user.is_staff ? "Admin" : "Author"} </div>
                 </div>
     </div>
     </div>
