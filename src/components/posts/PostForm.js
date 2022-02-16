@@ -29,13 +29,12 @@ export const PostForm = () => {
         evt.preventDefault()
         const date = new Date()
         const newPost = {
-            user: parseInt(localStorage.getItem("rare_token")),
+            // user: parseInt(localStorage.getItem("rare_token")),
             category: parseInt(post.categoryId),
             title: post.title,
             publication_date: date.toDateString(),
             image_url: post.imageURL,
             content: post.content,
-            approved: true,
             tags: Array.from(post.tagIds)
         }
 
