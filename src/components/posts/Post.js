@@ -13,18 +13,18 @@ export default ({ post, setPost, admin }) => {
     }, [])
 
     const editFucntion = () => {
-        // funtion for edit and delete ternarys below
+        // funtion for edit ternary below
         if (currentUser.user?.id === post.user?.id) {
             return true
         }
     }
 
-    // const deleteFucntion = () => {
-    //     // funtion for edit and delete ternarys below
-    //     if (currentUser.user?.id === post.user?.id && currentUser.user?.is_staff) {
-    //         return true
-    //     }
-    // }
+    const deleteFucntion = () => {
+        // funtion delete ternary below
+        if (currentUser.user?.id === post.user?.id || currentUser.user?.is_staff) {
+            return true
+        }
+    }
 
 
 
@@ -55,14 +55,10 @@ export default ({ post, setPost, admin }) => {
                     ""
                 }
                 {editFucntion() ? <Link to={`/my-posts/editpost/${post.id}`}><button className="button mr-3 my-3">Edit Post</button></Link> : ""}
-                {editFucntion() ? <button className="button mr-3 my-3" onClick={() => {
+                {deleteFucntion() ? <button className="button mr-3 my-3" onClick={() => {
                     deletePost(post.id)
                         .then(setPost)
                 }}>Delete Post</button> : "" }
-                {currentUser.user?.is_staff ? <button className="button mr-3 my-3" onClick={() => {
-                    deletePost(post.id)
-                        .then(setPost)
-                }}>Delete Post</button> : ""}
                 <Link to={`/commentCreate/${post.id}`}><button className="button mr-3 my-3">New Comment?</button></Link>
             </section>
         </section>
