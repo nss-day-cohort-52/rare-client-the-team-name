@@ -17,7 +17,7 @@ export default ({ post, setPost, admin }) => {
             </h3>
             </div>
             <section className="message-body">
-            <div> By: {post.user?.user?.first_name} {post.user?.user?.last_name} </div>
+            <div> By: <Link to={`/users/${post.user?.id}`}>{post.user?.user?.first_name} {post.user?.user?.last_name}</Link></div>
             <div> In {post.category.label} category </div>
             <div>Tagged {post.tags?.map(t => t.label)}</div>
             {
