@@ -15,7 +15,7 @@ export const PostList = () => {
             <PostFilters setPosts={setPosts}/>
             <div>
                 {
-                    posts.map(post => <Post key={post.id} post={post} setPost={setPosts} />)
+                    posts.map(post => <Post key={post.id} post={post} setPost={setPosts}/>)
                 }
             </div>
         </>
