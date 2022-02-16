@@ -5,12 +5,6 @@ import { activate, deactivate, makeAdmin, makeAuthor, getUsers } from "./UserMan
 
 export const User = ({ rareUser, currentUser, setUsers }) => {
     const history = useHistory()
-    const [deactivateRequest, setDeactivateRequest] = useState({
-        bool: false,
-        adminId: null
-    })
-    const [demoteRequest, setDemoteRequest] = useState(false)
-
 
     return (
         <div className="column is-one-third">
@@ -29,42 +23,58 @@ export const User = ({ rareUser, currentUser, setUsers }) => {
                         Email: {rareUser.user.email}
                     </div>
                     <div className="content has-text-white">
-                        Permissions: {rareUser.user.is_staff ? "Admin" : "Author"}
+                        {rareUser.user?.is_staff
+                            ? <>
+                                <p> Permissions: Admin</p>
+                                <button
+                                    className="button is-small"
+                                    onClick={() =>
+                                        makeAuthor(rareUser.id)
+                                        .then((res)=> {
+                                            if (res.status === 409){
+                                                window.alert("Cannot be changed- this is the only active admin remaining")
+                                            }
+                                        })
+                                        .then(getUsers).then(setUsers)
+                                    }
+                                >Demote</button>
+                            </>
+                            : <>
+                                <p> Permissions: Author</p>
+                                <button
+                                    className="button is-small"
+                                    onClick={() =>
+                                        makeAdmin(rareUser.id)
+                                        .then(getUsers).then(setUsers)
+                                    }
+                                >Promote</button>
+                            </>
+                        }
                     </div>
                     <div className="content has-text-white">
                         {rareUser.active
                             ? <>
                                 <p> Status: Active</p>
-                                {
-                                    deactivateRequest.bool === true
-                                        ? <>{
-                                            deactivateRequest.adminId === currentUser.id
-                                                ? <div className="notification is-link">You have requested deactivation</div>
-                                                : <div className="notification is-link">
-                                                    Deactivation has been requested.
-                                                    <button
-                                                        onClick={ () => deactivate(rareUser.id).then(getUsers).then(setUsers)}
-                                                    >Approve</button> </div>
-                                        }
-                                        </>
-                                        : <button
-                                            onClick={() => {
-                                                setDeactivateRequest({
-                                                    bool: true,
-                                                    adminId: currentUser.id
-                                                })
+                                <button
+                                    className="button is-small"
+                                    onClick={() =>
+                                        deactivate(rareUser.id)
+                                        .then((res)=> {
+                                            if (res.status === 409){
+                                                window.alert("Cannot be changed- this is the only active admin remaining")
                                             }
-                                            }
-                                        >Request Deactivate</button>
-                                }
+                                        })
+                                        .then(getUsers).then(setUsers)
+                                    }
+                                >Deactivate</button>
                             </>
                             : <>
                                 <p> Status: Inactive</p>
                                 <button
-                                    onClick={
+                                    className="button is-small"
+                                    onClick={() =>
                                         activate(rareUser.id)
-                                            .then(getUsers)
-                                            .then(setUsers)
+                                        .then(getUsers).then(setUsers)
                                     }
                                 >Activate</button>
                             </>
