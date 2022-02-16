@@ -12,10 +12,7 @@ export const MyPosts = () => {
         getPosts().then(p => setPosts(p))
         getCurrentUser().then(setCurrentUser)
     }, [])
-    
-    console.log(currentUser)
 
-    
     return (
         <>
             <div className="myPosts">

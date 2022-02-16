@@ -1,12 +1,8 @@
-import { Categories } from "../categories/CategoryList"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { getTags } from "../tags/TagManager"
 import { getCategories } from "../categories/CategoryManager"
 import { createPost } from "./PostManager"
-import { createPostTag } from "./PostTagManager"
-
-
 
 
 export const PostForm = () => {
@@ -21,7 +17,6 @@ export const PostForm = () => {
         tagIds: new Set()
     })
 
-
     useEffect(
         () => {
             getCategories().then(setCategories)
@@ -29,8 +24,6 @@ export const PostForm = () => {
         },
         []
     )
-
-    
 
     const submitNewPost = (evt) => {
         evt.preventDefault()
@@ -49,7 +42,6 @@ export const PostForm = () => {
             .then(() => {history.push("/posts")})
             
     }
-
 
     return (
         <div className="container m-6 p-6 has-background-link-light">

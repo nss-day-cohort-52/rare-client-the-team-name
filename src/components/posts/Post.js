@@ -20,14 +20,11 @@ export default ({ post, setPost, admin }) => {
     }
 
     const deleteFucntion = () => {
-        // funtion delete ternary below
+        // funtion for delete ternary below
         if (currentUser.user?.id === post.user?.id || currentUser.user?.is_staff) {
             return true
         }
     }
-
-
-
 
     return (
         <section className="message is-info m-5">
