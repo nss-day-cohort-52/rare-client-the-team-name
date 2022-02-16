@@ -39,6 +39,7 @@ export const updatePost = (post, id) => {
     })
         .then(getPosts)
 }
+
 export const getPostsByCategory = (categoryId) => {
     return fetch(`http://localhost:8000/posts?category_id=${categoryId}`, {
         headers: {
@@ -103,3 +104,32 @@ export const postTagEdit = (tags, id) => {
     }
     return fetch(`http://localhost:8000/posts/${id}/edit_tags`, fetchOptions)
 }
+export const getApprovedPosts= () => {
+    return fetch(`http://localhost:8000/posts?approved=True`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+        .then(res => res.json())
+}
+
+export const approvePost = (postId) => {
+    return fetch(`http://localhost:8000/posts/${postId}/approve`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    }).then(getPosts)
+}
+
+export const unapprovePost = (postId) => {
+    return fetch(`http://localhost:8000/posts/${postId}/unapprove`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    }).then(getPosts)
+}
+
