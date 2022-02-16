@@ -93,6 +93,17 @@ export const getSubscribedPosts= () => {
         .then(res => res.json())
 }
 
+export const postTagEdit = (tags, id) => {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        },
+        body: JSON.stringify(tags)
+    }
+    return fetch(`http://localhost:8000/posts/${id}/edit_tags`, fetchOptions)
+}
 export const getApprovedPosts= () => {
     return fetch(`http://localhost:8000/posts?approved=True`, {
         headers: {

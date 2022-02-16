@@ -14,7 +14,6 @@ export const MyPosts = () => {
         getCurrentUser().then(setCurrentUser)
     }, [])
 
-    console.log(currentUser)
 
     return (
         <>
