@@ -46,3 +46,47 @@ export const unsubscribe = (id) => {
     }
     return fetch(`http://localhost:8000/users/${id}/unsubscribe`, fetchOptions)
 }
+
+export const activate = (id) => {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    }
+    return fetch(`http://localhost:8000/users/${id}/activate`, fetchOptions)
+}
+
+export const deactivate = (id) => {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    }
+    return fetch(`http://localhost:8000/users/${id}/deactivate`, fetchOptions)
+}
+
+export const makeAdmin = (id) => {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    }
+    return fetch(`http://localhost:8000/users/${id}/admin`, fetchOptions)
+}
+
+export const makeAuthor = (id) => {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    }
+    return fetch(`http://localhost:8000/users/${id}/author`, fetchOptions)
+}
