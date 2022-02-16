@@ -42,7 +42,7 @@ export const UserDetails = () => {
                     .then(getCurrentUser).then(setCurrentUser)
                     .then(() => getSingleUser(userId).then(setAuthor))
                 }}
-                className="btn btn-primary">
+                className="button mr-3 mt-3">
                 Unsubscribe
             </button>
         }
