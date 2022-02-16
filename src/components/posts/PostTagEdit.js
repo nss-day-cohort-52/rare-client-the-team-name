@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom"
 
 
 
+
 export const PostTagEdit = ({setModalIsOpen, modalIsOpen }) => {
     const [tags, setTags] = useState([])
     const { postId } = useParams()
@@ -72,7 +73,7 @@ export const PostTagEdit = ({setModalIsOpen, modalIsOpen }) => {
                             }
                         )
                     }
-        <button className="button" onClick={() => {postTagEdit(Array.from(post.tags), post.id) 
+        <button className="button" onClick={() => {postTagEdit(Array.from(post.tags), post.id)
             .then(setModalIsOpen(false))}}>Save Tags</button>
         
         

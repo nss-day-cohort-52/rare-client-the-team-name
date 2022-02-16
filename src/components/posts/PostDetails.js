@@ -13,12 +13,15 @@ export const PostDetails = () => {
     const [currentUser, setCurrentUser] = useState()
     const history = useHistory()
     const [modalIsOpen, setModalIsOpen] = useState(false)
-    const [postTagsToEdit, setPostTagsToEdit] = useState({})
 
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)
         getCurrentUser().then(setCurrentUser)
     }, [parsedId])
+    
+    useEffect(() => {
+        getSinglePost(parsedId).then(setPost)
+    }, [modalIsOpen])
     
     return (
         <>
