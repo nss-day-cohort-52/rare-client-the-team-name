@@ -38,6 +38,7 @@ export const NavBar = () => {
               <Link to="/newpost" className="navbar-item has-text-weight-semibold">New Post</Link>
               <Link to="/tags" className="navbar-item has-text-weight-semibold">Tag Management</Link>
               <Link to="/categories" className="navbar-item has-text-weight-semibold">Category Management</Link>
+              <Link to="/reactions" className="navbar-item has-text-weight-semibold">Reaction Management</Link>
               <Link to="/users" className="navbar-item has-text-weight-semibold">User List</Link>
               </>
               :
