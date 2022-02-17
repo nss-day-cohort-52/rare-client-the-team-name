@@ -21,6 +21,9 @@ export const PostDetails = () => {
         post: 0,
         reaction: 0
     })
+    const date = post.publication_date
+    const mdyDate = new Date(date).toLocaleString().split(",")[0] 
+
 
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)
@@ -64,12 +67,12 @@ export const PostDetails = () => {
                             })
                         }
                     </div>
-                    <div> On {post.publication_date} </div>
+                    <div> On {mdyDate} </div>
                     <div>By {post.user?.user?.username} </div>
                     <div> In {post.category?.label} category </div>
                     <div>Tagged {post.tags?.map(t => t.label)}</div>
                     <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
-                    <div><Link to={`/commentCreate/${postId}`}>Add Comments</Link></div>
+                    <div><Link to={`/commentCreate/${postId}`}>New Comment</Link></div>
                     {
                         post.user?.id === currentUser?.id
                             ? <>

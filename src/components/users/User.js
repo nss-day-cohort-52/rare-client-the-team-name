@@ -1,10 +1,39 @@
-import React, { useState } from "react"
-import { useHistory } from "react-router-dom"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { activate, deactivate, makeAdmin, makeAuthor, getUsers } from "./UserManager"
+import { activate, deactivate, makeAdmin, makeAuthor, getUsers, getDeactivationsByAdmin, createDemotion, createDeactivation, deleteDemotion, getDemotionsByAdmin, deleteDeactivation } from "./UserManager"
 
 export const User = ({ rareUser, currentUser, setUsers }) => {
-    const history = useHistory()
+    const [adminDeactivation, setAdminDeactivation] = useState(null)
+    const [adminDemotion, setAdminDemotion] = useState(null)
+
+    useEffect(() => {
+        if (rareUser.user?.is_staff) {
+            getDeactivationsByAdmin(rareUser.id)
+                .then((res) => {
+                    if (res[0]) {
+                        setAdminDeactivation(res[0])
+                    }
+                })
+            getDemotionsByAdmin(rareUser.id)
+                .then((res) => {
+                    if (res[0]) {
+                        setAdminDemotion(res[0])
+                    }
+                })
+        }
+    }, []
+    )
+
+    const canDeactivate = () => {
+        if (rareUser.user.is_staff && rareUser.active && adminDeactivation?.requester !== currentUser.id) {
+            return true
+        } else if (rareUser.user.is_staff === false && rareUser.active) {
+            return true
+        } else {
+            return false
+        }
+    }
+
 
     return (
         <div className="column is-one-third">
@@ -23,61 +52,116 @@ export const User = ({ rareUser, currentUser, setUsers }) => {
                         Email: {rareUser.user.email}
                     </div>
                     <div className="content has-text-white">
-                        {rareUser.user?.is_staff
-                            ? <>
-                                <p> Permissions: Admin</p>
-                                <button
-                                    className="button is-small"
-                                    onClick={() =>
-                                        makeAuthor(rareUser.id)
-                                        .then((res)=> {
-                                            if (res.status === 409){
-                                                window.alert("Cannot be changed- this is the only active admin remaining")
+                        {
+                            //Permissions promotion/demotions
+                            rareUser.user.is_staff && adminDemotion === null
+                                ? <>
+                                    <p> Permissions: Admin</p>
+                                    <button
+                                        className="button is-small"
+                                        onClick={() =>
+                                            //This will need extra approval
+                                            createDemotion(rareUser.id)
+                                                .then(() => getDemotionsByAdmin(rareUser.id)
+                                                    .then((res) => {
+                                                        if (res[0]) {
+                                                            setAdminDemotion(res[0])
+                                                        }
+                                                    }))
+                                        }
+                                    >Request Demote</button>
+                                </>
+                                : rareUser.user.is_staff && adminDemotion?.requester !== currentUser.id
+                                    ? <>
+                                        <p> Permissions: Admin</p>
+                                        <div className="notification is-link p-1"> Demotion Requested</div>
+                                        <button
+                                            className="button is-small"
+                                            onClick={() =>
+                                                makeAuthor(rareUser.id)
+                                                    .then((res) => {
+                                                        if (res.status === 409) {
+                                                            window.alert("Cannot be changed- this is the only active admin remaining")
+                                                        } else {
+                                                            deleteDemotion(adminDemotion.id)
+                                                                .then(() => setAdminDemotion(null))
+                                                        }
+                                                    })
+                                                    .then(getUsers).then(setUsers)
                                             }
-                                        })
-                                        .then(getUsers).then(setUsers)
-                                    }
-                                >Demote</button>
-                            </>
-                            : <>
-                                <p> Permissions: Author</p>
-                                <button
-                                    className="button is-small"
-                                    onClick={() =>
-                                        makeAdmin(rareUser.id)
-                                        .then(getUsers).then(setUsers)
-                                    }
-                                >Promote</button>
-                            </>
+                                        > Demote</button>
+                                    </>
+                                    : adminDemotion?.requester === currentUser.id
+                                        ? <div className="notification is-link p-1 m-0"> You have requested demotion</div>
+                                        : <>
+                                            <p> Permissions: Author</p>
+                                            <button
+                                                className="button is-small"
+                                                onClick={() =>
+                                                    makeAdmin(rareUser.id)
+                                                        .then(getUsers).then(setUsers)
+                                                }
+                                            >Promote</button>
+                                        </>
                         }
                     </div>
                     <div className="content has-text-white">
-                        {rareUser.active
-                            ? <>
-                                <p> Status: Active</p>
-                                <button
-                                    className="button is-small"
-                                    onClick={() =>
-                                        deactivate(rareUser.id)
-                                        .then((res)=> {
-                                            if (res.status === 409){
-                                                window.alert("Cannot be changed- this is the only active admin remaining")
+                        {
+                            //Permissions promotion/demotions
+                            rareUser.user.is_staff && adminDeactivation === null && rareUser.active
+                                ? <>
+                                    <p> Status: Active</p>
+                                    <button
+                                        className="button is-small"
+                                        onClick={() =>
+                                            //This will need extra approval
+                                            createDeactivation(rareUser.id)
+                                                .then(() => getDeactivationsByAdmin(rareUser.id)
+                                                    .then((res) => {
+                                                        if (res[0]) {
+                                                            setAdminDeactivation(res[0])
+                                                        }
+                                                    }))
+                                        }
+                                    >Request Deactivation</button>
+                                </>
+                                : canDeactivate()
+                                    ? <>
+                                        <p> Status: Active</p>
+                                        {
+                                            rareUser.user?.is_staff 
+                                            ? <div className="notification is-link p-1"> Deactivation Requested</div>
+                                            : ""
+                                        }
+                                        <button
+                                            className="button is-small"
+                                            onClick={() =>
+                                                //This will need extra approval
+                                                deactivate(rareUser.id)
+                                                    .then((res) => {
+                                                        if (res.status === 409) {
+                                                            window.alert("Cannot be changed- this is the only active admin remaining")
+                                                        } else if (rareUser.user?.is_staff) {
+                                                            deleteDeactivation(adminDeactivation.id)
+                                                                .then(() => setAdminDeactivation(null))
+                                                        }
+                                                    })
+                                                    .then(getUsers).then(setUsers)
                                             }
-                                        })
-                                        .then(getUsers).then(setUsers)
-                                    }
-                                >Deactivate</button>
-                            </>
-                            : <>
-                                <p> Status: Inactive</p>
-                                <button
-                                    className="button is-small"
-                                    onClick={() =>
-                                        activate(rareUser.id)
-                                        .then(getUsers).then(setUsers)
-                                    }
-                                >Activate</button>
-                            </>
+                                        > Deactivate</button>
+                                    </>
+                                    : adminDeactivation?.requester === currentUser.id
+                                        ? <div className="notification is-link p-1 m-0"> You have requested deactivation</div>
+                                        : <>
+                                            <p> Status: Inactive</p>
+                                            <button
+                                                className="button is-small"
+                                                onClick={() =>
+                                                    activate(rareUser.id)
+                                                        .then(getUsers).then(setUsers)
+                                                }
+                                            >Activate</button>
+                                        </>
                         }
                     </div>
                 </div>

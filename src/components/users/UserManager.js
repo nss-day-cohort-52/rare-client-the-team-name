@@ -25,6 +25,72 @@ export const getCurrentUser = () => {
         .then(res => res.json())
 }
 
+export const getDemotionsByAdmin = (adminId) => {
+    return fetch(`http://localhost:8000/demotions?adminId=${adminId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+        .then(res => res.json())
+}
+
+export const getDeactivationsByAdmin = (adminId) => {
+    return fetch(`http://localhost:8000/deactivations?adminId=${adminId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+        .then(res => res.json())
+}
+
+export const deleteDemotion = demotionId => {
+    return fetch(`http://localhost:8000/demotions/${demotionId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+    
+};
+
+export const deleteDeactivation = deactivationId => {
+    return fetch(`http://localhost:8000/deactivations/${deactivationId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+    
+};
+
+export const createDemotion = (adminId) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        },
+        body: JSON.stringify({admin: adminId})
+    }
+    return fetch(`http://localhost:8000/demotions`, fetchOptions)
+        .then(res => res.json())
+}
+
+export const createDeactivation = (adminId) => {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        },
+        body: JSON.stringify({admin: adminId})
+    }
+    return fetch(`http://localhost:8000/deactivations`, fetchOptions)
+        .then(res => res.json())
+}
+
+
+
 export const subscribe = (id) => {
     const fetchOptions = {
         method: "POST",
