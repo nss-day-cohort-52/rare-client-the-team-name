@@ -11,7 +11,12 @@ export const User = ({ rareUser, currentUser, setUsers }) => {
             <div className="card has-background-success">
                 <div className="card-content m-6">
                     <figure className="image is-4by3">
-                        <img src={rareUser.profile_image_url} className="image is-rounded"></img>
+                        {
+                            rareUser.profile_pic ? 
+                            <img src={`http://localhost:8000${rareUser.profile_pic}`} className="image is-rounded"></img>
+                            :
+                            <img src={rareUser.profile_image_url} className="image is-rounded"></img>
+                        }
                     </figure>
                     <Link className="title is-4 is-underlined has-text-link" to={`/users/${rareUser.id}`}>
                         {rareUser.user.first_name} {rareUser.user.last_name}
