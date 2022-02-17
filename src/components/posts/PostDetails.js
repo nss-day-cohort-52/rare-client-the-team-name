@@ -35,7 +35,7 @@ export const PostDetails = () => {
                     <div> In {post.category?.label} category </div>
                     <div>Tagged {post.tags?.map(t => t.label)}</div>
                     <div><Link to={`/comments/${postId}`}>View Comments</Link></div>
-                    <div><Link to={`/commentCreate/${postId}`}>Add Comments</Link></div>
+                    <div><Link to={`/commentCreate/${postId}`}>New Comment</Link></div>
                     {
                         post.user?.id === currentUser?.id
                             ? <>
