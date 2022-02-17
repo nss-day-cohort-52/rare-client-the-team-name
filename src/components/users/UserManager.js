@@ -25,8 +25,8 @@ export const getCurrentUser = () => {
         .then(res => res.json())
 }
 
-export const getDemotionByAdmin = (adminId) => {
-    return fetch(`http://localhost:8000/demotion/${adminId}`, {
+export const getDemotionsByAdmin = (adminId) => {
+    return fetch(`http://localhost:8000/demotions?adminId=${adminId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -34,8 +34,8 @@ export const getDemotionByAdmin = (adminId) => {
         .then(res => res.json())
 }
 
-export const getDeactivationByAdmin = (adminId) => {
-    return fetch(`http://localhost:8000/demotion/${adminId}`, {
+export const getDeactivationsByAdmin = (adminId) => {
+    return fetch(`http://localhost:8000/deactivations?adminId=${adminId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
