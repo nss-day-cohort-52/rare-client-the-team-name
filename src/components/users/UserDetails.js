@@ -7,7 +7,9 @@ export const UserDetails = () => {
     const [isSubscribed, setIsSubscribed] = useState(false)
     const [currentUser, setCurrentUser] = useState({})
     const { userId } = useParams()
-
+    const date = author.user?.date_joined 
+    const mdyDate = new Date(date).toLocaleString().split(",")[0] 
+    
     useEffect(() => {
         getSingleUser(userId).then(setAuthor)
         getCurrentUser().then(setCurrentUser)
@@ -47,7 +49,6 @@ export const UserDetails = () => {
             </button>
         }
     }
-
     return (
         <>
             <div className="columns is-centered">
@@ -64,9 +65,9 @@ export const UserDetails = () => {
                             <p className="title is-4">{author.user?.first_name} {author.user?.last_name}</p>
                             <div> Email: {author.user?.email}</div>
                             <div> Bio: {author.bio} </div>
-                            <div>Created on: {author.user?.date_joined}</div>
+                            <div>Created on: {mdyDate}</div>
                             <div> Username: {author.user?.username} </div>
-                            <div> Type: {author.user?.is_staff ? "Admin" : "Author"}</div>
+                            <div> Permissions: {author.user?.is_staff ? "Admin" : "Author"}</div>
                         </div>
                     </div>
                 </div>
