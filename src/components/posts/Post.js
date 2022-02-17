@@ -12,19 +12,6 @@ export default ({ post, setPost, admin }) => {
         getCurrentUser().then(setCurrentUser)
     }, [])
 
-    // const editFucntion = () => {
-    //     // funtion for edit ternary below
-    //     if (currentUser.user?.id === post.user?.id) {
-    //         return true
-    //     }
-    // }
-
-    // const deleteFucntion = () => {
-    //     // funtion for delete ternary below
-    //     if (currentUser.user?.id === post.user?.id || currentUser.user?.is_staff) {
-    //         return true
-    //     }
-    // }
     const date = post.publication_date
     const mdyDate = new Date(date).toLocaleString().split(",")[0]
 
