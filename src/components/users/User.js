@@ -53,9 +53,9 @@ export const User = ({ rareUser, currentUser, setUsers }) => {
                     <div className="content has-text-white pt-4">
                         Username: {rareUser.user.username}
                     </div>
-                    <div className="content has-text-white">
-                        Email: {rareUser.user.email}
-                    </div>
+                    {/* <div className="content has-text-white">
+                        Email: {rareUser.user.email}    
+                    </div> */}
                     <div className="content has-text-white">
                         {
                             //Permissions promotion/demotions

@@ -7,13 +7,11 @@ import { getCurrentUser } from "../users/UserManager"
 export const MyPosts = () => {
     const [posts, setPosts] = useState([])
     const [currentUser, setCurrentUser] = useState({})
-
-
+    
     useEffect(() => {
         getPosts().then(p => setPosts(p))
         getCurrentUser().then(setCurrentUser)
     }, [])
-
 
     return (
         <>
