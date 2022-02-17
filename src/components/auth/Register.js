@@ -1,5 +1,6 @@
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { UploadPicForm } from "./UploadPicForm"
 
 export const Register = () => {
     const firstName = useRef()
@@ -12,6 +13,22 @@ export const Register = () => {
     const verifyPassword = useRef()
     const passwordDialog = useRef()
     const history = useHistory()
+    const [ string, setString ] = useState("")
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+
+    const getBase64 = (file, callback) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => callback(reader.result));
+      reader.readAsDataURL(file);
+    }
+  
+    const createImageString = (event) => {
+      getBase64(event.target.files[0], (base64ImageString) => {
+          console.log("Base64 of file is", base64ImageString);
+          // Update a component state variable to the value of base64ImageString
+          setString(base64ImageString)
+      });
+    }
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -24,6 +41,7 @@ export const Register = () => {
                 "last_name": lastName.current.value,
                 "bio": bio.current.value,
                 "profile_image_url": url.current.value,
+                "profile_pic": string,
                 "password": password.current.value
             }
 
@@ -46,6 +64,8 @@ export const Register = () => {
             passwordDialog.current.showModal()
         }
     }
+
+
 
     return (
         <main style={{ textAlign: "center" }}>
@@ -89,6 +109,26 @@ export const Register = () => {
                     <label htmlFor="image"> Add an image URL </label>
                     <textarea ref={url} name="url" className="form-control" placeholder="Add a profile picture" />
                 </fieldset>
+                <section>
+                  <input type="file" id="image" onChange={createImageString} />
+                  <input type="hidden" name="id" value={string} />
+                  {/* <button onClick={() => {
+                    
+                // Upload the stringified image that is stored in state
+                      }}>Upload</button> */}
+                </section>
+                {/* <button className="button" onClick={() => {
+                                    setModalIsOpen(true)
+                                }}>Upload Profile Picture</button>
+                                <div id="edit-modal" className={modalIsOpen ? "modal is-active" : "modal"}>
+                                    <div className="modal-background"></div>
+
+                                    <div className="modal-content">
+                                        <div className="box">
+                                            <UploadPicForm modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}/>
+                                        </div>
+                                    </div>
+                                </div> */}
                 <fieldset style={{
                     textAlign: "center"
                 }}>

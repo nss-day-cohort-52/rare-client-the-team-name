@@ -56,8 +56,12 @@ export const UserDetails = () => {
                 <div className="column is-one-third">
                     <div className="card p-4 has-background-success is-flex">
                         <div>
-
-                            <img src={author.profile_image_url} alt="user profile image" className="image is-128x128 mr-3" />
+                        {
+                            author.profile_pic ? 
+                            <img src={`http://localhost:8000${author.profile_pic}`} className="image is-128x128 mr-3"></img>
+                            :
+                            <img src={author.profile_image_url} className="image is-128x128 mr-3"></img>
+                        }
                             {subscribeButton()}
                             <div> Subscriber Count: {author.followers?.length} </div>
                         </div>
