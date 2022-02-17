@@ -1,10 +1,8 @@
 import React, { useState } from "react"
-import { useHistory } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { activate, deactivate, makeAdmin, makeAuthor, getUsers } from "./UserManager"
 
 export const User = ({ rareUser, currentUser, setUsers }) => {
-    const history = useHistory()
 
     return (
         <div className="column is-one-third">
