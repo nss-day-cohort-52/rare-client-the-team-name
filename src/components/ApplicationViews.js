@@ -14,6 +14,7 @@ import { EditPostForm } from "./posts/EditPostForm"
 import { NewCommentForm } from "./comments/NewCommentForm"
 import { SubscribedPostList } from "./posts/SubscribedPostList"
 import { UpdateCommentForm } from "./comments/UpdateCommentForm"
+import { Reactions } from "./reactions/ReactionList"
 
 export const ApplicationViews = () => {
   return (
@@ -38,6 +39,9 @@ export const ApplicationViews = () => {
       </Route>
       <Route path="/categories">
         <Categories />
+      </Route>
+      <Route path="/reactions">
+        <Reactions />
       </Route>
       <Route path="/tags">
         <TagView />
