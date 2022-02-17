@@ -35,26 +35,28 @@ export const Login = () => {
     }
 
     return (
-        <main className="container--login">
-            <dialog className="dialog dialog--auth" ref={invalidDialog}>
+        <main className="columns is-centered">
+            <dialog ref={invalidDialog}>
                 <div>Username or password was not valid.</div>
-                <button className="button--close" onClick={e => invalidDialog.current.close()}>Close</button>
+                <button className="delete" onClick={e => invalidDialog.current.close()}>Close</button>
             </dialog>
-            <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1>Level Up</h1>
-                    <h2>Please sign in</h2>
-                    <fieldset>
-                        <label htmlFor="inputUsername"> Username address </label>
-                        <input ref={username} type="username" id="username" className="form-control" placeholder="Username address" required autoFocus />
+            <section className="column is-two-thirds">
+                <form onSubmit={handleLogin}>
+                    <h1 className="title">Level Up</h1>
+                    <h2 className="subtitle">Please sign in</h2>
+                    <fieldset className="field">
+                        <label htmlFor="inputUsername" className="label"> Username address </label>
+                        <div className="control">
+                            <input ref={username} type="username" id="username" className="input" placeholder="Username address" required autoFocus />
+                        </div>
                     </fieldset>
-                    <fieldset>
-                        <label htmlFor="inputPassword"> Password </label>
-                        <input ref={password} type="password" id="password" className="form-control" placeholder="Password" required />
+                    <fieldset className="field">
+                        <label htmlFor="inputPassword" className="label"> Password </label>
+                        <div className="control">
+                            <input ref={password} type="password" id="password" className="input" placeholder="Password" required />
+                        </div>
                     </fieldset>
-                    <fieldset style={{
-                        textAlign: "center"
-                    }}>
+                    <fieldset className="field">
                         <button className="btn btn-1 btn-sep icon-send" type="submit">Sign In</button>
                     </fieldset>
                 </form>
@@ -66,35 +68,6 @@ export const Login = () => {
     )
 }
 
-
-// import React, { useRef, useState } from "react"
-// import { Link, useHistory } from "react-router-dom"
-// import { loginUser } from "./AuthManager"
-
-// export const Login = ({ setToken }) => {
-//   const username = useRef()
-//   const password = useRef()
-//   const history = useHistory()
-//   const [isUnsuccessful, setisUnsuccessful] = useState(false)
-
-//   const handleLogin = (e) => {
-//     e.preventDefault()
-
-//     const user = {
-//       username: username.current.value,
-//       password: password.current.value
-//     }
-
-//     loginUser(user).then(res => {
-//       if ("valid" in res && res.valid) {
-//         setToken(res.token)
-//         history.push("/")
-//       }
-//       else {
-//         setisUnsuccessful(true)
-//       }
-//     })
-//   }
 
 //   return (
 //     <section className="columns is-centered">
