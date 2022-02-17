@@ -29,7 +29,7 @@ export const PostDetails = () => {
         getSinglePost(parsedId).then(setPost)
         getCurrentUser().then(setCurrentUser)
         getReactions().then(setReactions)
-        // getPostReactions().then(setPostReactions)
+        getPostReactions().then(setPostReactions)
     }, [parsedId])
 
     useEffect(() => {
@@ -46,6 +46,16 @@ export const PostDetails = () => {
         createPostReaction(newPostReaction)
             .then(() => {getSinglePost(parsedId).then(setPost)})
     }
+    const postReactionFilter = (post, reaction) => {
+        const reactionArray = []
+        post.postreaction_set?.map((postreaction) => {
+                if (postreaction.reaction.id === reaction.id) {
+                    reactionArray.push(postreaction)
+                }
+        })
+        return reactionArray.length
+    }
+    
     return (
         <>
             <section className="message is-info">
@@ -57,12 +67,14 @@ export const PostDetails = () => {
                     <div id="reactionImage" className="level-item px-5">
                         {
                             reactions.map((reaction) => {
-                                return( 
+                                return(<>
                                     <img className={reaction.id} value={reaction.id} src={reaction.image_url} alt={reaction.label} width="150" height="150"
                                     onClick={()=>{
                                         addReactionToPost(reaction.id)
-                                }} />
+                                    }} />
+                                <div>{postReactionFilter(post, reaction)}</div>
                                    
+                                    </> 
                                 )
                             })
                         }
