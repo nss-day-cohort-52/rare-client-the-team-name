@@ -6,6 +6,9 @@ import { deletePost, approvePost, unapprovePost } from "./PostManager"
 
 export default ({ post, setPost, admin }) => {
     const history = useHistory()
+    const date = post.publication_date 
+    const mdyDate = new Date(date).toLocaleString().split(",")[0] 
+
 
     return (
         <section className="message is-info m-5">
@@ -18,6 +21,7 @@ export default ({ post, setPost, admin }) => {
             </div>
             <section className="message-body">
             <div> By: <Link to={`/users/${post.user?.id}`}>{post.user?.user?.first_name} {post.user?.user?.last_name}</Link></div>
+            <div> Date: {mdyDate} </div>
             <div> In {post.category.label} category </div>
             <div>Tagged {post.tags?.map(t => t.label)}</div>
             {
