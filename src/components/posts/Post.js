@@ -4,7 +4,7 @@ import { deletePost, approvePost, unapprovePost } from "./PostManager"
 
 
 
-export default ({ post, setPost, admin }) => {
+export default ({ post, setPost, admin}) => {
     const history = useHistory()
 
     return (
