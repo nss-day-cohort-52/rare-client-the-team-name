@@ -36,6 +36,9 @@ export const CommentList = () => {
             <div className="columns is-multiline">
                 {
                     comments.map((comment) => {
+                        const date = comment.created_on
+                        const mdyDate = new Date(date).toLocaleString().split(",")[0] 
+                    
                             return <div key={comment.id} className="column is-one-third">
                                 <article className="message is-link">
                                     <div className="message-header">
@@ -50,7 +53,7 @@ export const CommentList = () => {
                                             Comment: {comment.content}
                                         </div>
                                         <div>
-                                            Date: {comment.created_on}
+                                            Date: {mdyDate}
                                         </div>
                                         <div>
                                             Category: {comment.post.category.label}
