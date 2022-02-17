@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { getCategories } from "../categories/CategoryManager"
 import { getTags } from "../tags/TagManager"
 import { getSinglePost, updatePost } from "./PostManager"
@@ -169,6 +169,9 @@ export const EditPostForm = () => {
                 </div>
                 <button type="button" className="button is-link has-text-weight-bold" onClick={() => updatePostInfo()}>
                     Submit
+                </button>
+                <button type="button" className="button is-link has-text-weight-bold" onClick={() => (history.push("/posts"))}>
+                    Cancel
                 </button>
             </form>
         </div>
