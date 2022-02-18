@@ -16,7 +16,7 @@ export const createReaction = reaction => {
         },
         body: JSON.stringify(reaction)
     })
-        .then(getReactions)
+    .then(getReactions)
 }
 
 export const updateReaction = (reaction, id) => {
@@ -28,7 +28,7 @@ export const updateReaction = (reaction, id) => {
         },
         body: JSON.stringify(reaction)
     })
-        .then(getReactions)
+    .then(getReactions)
 }
 
 export const deleteReaction = reactionId => {
@@ -40,3 +40,23 @@ export const deleteReaction = reactionId => {
     })
     
 };
+
+export const getPostReactions = () => {
+    return fetch("http://localhost:8000/postreactions", {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`
+        }
+    })
+        .then(res => res.json())
+}
+export const createPostReaction = postReaction => {
+    return fetch("http://localhost:8000/postreactions", {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("rare_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postReaction)
+    })
+        .then(getPostReactions)
+}

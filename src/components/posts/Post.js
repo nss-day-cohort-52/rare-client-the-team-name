@@ -4,6 +4,8 @@ import { Link, useHistory } from "react-router-dom"
 import { deletePost, approvePost, unapprovePost } from "./PostManager"
 
 
+
+
 export default ({ post, setPost, admin }) => {
     const history = useHistory()
     const [currentUser, setCurrentUser] = useState({})

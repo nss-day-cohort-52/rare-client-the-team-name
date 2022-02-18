@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { getCurrentUser } from "../users/UserManager";
 import { deletePost, getSinglePost } from "./PostManager"
 import { PostTagEdit } from "./PostTagEdit";
+import { createPostReaction, getPostReactions, getReactions } from "../reactions/ReactionManager"
 
 
 export const PostDetails = () => {
@@ -13,6 +14,13 @@ export const PostDetails = () => {
     const [currentUser, setCurrentUser] = useState()
     const history = useHistory()
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [reactions, setReactions] = useState([])
+    const [postReactions, setPostReactions] = useState([])
+    const [postReaction, setPostReaction] = useState({
+        user: 0,
+        post: 0,
+        reaction: 0
+    })
     const date = post.publication_date
     const mdyDate = new Date(date).toLocaleString().split(",")[0] 
 
@@ -20,11 +28,33 @@ export const PostDetails = () => {
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)
         getCurrentUser().then(setCurrentUser)
+        getReactions().then(setReactions)
+        getPostReactions().then(setPostReactions)
     }, [parsedId])
-    
+
     useEffect(() => {
         getSinglePost(parsedId).then(setPost)
     }, [modalIsOpen])
+
+    const addReactionToPost = (id) => {
+        
+        const newPostReaction = {
+            user: currentUser.id,
+            post: post.id,
+            reaction: id
+        }
+        createPostReaction(newPostReaction)
+            .then(() => {getSinglePost(parsedId).then(setPost)})
+    }
+    const postReactionFilter = (post, reaction) => {
+        const reactionArray = []
+        post.postreaction_set?.map((postreaction) => {
+                if (postreaction.reaction.id === reaction.id) {
+                    reactionArray.push(postreaction)
+                }
+        })
+        return reactionArray.length
+    }
     
     return (
         <>
@@ -33,6 +63,22 @@ export const PostDetails = () => {
                 <img src={post.image_url} />
                 <div className="message-body">
                     <div> {post.content} </div>
+                    <h5>React to this!</h5>
+                    <div id="reactionImage" className="level-item px-5">
+                        {
+                            reactions.map((reaction) => {
+                                return(<>
+                                    <img className={reaction.id} value={reaction.id} src={reaction.image_url} alt={reaction.label} width="150" height="150"
+                                    onClick={()=>{
+                                        addReactionToPost(reaction.id)
+                                    }} />
+                                <div>{postReactionFilter(post, reaction)}</div>
+                                   
+                                    </> 
+                                )
+                            })
+                        }
+                    </div>
                     <div> On {mdyDate} </div>
                     <div>By {post.user?.user?.username} </div>
                     <div> In {post.category?.label} category </div>
@@ -55,7 +101,7 @@ export const PostDetails = () => {
 
                                     <div className="modal-content">
                                         <div className="box">
-                                            <PostTagEdit modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}/>
+                                            <PostTagEdit modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
                                         </div>
                                     </div>
                                 </div>
