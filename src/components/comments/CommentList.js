@@ -38,19 +38,14 @@ export const CommentList = () => {
                     comments.map((comment) => {
                         const date = comment.created_on
                         const mdyDate = new Date(date).toLocaleString().split(",")[0] 
-                    
-                            return <div key={comment.id} className="column is-one-third">
+                            return comment.post?.id === parsedId ? <div key={comment.id} className="column is-one-third">
                                 <article className="message is-link">
                                     <div className="message-header">
                                         Author: {comment.author.user.username}
-                                        {
-                                            comment.author.user.id === currentUser.id
-                                                ? <>
-                                                    <button className="delete" onClick={() => deleteComments(comment.id).then(setComments)}></button>
-                                                    <Link to={`/editcomments/${comment.id}`}><button>edit</button></Link>
-                                                </>
-                                                : ""
-                                        }
+
+                                            {currentUser.user?.id === comment.author.user.id || currentUser.user?.is_staff ? <button className="delete" onClick={() => deleteComments(comment.id).then(setComments)}></button> : "" }
+                                            {currentUser.user?.id === comment.author.user.id ? <Link to={`/editcomments/${comment.id}`}><button>edit</button></Link> : "" }
+
                                     </div>
                                     <div className="message-body">
                                         <div>
@@ -64,7 +59,7 @@ export const CommentList = () => {
                                         </div>
                                     </div>
                                 </article>
-                            </div>
+                            </div> : ""
                     })
                 }
             </div>
