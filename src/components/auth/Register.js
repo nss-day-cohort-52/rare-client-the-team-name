@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { UploadPicForm } from "./UploadPicForm"
 
 export const Register = () => {
     const firstName = useRef()
@@ -12,8 +11,9 @@ export const Register = () => {
     const password = useRef()
     const verifyPassword = useRef()
     const passwordDialog = useRef()
+    const imageDialog = useRef()
     const history = useHistory()
-    const [ string, setString ] = useState("")
+    const [ string, setString ] = useState(null)
     const [modalIsOpen, setModalIsOpen] = useState(false)
 
     const getBase64 = (file, callback) => {
@@ -33,7 +33,9 @@ export const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault()
 
-        if (password.current.value === verifyPassword.current.value) {
+        if (string === null && !url.current.value ) {
+            imageDialog.current.showModal()
+        } else if (password.current.value === verifyPassword.current.value) {
             const newUser = {
                 "username": username.current.value,
                 "first_name": firstName.current.value,
@@ -74,6 +76,10 @@ export const Register = () => {
                 <div>Passwords do not match</div>
                 <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
             </dialog>
+            <dialog className="dialog dialog--image" ref={imageDialog}>
+                <div>Please upload a profile picture OR provide an image URL</div>
+                <button className="button--close" onClick={e => imageDialog.current.close()}>Close</button>
+            </dialog>
 
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
@@ -106,29 +112,15 @@ export const Register = () => {
                     <textarea ref={bio} name="bio" className="form-control" placeholder="Let other gamers know a little bit about you..." />
                 </fieldset>
                 <fieldset>
+                  <input type="file" id="image" onChange={createImageString} />
+                  <input type="hidden" name="id" value={string} />
+                </fieldset>
+                OR
+                <fieldset>
                     <label htmlFor="image"> Add an image URL </label>
                     <textarea ref={url} name="url" className="form-control" placeholder="Add a profile picture" />
                 </fieldset>
-                <section>
-                  <input type="file" id="image" onChange={createImageString} />
-                  <input type="hidden" name="id" value={string} />
-                  {/* <button onClick={() => {
-                    
-                // Upload the stringified image that is stored in state
-                      }}>Upload</button> */}
-                </section>
-                {/* <button className="button" onClick={() => {
-                                    setModalIsOpen(true)
-                                }}>Upload Profile Picture</button>
-                                <div id="edit-modal" className={modalIsOpen ? "modal is-active" : "modal"}>
-                                    <div className="modal-background"></div>
 
-                                    <div className="modal-content">
-                                        <div className="box">
-                                            <UploadPicForm modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}/>
-                                        </div>
-                                    </div>
-                                </div> */}
                 <fieldset style={{
                     textAlign: "center"
                 }}>
