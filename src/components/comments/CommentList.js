@@ -38,7 +38,6 @@ export const CommentList = () => {
                     comments.map((comment) => {
                         const date = comment.created_on
                         const mdyDate = new Date(date).toLocaleString().split(",")[0] 
-                        console.log(comment.post?.id)
                             return comment.post?.id === parsedId ? <div key={comment.id} className="column is-one-third">
                                 <article className="message is-link">
                                     <div className="message-header">
