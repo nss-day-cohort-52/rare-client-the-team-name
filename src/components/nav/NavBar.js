@@ -11,7 +11,9 @@ export const NavBar = () => {
   const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
-    getCurrentUser().then(setCurrentUser)
+    if(localStorage.getItem('rare_token')){
+      getCurrentUser().then(setCurrentUser)
+    }
   }, [])
 
   const showMobileNavbar = () => {
