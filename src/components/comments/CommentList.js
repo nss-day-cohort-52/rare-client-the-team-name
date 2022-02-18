@@ -38,8 +38,8 @@ export const CommentList = () => {
                     comments.map((comment) => {
                         const date = comment.created_on
                         const mdyDate = new Date(date).toLocaleString().split(",")[0] 
-                    
-                            return <div key={comment.id} className="column is-one-third">
+                        console.log(comment.post?.id)
+                            return comment.post?.id === parsedId ? <div key={comment.id} className="column is-one-third">
                                 <article className="message is-link">
                                     <div className="message-header">
                                         Author: {comment.author.user.username}
@@ -60,7 +60,7 @@ export const CommentList = () => {
                                         </div>
                                     </div>
                                 </article>
-                            </div>
+                            </div> : ""
                     })
                 }
             </div>
