@@ -13,7 +13,7 @@ export const Register = () => {
     const passwordDialog = useRef()
     const imageDialog = useRef()
     const history = useHistory()
-    const [string, setString] = useState("")
+    const [string, setString] = useState(null)
 
     const getBase64 = (file, callback) => {
         const reader = new FileReader();
