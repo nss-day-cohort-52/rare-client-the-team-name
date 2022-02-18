@@ -22,7 +22,7 @@ export const MyPosts = () => {
                         if (currentUser.user?.id === post.user?.id) {
                             return (
                                 <div className="card" key={post.id}>
-                                    <Post post={post} setPosts={setPosts}/>
+                                    <Post currentUser={currentUser} post={post} setPosts={setPosts}/>
 
                                 </div>
                             )

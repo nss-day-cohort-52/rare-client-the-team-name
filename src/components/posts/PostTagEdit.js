@@ -7,38 +7,23 @@ import { useParams } from "react-router-dom"
 
 
 
-export const PostTagEdit = ({setModalIsOpen, modalIsOpen }) => {
+export const PostTagEdit = ({setModalIsOpen}) => {
     const [tags, setTags] = useState([])
     const { postId } = useParams()
     const parsedId = parseInt(postId)
     const [post, setPost] = useState({
-        user: 0,
         id: 0,
-        category: 0,
-        title: "",
-        publication_date: "",
-        image_url: "",
-        content: "",
-        approved: true,
         tags: new Set()
     })
 
     useEffect(() => {
         getSinglePost(parsedId).then((newPost) => {
-            setPost({
-                user: parseInt(localStorage.getItem("rare_token")),
-                id: newPost.id,
-                category: newPost.category.id,
-                title: newPost.title,
-                publication_date: newPost.publication_date,
-                image_url: newPost.image_url,
-                content: newPost.content,
-                approved: true,
-                tags: new Set(newPost.tags.map(tag => tag.id))
+                setPost({
+                    id: newPost.id,
+                    tags: new Set(newPost.tags.map(tag => tag.id))
+                })
             })
-        })
-
-    }, [parsedId])
+        }, [parsedId])
     
     useEffect(()=> {
         getTags().then(t => setTags(t))
@@ -75,8 +60,6 @@ export const PostTagEdit = ({setModalIsOpen, modalIsOpen }) => {
                     }
         <button className="button" onClick={() => {postTagEdit(Array.from(post.tags), post.id)
             .then(setModalIsOpen(false))}}>Save Tags</button>
-        
-        
         </>
 
     )

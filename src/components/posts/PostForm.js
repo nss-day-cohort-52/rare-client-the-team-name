@@ -121,14 +121,13 @@ export const PostForm = () => {
                     {
                         tags.map(
                             (tag) => {
-                                return <div className="control my-2">
+                                return <div key={`tag--${tag.id}`} className="control my-2">
                                     <label className="checkbox has-text-weight-medium">
                                         <input
                                             type="checkbox"
                                             className="mr-2"
                                             name="tag"
                                             value={tag.id}
-                                            key={`tag--${tag.id}`}
                                             onChange={(evt) => {
                                                 const copy = { ...post }
                                                 copy.tagIds.has(parseInt(evt.target.value))
