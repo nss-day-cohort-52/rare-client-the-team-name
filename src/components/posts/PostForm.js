@@ -9,13 +9,30 @@ export const PostForm = () => {
     const history = useHistory()
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
+    const [string, setString ] = useState("")
     const [post, setPost] = useState({
         categoryId: 0,
         title: "",
-        imageURL: "",
+        // imageURL: string,
         content: "",
         tagIds: new Set()
     })
+
+
+    const getBase64 = (file, callback) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(file);
+      }
+    
+      const createImageString = (event) => {
+        getBase64(event.target.files[0], (base64ImageString) => {
+            console.log("Base64 of file is", base64ImageString);
+            // Update a component state variable to the value of base64ImageString
+            setString(base64ImageString)
+        });
+      }
+  
 
     useEffect(
         () => {
@@ -24,7 +41,7 @@ export const PostForm = () => {
         },
         []
     )
-
+    console.log(string)
     const submitNewPost = (evt) => {
         evt.preventDefault()
         const date = new Date()
@@ -33,7 +50,7 @@ export const PostForm = () => {
             category: parseInt(post.categoryId),
             title: post.title,
             publication_date: date.toDateString(),
-            image_url: post.imageURL,
+            image_url: string,
             content: post.content,
             tags: Array.from(post.tagIds)
         }
@@ -64,7 +81,7 @@ export const PostForm = () => {
                             } />
                     </div>
                 </div>
-                <div className="field my-5">
+                {/* <div className="field my-5">
                     <label className="label">Image URL </label>
                     <div className="control">
                         <input
@@ -78,7 +95,11 @@ export const PostForm = () => {
                                 }
                             } />
                     </div>
-                </div>
+                </div> */}
+                <section>
+                  <input type="file" id="image" onChange={createImageString} />
+                  {/* <input type="hidden" name="id" value={string} /> */}
+                </section>
                 <div className="field my-5">
                     <label className="label">Article Content </label>
                     <div className="control">
