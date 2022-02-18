@@ -11,8 +11,9 @@ export const Register = () => {
     const password = useRef()
     const verifyPassword = useRef()
     const passwordDialog = useRef()
+    const imageDialog = useRef()
     const history = useHistory()
-    const [string, setString] = useState("")
+    const [string, setString] = useState(null)
 
     const getBase64 = (file, callback) => {
         const reader = new FileReader();
@@ -31,7 +32,9 @@ export const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault()
 
-        if (password.current.value === verifyPassword.current.value) {
+        if (string === null && !url.current.value ) {
+            imageDialog.current.showModal()
+        } else if (password.current.value === verifyPassword.current.value) {
             const newUser = {
                 "username": username.current.value,
                 "first_name": firstName.current.value,
@@ -71,6 +74,10 @@ export const Register = () => {
             <dialog ref={passwordDialog}>
                 <div>Passwords do not match</div>
                 <button className="delete" onClick={e => passwordDialog.current.close()}>Close</button>
+            </dialog>
+            <dialog className="dialog dialog--image" ref={imageDialog}>
+                <div>Please upload a profile picture OR provide an image URL</div>
+                <button className="button--close" onClick={e => imageDialog.current.close()}>Close</button>
             </dialog>
 
             <form className="column mt-6 is-two-thirds" onSubmit={handleRegister}>
@@ -118,14 +125,15 @@ export const Register = () => {
                     </div>
                 </fieldset>
                 <fieldset className="field mb-5">
+                    <input className="input" type="file" onChange={createImageString} />
+                    <input className="file-input" type="hidden" name="id" value={string} />
+                </fieldset>
+                OR
+                <fieldset className="field mb-5">
                     <label className="label" htmlFor="image"> Add an image URL </label>
                     <div className="control">
                         <textarea className="textarea" rows='2' ref={url} name="url" placeholder="Add a profile picture" />
                     </div>
-                </fieldset>
-                <fieldset className="field mb-5">
-                    <input className="input" type="file" onChange={createImageString} />
-                    <input className="file-input" type="hidden" name="id" value={string} />
                 </fieldset>
                 <fieldset className="field mb-5">
                     <button className="button is-link" type="submit">Register</button>
