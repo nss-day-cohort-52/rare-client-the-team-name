@@ -21,7 +21,7 @@ export const SubscribedPostList = () => {
                         posts.length === 0
                             ? <>
                                 <div className="card-header-title is-centered">You currently have no posts </div>
-                                <Link className="card-header-title has-text-link is-centered" to="/users"> Find users you want to add! </Link>
+                                <Link className="card-header-title has-text-link is-centered" to="/posts"> Find the authors of posts you want to add! </Link>
                             </>
                             : <div>
                                 {
