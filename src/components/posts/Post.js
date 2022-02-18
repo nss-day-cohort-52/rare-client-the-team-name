@@ -1,18 +1,12 @@
-import { useEffect, useState } from "react"
-import { getCurrentUser } from "../users/UserManager"
 import { Link, useHistory } from "react-router-dom"
 import { deletePost, approvePost, unapprovePost } from "./PostManager"
 
 
 
 
-export default ({ post, setPost, admin }) => {
+export default ({ post, setPost, admin, currentUser }) => {
     const history = useHistory()
-    const [currentUser, setCurrentUser] = useState({})
-
-    useEffect(() => {
-        getCurrentUser().then(setCurrentUser)
-    }, [])
+    
 
     const date = post.publication_date
     const mdyDate = new Date(date).toLocaleString().split(",")[0]

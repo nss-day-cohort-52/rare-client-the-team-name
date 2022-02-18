@@ -15,7 +15,6 @@ export const EditPostForm = () => {
         publication_date: "",
         image_url: "",
         content: "",
-        approved: true,
         tags: new Set()
     })
     const [categories, setCategories] = useState([])
@@ -39,7 +38,6 @@ export const EditPostForm = () => {
                 publication_date: newPost.publication_date,
                 image_url: newPost.image_url,
                 content: newPost.content,
-                approved: true,
                 tags: new Set(newPost.tags.map(tag => tag.id))
             })
         })
@@ -56,7 +54,6 @@ export const EditPostForm = () => {
             publication_date: date.toDateString(),
             image_url: post.image_url,
             content: post.content,
-            approved: post.approved,
             tags: Array.from(post.tags)
         }
 

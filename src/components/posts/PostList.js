@@ -24,13 +24,13 @@ export const PostList = () => {
                 (admin) ? 
             <div>
                 {
-                    posts.map(post => <Post key={post.id} post={post} setPost={setPosts} admin={admin}/>)
+                    posts.map(post => <Post currentUser={user} key={post.id} post={post} setPost={setPosts} admin={admin}/>)
                 }
             </div>
             :
             <div>
                                 {
-                    approvedPosts.map(post => <Post key={post.id} post={post} setPost={setPosts} />)
+                    approvedPosts.map(post => <Post currentUser={user} key={post.id} post={post} setPost={setPosts} />)
                 }
             </div>
             }
