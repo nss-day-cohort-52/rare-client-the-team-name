@@ -54,7 +54,7 @@ export const PostDetails = () => {
         <>
             <section className="message is-info">
                 <h3 className="message-header">{post.title}</h3>
-                <img src={`http://localhost:8000${post.image_url}`} className="image is-128x128 mr-3"></img>
+                <img src={`https://rare-server.herokuapp.com${post.image_url}`} className="image is-128x128 mr-3"></img>
                 <div className="message-body">
                     <div> {post.content} </div>
                     <h5>React to this!</h5>
