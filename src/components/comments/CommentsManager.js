@@ -1,5 +1,5 @@
 export const getComments = () => {
-    return fetch("http://localhost:8000/comments", {
+    return fetch("https://rare-server.herokuapp.com/comments", {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -8,7 +8,7 @@ export const getComments = () => {
 }
 
 export const deleteComments = (id) => {
-    return fetch (`http://localhost:8000/comments/${id}`, {
+    return fetch (`https://rare-server.herokuapp.com/comments/${id}`, {
         method: "DELETE",
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
@@ -26,13 +26,13 @@ export const createComment = (newComment) => {
             },
             body: JSON.stringify(newComment)
         }
-        return fetch(`http://localhost:8000/comments`, fetchOptions)
+        return fetch(`https://rare-server.herokuapp.com/comments`, fetchOptions)
             .then(getComments)
     
 }
 
 export const updateComment = (comment, id) => {
-    return fetch(`http://localhost:8000/comments/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/comments/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const updateComment = (comment, id) => {
 }
 
 export const getSingleComment = (id) => {
-    return fetch(`http://localhost:8000/comments/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/comments/${id}`, {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }

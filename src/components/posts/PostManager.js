@@ -1,5 +1,5 @@
 export const getPosts = () => {
-    return fetch("http://localhost:8000/posts", {
+    return fetch("https://rare-server.herokuapp.com/posts", {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -7,7 +7,7 @@ export const getPosts = () => {
         .then(res => res.json())
 }
 export const getSinglePost = (id) => {
-    return fetch(`http://localhost:8000/posts/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/posts/${id}`, {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -24,12 +24,12 @@ export const createPost = (post) => {
         },
         body: JSON.stringify(post)
     }
-    return fetch(`http://localhost:8000/posts`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/posts`, fetchOptions)
         .then(res => res.json())
 }
 
 export const updatePost = (post, id) => {
-    return fetch(`http://localhost:8000/posts/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/posts/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const updatePost = (post, id) => {
 }
 
 export const getPostsByCategory = (categoryId) => {
-    return fetch(`http://localhost:8000/posts?category_id=${categoryId}`, {
+    return fetch(`https://rare-server.herokuapp.com/posts?category_id=${categoryId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -50,7 +50,7 @@ export const getPostsByCategory = (categoryId) => {
 }
 
 export const deletePost = postId => {
-    return fetch(`http://localhost:8000/posts/${postId}`, {
+    return fetch(`https://rare-server.herokuapp.com/posts/${postId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
@@ -59,7 +59,7 @@ export const deletePost = postId => {
 };
 
 export const getPostsByAuthor = (authorId) => {
-    return fetch(`http://localhost:8000/posts?user_id=${authorId}`, {
+    return fetch(`https://rare-server.herokuapp.com/posts?user_id=${authorId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -68,7 +68,7 @@ export const getPostsByAuthor = (authorId) => {
 }
 
 export const searchPostsByTitle = (searchTerm) => {
-    return fetch(`http://localhost:8000/posts?q=${searchTerm}`, {
+    return fetch(`https://rare-server.herokuapp.com/posts?q=${searchTerm}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -76,7 +76,7 @@ export const searchPostsByTitle = (searchTerm) => {
         .then(res => res.json())
 }
 export const getPostsByTag = (tagId) => {
-    return fetch(`http://localhost:8000/posts?tag_id=${tagId}`, {
+    return fetch(`https://rare-server.herokuapp.com/posts?tag_id=${tagId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -85,7 +85,7 @@ export const getPostsByTag = (tagId) => {
 }
 
 export const getSubscribedPosts= () => {
-    return fetch(`http://localhost:8000/posts/subscribed`, {
+    return fetch(`https://rare-server.herokuapp.com/posts/subscribed`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -102,10 +102,10 @@ export const postTagEdit = (tags, id) => {
         },
         body: JSON.stringify(tags)
     }
-    return fetch(`http://localhost:8000/posts/${id}/edit_tags`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/posts/${id}/edit_tags`, fetchOptions)
 }
 export const getApprovedPosts= () => {
-    return fetch(`http://localhost:8000/posts?approved=True`, {
+    return fetch(`https://rare-server.herokuapp.com/posts?approved=True`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -114,7 +114,7 @@ export const getApprovedPosts= () => {
 }
 
 export const approvePost = (postId) => {
-    return fetch(`http://localhost:8000/posts/${postId}/approve`, {
+    return fetch(`https://rare-server.herokuapp.com/posts/${postId}/approve`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -124,7 +124,7 @@ export const approvePost = (postId) => {
 }
 
 export const unapprovePost = (postId) => {
-    return fetch(`http://localhost:8000/posts/${postId}/unapprove`, {
+    return fetch(`https://rare-server.herokuapp.com/posts/${postId}/unapprove`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

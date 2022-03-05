@@ -1,5 +1,5 @@
 export const getTags = () => {
-    return fetch("http://localhost:8000/tags", {
+    return fetch("https://rare-server.herokuapp.com/tags", {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -8,7 +8,7 @@ export const getTags = () => {
 }
 
 export const getTagsByLabel = (string) => {
-    return fetch(`http://localhost:8000/tags?q=${string}`, {
+    return fetch(`https://rare-server.herokuapp.com/tags?q=${string}`, {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -17,7 +17,7 @@ export const getTagsByLabel = (string) => {
 }
 
 export const addTag = Tag => {
-    return fetch("http://localhost:8000/tags", {
+    return fetch("https://rare-server.herokuapp.com/tags", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const addTag = Tag => {
 };
 
 export const updateTag = (tag, id) => {
-    return fetch(`http://localhost:8000/tags/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/tags/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const updateTag = (tag, id) => {
 }
 
 export const deleteTag = tagId => {
-    return fetch(`http://localhost:8000/tags/${tagId}`, {
+    return fetch(`https://rare-server.herokuapp.com/tags/${tagId}`, {
         method: "DELETE",
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`

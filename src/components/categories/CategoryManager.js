@@ -1,5 +1,5 @@
 export const getCategories = () => {
-    return fetch("http://localhost:8000/categories", {
+    return fetch("https://rare-server.herokuapp.com/categories", {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -8,7 +8,7 @@ export const getCategories = () => {
 }
 
 export const addCategory = categories => {
-    return fetch("http://localhost:8000/categories", {
+    return fetch("https://rare-server.herokuapp.com/categories", {
         method: "POST",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`,
@@ -20,7 +20,7 @@ export const addCategory = categories => {
 }
 
 export const updateCategory = (category, id) => {
-    return fetch(`http://localhost:8000/categories/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/categories/${id}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`,
@@ -32,7 +32,7 @@ export const updateCategory = (category, id) => {
 }
 
 export const deleteCategory = categoryId => {
-    return fetch(`http://localhost:8000/categories/${categoryId}`, {
+    return fetch(`https://rare-server.herokuapp.com/categories/${categoryId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`

@@ -1,5 +1,5 @@
 export const loginUser = (user) => {
-  return fetch("http://127.0.0.1:8088/login", {
+  return fetch("https://rare-server.herokuapp.com/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export const loginUser = (user) => {
 }
 
 export const registerUser = (newUser) => {
-  return fetch("http://127.0.0.1:8088/register", {
+  return fetch("https://rare-server.herokuapp.com/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

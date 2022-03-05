@@ -1,5 +1,5 @@
 export const getReactions = () => {
-    return fetch("http://localhost:8000/reactions", {
+    return fetch("https://rare-server.herokuapp.com/reactions", {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -8,7 +8,7 @@ export const getReactions = () => {
 }
 
 export const createReaction = reaction => {
-    return fetch("http://localhost:8000/reactions", {
+    return fetch("https://rare-server.herokuapp.com/reactions", {
         method: "POST",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`,
@@ -20,7 +20,7 @@ export const createReaction = reaction => {
 }
 
 export const updateReaction = (reaction, id) => {
-    return fetch(`http://localhost:8000/reactions/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/reactions/${id}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`,
@@ -32,7 +32,7 @@ export const updateReaction = (reaction, id) => {
 }
 
 export const deleteReaction = reactionId => {
-    return fetch(`http://localhost:8000/reactions/${reactionId}`, {
+    return fetch(`https://rare-server.herokuapp.com/reactions/${reactionId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
@@ -42,7 +42,7 @@ export const deleteReaction = reactionId => {
 };
 
 export const getPostReactions = () => {
-    return fetch("http://localhost:8000/postreactions", {
+    return fetch("https://rare-server.herokuapp.com/postreactions", {
         headers:{
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -50,7 +50,7 @@ export const getPostReactions = () => {
         .then(res => res.json())
 }
 export const createPostReaction = postReaction => {
-    return fetch("http://localhost:8000/postreactions", {
+    return fetch("https://rare-server.herokuapp.com/postreactions", {
         method: "POST",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`,

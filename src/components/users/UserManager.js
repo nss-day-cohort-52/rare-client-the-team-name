@@ -1,5 +1,5 @@
 export const getUsers = () => {
-    return fetch("http://localhost:8000/users", {
+    return fetch("https://rare-server.herokuapp.com/users", {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -8,7 +8,7 @@ export const getUsers = () => {
 }
 
 export const getSingleUser = (id) => {
-    return fetch(`http://localhost:8000/users/${id}`, {
+    return fetch(`https://rare-server.herokuapp.com/users/${id}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -17,7 +17,7 @@ export const getSingleUser = (id) => {
 }
 
 export const getCurrentUser = () => {
-    return fetch(`http://localhost:8000/users/current`, {
+    return fetch(`https://rare-server.herokuapp.com/users/current`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -26,7 +26,7 @@ export const getCurrentUser = () => {
 }
 
 export const getDemotionsByAdmin = (adminId) => {
-    return fetch(`http://localhost:8000/demotions?adminId=${adminId}`, {
+    return fetch(`https://rare-server.herokuapp.com/demotions?adminId=${adminId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -35,7 +35,7 @@ export const getDemotionsByAdmin = (adminId) => {
 }
 
 export const getDeactivationsByAdmin = (adminId) => {
-    return fetch(`http://localhost:8000/deactivations?adminId=${adminId}`, {
+    return fetch(`https://rare-server.herokuapp.com/deactivations?adminId=${adminId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
@@ -44,7 +44,7 @@ export const getDeactivationsByAdmin = (adminId) => {
 }
 
 export const deleteDemotion = demotionId => {
-    return fetch(`http://localhost:8000/demotions/${demotionId}`, {
+    return fetch(`https://rare-server.herokuapp.com/demotions/${demotionId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
@@ -54,7 +54,7 @@ export const deleteDemotion = demotionId => {
 };
 
 export const deleteDeactivation = deactivationId => {
-    return fetch(`http://localhost:8000/deactivations/${deactivationId}`, {
+    return fetch(`https://rare-server.herokuapp.com/deactivations/${deactivationId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
@@ -72,7 +72,7 @@ export const createDemotion = (adminId) => {
         },
         body: JSON.stringify({admin: adminId})
     }
-    return fetch(`http://localhost:8000/demotions`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/demotions`, fetchOptions)
         .then(res => res.json())
 }
 
@@ -85,7 +85,7 @@ export const createDeactivation = (adminId) => {
         },
         body: JSON.stringify({admin: adminId})
     }
-    return fetch(`http://localhost:8000/deactivations`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/deactivations`, fetchOptions)
         .then(res => res.json())
 }
 
@@ -99,7 +99,7 @@ export const subscribe = (id) => {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
     }
-    return fetch(`http://localhost:8000/users/${id}/subscribe`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/users/${id}/subscribe`, fetchOptions)
 }
 
 export const unsubscribe = (id) => {
@@ -110,7 +110,7 @@ export const unsubscribe = (id) => {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
     }
-    return fetch(`http://localhost:8000/users/${id}/unsubscribe`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/users/${id}/unsubscribe`, fetchOptions)
 }
 
 export const activate = (id) => {
@@ -121,7 +121,7 @@ export const activate = (id) => {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
     }
-    return fetch(`http://localhost:8000/users/${id}/activate`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/users/${id}/activate`, fetchOptions)
 }
 
 export const deactivate = (id) => {
@@ -132,7 +132,7 @@ export const deactivate = (id) => {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
     }
-    return fetch(`http://localhost:8000/users/${id}/deactivate`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/users/${id}/deactivate`, fetchOptions)
 }
 
 export const makeAdmin = (id) => {
@@ -143,7 +143,7 @@ export const makeAdmin = (id) => {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
     }
-    return fetch(`http://localhost:8000/users/${id}/admin`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/users/${id}/admin`, fetchOptions)
 }
 
 export const makeAuthor = (id) => {
@@ -154,5 +154,5 @@ export const makeAuthor = (id) => {
             "Authorization": `Token ${localStorage.getItem("rare_token")}`
         }
     }
-    return fetch(`http://localhost:8000/users/${id}/author`, fetchOptions)
+    return fetch(`https://rare-server.herokuapp.com/users/${id}/author`, fetchOptions)
 }
